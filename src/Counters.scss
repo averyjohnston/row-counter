@@ -1,0 +1,24 @@
+.counters {
+  display: flex;
+  flex-direction: column;
+}
+
+.counter {
+  background-color: #f5f5f5;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  margin-bottom: 8px;
+  padding: 15px;
+
+  &__name {
+    border-right: 1px solid gray;
+    flex-basis: 75%;
+    flex-shrink: 0;
+  }
+
+  &__count {
+    flex-grow: 1;
+    text-align: center;
+  }
+}
