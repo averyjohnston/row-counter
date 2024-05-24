@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Counter } from './utils';
+import type { Counter } from './types';
 
 import './CounterList.scss';
 
