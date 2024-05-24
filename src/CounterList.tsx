@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import type { Counter } from './utils';
 
-import './Counters.scss';
+import './CounterList.scss';
 
-function Counters() {
+function CounterList() {
   const [counters, setCounters] = useState<Counter[]>([
     {
       id: 0,
@@ -37,4 +37,4 @@ function Counters() {
   );
 }
 
-export default Counters;
+export default CounterList;

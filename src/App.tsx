@@ -1,7 +1,7 @@
-import Counters from './Counters';
+import CounterList from './CounterList';
 
 function App() {
-  return <Counters />
+  return <CounterList />
 }
 
 export default App;
