@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@ionic/react": "^8.2.1",
+    "dexie": "^4.0.7",
+    "dexie-react-hooks": "^1.1.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.1"
