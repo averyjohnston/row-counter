@@ -13,8 +13,10 @@
 
   &__name {
     border-right: 1px solid gray;
+    color: inherit;
     flex-basis: 75%;
     flex-shrink: 0;
+    text-decoration: none;
   }
 
   &__count {

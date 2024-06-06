@@ -1,7 +1,10 @@
-import CounterList from './CounterList';
+import { setupIonicReact } from '@ionic/react';
+import CounterListPage from './CounterListPage';
+
+setupIonicReact();
 
 function App() {
-  return <CounterList />
+  return <CounterListPage />
 }
 
 export default App;
