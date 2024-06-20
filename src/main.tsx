@@ -26,7 +26,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />
   },
   {
-    path: "counters/:counterId",
+    path: "counters/:id",
     element: <CounterPage />
   }
 ])
