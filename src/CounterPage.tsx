@@ -12,7 +12,6 @@ export const action: ActionFunction = async ({ params, request }) => {
   }
 
   if (request.method === 'DELETE') {
-    // TODO: test confirm/redirect after implementing counter add
     if (!confirm('Are you sure you want to delete this counter?')) {
       return true;
     }
