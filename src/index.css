@@ -2,3 +2,11 @@ body {
   font-family: 'Open Sans', 'Helvetica', sans-serif;
   margin: 0;
 }
+
+ion-list.list-md {
+  padding-top: 0;
+}
+
+ion-item {
+  --padding-start: 4px;
+}
