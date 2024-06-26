@@ -1,5 +1,5 @@
 import { setupIonicReact } from '@ionic/react';
-import CounterListPage from './CounterListPage';
+import CounterListPage from './pages/CounterListPage';
 
 setupIonicReact();
 

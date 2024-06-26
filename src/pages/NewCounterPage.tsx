@@ -1,6 +1,6 @@
 import { IonButton, IonContent, IonHeader, IonInput, IonItem, IonList, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import { ActionFunction, Form, redirect } from "react-router-dom";
-import { db } from "./db";
+import { db } from "../db";
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();

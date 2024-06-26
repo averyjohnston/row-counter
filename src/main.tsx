@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, LoaderFunction, redirect, RouterProvider } from 'react-router-dom';
 import App from './App.tsx';
-import ErrorPage from './ErrorPage.tsx';
-import CounterPage, { action as counterPageAction } from './CounterPage.tsx';
-import NewCounterPage, { action as newCounterPageAction } from './NewCounterPage.tsx';
+import ErrorPage from './pages/ErrorPage.tsx';
+import CounterPage, { action as counterPageAction } from './pages/CounterPage.tsx';
+import NewCounterPage, { action as newCounterPageAction } from './pages/NewCounterPage.tsx';
 import { IonApp } from '@ionic/react';
 import { db } from './db.ts';
 
@@ -23,7 +23,6 @@ import './index.css';
 
 const counterLoader: LoaderFunction = async ({ params }) => {
   const { id } = params;
-  // TODO: add loader to new/edit counter page, handle id being undefined (means we're making a new counter)
   const idNum = parseInt(id || '');
   if (isNaN(idNum)) {
     return redirect('/404');

@@ -1,8 +1,8 @@
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import { create, trash } from 'ionicons/icons';
 import { ActionFunction, Form, redirect, useLoaderData } from "react-router-dom";
-import { db } from "./db";
-import { Counter } from "./types";
+import { db } from "../db";
+import { Counter } from "../types";
 
 export const action: ActionFunction = async ({ params, request }) => {
   const { id } = params;
