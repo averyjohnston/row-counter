@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App.tsx';
 import ErrorPage from './ErrorPage.tsx';
 import CounterPage, { action as counterPageAction } from './CounterPage.tsx';
+import NewCounterPage, { action as newCounterPageAction } from './NewCounterPage.tsx';
 import { IonApp } from '@ionic/react';
 
 import '@ionic/react/css/core.css';
@@ -18,7 +19,6 @@ import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
 import './index.css';
-import NewCounterPage from './NewCounterPage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -33,7 +33,8 @@ const router = createBrowserRouter([
   },
   {
     path: "counters/new",
-    element: <NewCounterPage />
+    element: <NewCounterPage />,
+    action: newCounterPageAction
   }
 ])
 
