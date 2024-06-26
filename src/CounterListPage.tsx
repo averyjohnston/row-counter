@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { add } from 'ionicons/icons';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from './db';
 
@@ -26,6 +27,13 @@ function CounterListPage() {
             }}>{counter.count}</div>
           </div>
         ))}
+        <IonFab slot="fixed" horizontal="end" vertical="bottom">
+          <Link to="counters/new">
+            <IonFabButton>
+              <IonIcon icon={add}></IonIcon>
+            </IonFabButton>
+          </Link>
+        </IonFab>
       </IonContent>
     </IonPage>
   );

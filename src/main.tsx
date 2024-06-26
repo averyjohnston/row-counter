@@ -18,6 +18,7 @@ import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
 import './index.css';
+import NewCounterPage from './NewCounterPage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
     path: "counters/:id",
     element: <CounterPage />,
     action: counterPageAction
+  },
+  {
+    path: "counters/new",
+    element: <NewCounterPage />
   }
 ])
 
