@@ -1,15 +1,12 @@
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import { create, trash } from 'ionicons/icons';
-import { useLiveQuery } from "dexie-react-hooks";
-import { ActionFunction, Form, redirect, useParams } from "react-router-dom";
+import { ActionFunction, Form, redirect, useLoaderData } from "react-router-dom";
 import { db } from "./db";
+import { Counter } from "./types";
 
 export const action: ActionFunction = async ({ params, request }) => {
   const { id } = params;
-  const idNum = parseInt(id || '');
-  if (isNaN(idNum)) {
-    return false; // TODO: better error behavior
-  }
+  const idNum = parseInt(id!); // we already validated ID in loader, no need to do it again
 
   if (request.method === 'DELETE') {
     if (!confirm('Are you sure you want to delete this counter?')) {
@@ -22,9 +19,7 @@ export const action: ActionFunction = async ({ params, request }) => {
 }
 
 function CounterPage() {
-  const { id } = useParams();
-  const counter = useLiveQuery(() => db.counters.get(parseInt(id!)));
-  // TODO: handle unknown counter and non-numeric param (redirect to 404 page?)
+  const counter = useLoaderData() as Counter;
 
   return (
     <IonPage id="counter-page">
