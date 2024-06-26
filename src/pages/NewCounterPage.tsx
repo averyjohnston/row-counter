@@ -1,6 +1,7 @@
-import { IonButton, IonContent, IonHeader, IonInput, IonItem, IonList, IonPage, IonTitle, IonToolbar } from "@ionic/react";
-import { ActionFunction, Form, redirect } from "react-router-dom";
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react";
+import { ActionFunction, redirect } from "react-router-dom";
 import { db } from "../db";
+import CounterForm from "../components/CounterForm";
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
@@ -18,14 +19,7 @@ function NewCounterPage() {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        <Form method="post">
-          <IonList>
-            <IonItem>
-              <IonInput label="Name" labelPlacement="floating" name="name" required></IonInput>
-            </IonItem>
-            <IonButton type="submit" expand="block" className="ion-margin-top">Submit</IonButton>
-          </IonList>
-        </Form>
+        <CounterForm />
       </IonContent>
     </IonPage>
   )
