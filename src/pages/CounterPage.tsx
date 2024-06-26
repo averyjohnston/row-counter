@@ -3,6 +3,7 @@ import { create, trash } from 'ionicons/icons';
 import { ActionFunction, Form, redirect, useLoaderData } from "react-router-dom";
 import { db } from "../db";
 import { Counter } from "../types";
+import BackButton from "../components/BackButton";
 
 export const action: ActionFunction = async ({ params, request }) => {
   const { id } = params;
@@ -25,6 +26,9 @@ function CounterPage() {
     <IonPage id="counter-page">
       <IonHeader>
         <IonToolbar>
+          <IonButtons slot="start">
+            <BackButton />
+          </IonButtons>
           <IonTitle>{counter?.name}</IonTitle>
           <IonButtons slot="secondary">
             <Form action="edit">

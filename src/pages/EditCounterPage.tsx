@@ -1,8 +1,9 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react";
+import { IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import { ActionFunction, redirect, useLoaderData } from "react-router-dom";
 import { db } from "../db";
 import CounterForm from "../components/CounterForm";
 import { Counter } from "../types";
+import BackButton from "../components/BackButton";
 
 export const action: ActionFunction = async ({ params, request }) => {
   const { id } = params;
@@ -22,6 +23,9 @@ function EditCounterPage() {
     <IonPage>
       <IonHeader>
         <IonToolbar>
+          <IonButtons slot="start">
+            <BackButton to={`/counters/${counter.id}`}></BackButton>
+          </IonButtons>
           <IonTitle>Edit Counter: {counter.name}</IonTitle>
         </IonToolbar>
       </IonHeader>

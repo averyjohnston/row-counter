@@ -3,6 +3,14 @@ body {
   margin: 0;
 }
 
+ion-buttons + ion-title {
+  padding-inline-start: 0;
+}
+
+ion-buttons a {
+  color: unset;
+}
+
 ion-list.list-md {
   padding-top: 0;
 }
