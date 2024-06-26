@@ -10,7 +10,6 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 function NewCounterPage() {
-  // TODO: form validation
   return (
     <IonPage>
       <IonHeader>
@@ -19,10 +18,10 @@ function NewCounterPage() {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        <Form method="post" id="new-counter-form">
+        <Form method="post">
           <IonList>
             <IonItem>
-              <IonInput label="Name" labelPlacement="floating" name="name"></IonInput>
+              <IonInput label="Name" labelPlacement="floating" name="name" required></IonInput>
             </IonItem>
             <IonButton type="submit" expand="block" className="ion-margin-top">Submit</IonButton>
           </IonList>
