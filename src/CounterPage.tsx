@@ -38,11 +38,7 @@ function CounterPage() {
                 <IonIcon slot="icon-only" icon={create}></IonIcon>
               </IonButton>
             </Form>
-            <Form method="delete" onSubmit={(ev) => {
-              if (!confirm('Are you sure you want to delete this counter?')) {
-                ev.preventDefault();
-              }
-            }}>
+            <Form method="delete">
               <IonButton type="submit">
                 <IonIcon slot="icon-only" icon={trash}></IonIcon>
               </IonButton>
