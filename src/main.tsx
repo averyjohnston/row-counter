@@ -5,6 +5,7 @@ import App from './App.tsx';
 import ErrorPage from './pages/ErrorPage.tsx';
 import CounterPage, { action as counterPageAction } from './pages/CounterPage.tsx';
 import NewCounterPage, { action as newCounterPageAction } from './pages/NewCounterPage.tsx';
+import EditCounterPage, { action as editCounterPageAction } from './pages/EditCounterPage.tsx';
 import { IonApp } from '@ionic/react';
 import { db } from './db.ts';
 
@@ -52,6 +53,12 @@ const router = createBrowserRouter([
     path: "counters/new",
     element: <NewCounterPage />,
     action: newCounterPageAction
+  },
+  {
+    path: "counters/:id/edit",
+    element: <EditCounterPage />,
+    loader: counterLoader,
+    action: editCounterPageAction
   }
 ])
 
