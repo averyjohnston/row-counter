@@ -4,6 +4,7 @@ import { ActionFunction, Form, redirect, useFetcher, useLoaderData } from "react
 import { db } from "../db";
 import { Counter } from "../types";
 import BackButton from "../components/BackButton";
+import { increment } from "../utils";
 
 export const action: ActionFunction = async ({ params, request }) => {
   const { id } = params;
@@ -21,7 +22,7 @@ export const action: ActionFunction = async ({ params, request }) => {
     const intent = formData.get('intent');
 
     if (intent === 'increment') {
-      return await db.counters.where({ id: idNum }).modify(counter => { counter.count++; });
+      return await increment(idNum);
     }
   }
 }

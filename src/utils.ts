@@ -1,5 +1,4 @@
 import { db } from "./db";
-import { Counter } from "./types";
 
 export function getContrastColor(baseColor: string) {
   const black = '#000000';
@@ -21,14 +20,10 @@ export function getContrastColor(baseColor: string) {
   return rgb[0]*0.299 + rgb[1]*0.587 + rgb[2]*0.114 > 150 ? black : white;
 }
 
-export function increment(counter: Counter) {
-  db.counters.update(counter, {
-    count: counter.count + 1
-  });
+export async function increment(counterID: number) {
+  return db.counters.where({ id: counterID }).modify(counter => { counter.count++; });
 }
 
-export function decrement(counter: Counter) {
-  db.counters.update(counter, {
-    count: counter.count - 1
-  });
+export async function decrement(counterID: number) {
+  return db.counters.where({ id: counterID }).modify(counter => { counter.count--; });
 }

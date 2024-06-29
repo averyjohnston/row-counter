@@ -28,14 +28,14 @@ function CounterListPage() {
                 '--background': counter.color,
                 '--color': getContrastColor(counter.color)
               }}>
-              <button className="counter__button" onClick={() => decrement(counter)}>
+              <button className="counter__button" onClick={() => decrement(counter.id)}>
                 <IonIcon icon={removeCircleOutline} />
               </button>
               <Link className="counter__info" to={`counters/${counter.id}`}>
                 <p>{counter.name}</p>
                 <p>{counter.count}</p>
               </Link>
-              <button className="counter__button" onClick={() => increment(counter)}>
+              <button className="counter__button" onClick={() => increment(counter.id)}>
                 <IonIcon icon={addCircleOutline} />
               </button>
             </div>
