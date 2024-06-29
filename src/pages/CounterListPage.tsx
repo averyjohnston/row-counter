@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import { add } from 'ionicons/icons';
+import { add, removeCircle, addCircle } from 'ionicons/icons';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../db';
 
@@ -24,12 +24,24 @@ function CounterListPage() {
         <div className="counters">
           {counters?.map((counter) => (
             <div key={counter.id} className="counter">
-              <Link className="counter__name" to={`counters/${counter.id}`}>{counter.name}</Link>
-              <div className="counter__count" onClick={() => {
+              <button className="counter__button" onClick={() => {
+                db.counters.update(counter, {
+                  count: counter.count - 1
+                });
+              }}>
+                <IonIcon icon={removeCircle} />
+              </button>
+              <Link className="counter__info" to={`counters/${counter.id}`}>
+                <p>{counter.name}</p>
+                <p>{counter.count}</p>
+              </Link>
+              <button className="counter__button" onClick={() => {
                 db.counters.update(counter, {
                   count: counter.count + 1
                 });
-              }}>{counter.count}</div>
+              }}>
+                <IonIcon icon={addCircle} />
+              </button>
             </div>
           ))}
         </div>
