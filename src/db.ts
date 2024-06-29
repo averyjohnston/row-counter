@@ -5,6 +5,6 @@ export const db = new Dexie('CountersDatabase') as Dexie & {
   counters: EntityTable<Counter, 'id'>
 };
 
-db.version(1).stores({
-  counters: '++id, name, count'
+db.version(2).stores({
+  counters: '++id, name, color, count'
 });

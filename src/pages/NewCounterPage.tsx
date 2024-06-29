@@ -6,8 +6,14 @@ import BackButton from "../components/BackButton";
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
-  const { name } = Object.fromEntries(formData);
-  await db.counters.add({ name: name.toString(), count: 0 });
+  const { name, color } = Object.fromEntries(formData);
+
+  await db.counters.add({
+    name: name.toString(),
+    color: color.toString(),
+    count: 0
+  });
+
   return redirect('/');
 };
 

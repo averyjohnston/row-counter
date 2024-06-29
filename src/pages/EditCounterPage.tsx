@@ -10,9 +10,12 @@ export const action: ActionFunction = async ({ params, request }) => {
   const idNum = parseInt(id!); // we already validated ID in loader, no need to do it again
 
   const formData = await request.formData();
-  const { name } = Object.fromEntries(formData);
+  const { name, color } = Object.fromEntries(formData);
 
-  await db.counters.update(idNum, { name: name.toString() });
+  await db.counters.update(idNum, {
+    name: name.toString(),
+    color: color.toString()
+  });
   return redirect(`/counters/${idNum}`);
 };
 
@@ -30,7 +33,7 @@ function EditCounterPage() {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        <CounterForm name={counter.name} />
+        <CounterForm name={counter.name} color={counter.color} />
       </IonContent>
     </IonPage>
   )
