@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, LoaderFunction, redirect, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, LoaderFunction, RouterProvider } from 'react-router-dom';
 import App from './App.tsx';
 import ErrorPage from './pages/ErrorPage.tsx';
 import CounterPage, { action as counterPageAction } from './pages/CounterPage.tsx';
