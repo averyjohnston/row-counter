@@ -30,7 +30,7 @@ function CounterPage() {
             <BackButton />
           </IonButtons>
           <IonTitle>{counter?.name}</IonTitle>
-          <IonButtons slot="secondary">
+          <IonButtons slot="primary">
             <Form action="edit">
               <IonButton type="submit">
                 <IonIcon slot="icon-only" icon={create}></IonIcon>

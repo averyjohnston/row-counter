@@ -7,7 +7,7 @@ p {
   margin-top: 0;
 }
 
-ion-buttons + ion-title {
+.md ion-buttons + ion-title {
   padding-inline-start: 0;
 }
 
