@@ -16,6 +16,7 @@ export const action: ActionFunction = async ({ params, request }) => {
     name: name.toString(),
     color: color.toString()
   });
+
   return redirect(`/counters/${idNum}`);
 };
 

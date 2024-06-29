@@ -1,6 +1,6 @@
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import { create, trash } from 'ionicons/icons';
-import { ActionFunction, Form, redirect, useLoaderData } from "react-router-dom";
+import { ActionFunction, Form, redirect, useFetcher, useLoaderData } from "react-router-dom";
 import { db } from "../db";
 import { Counter } from "../types";
 import BackButton from "../components/BackButton";
@@ -16,11 +16,19 @@ export const action: ActionFunction = async ({ params, request }) => {
 
     await db.counters.delete(idNum);
     return redirect('/');
+  } else if (request.method === 'POST') {
+    const formData = await request.formData();
+    const intent = formData.get('intent');
+
+    if (intent === 'increment') {
+      return await db.counters.where({ id: idNum }).modify(counter => { counter.count++; });
+    }
   }
 }
 
 function CounterPage() {
   const counter = useLoaderData() as Counter;
+  const fetcher = useFetcher();
 
   return (
     <IonPage id="counter-page">
@@ -45,7 +53,9 @@ function CounterPage() {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        counter!
+        <fetcher.Form method="post">
+          <button name="intent" value="increment">{counter.count}</button>
+        </fetcher.Form>
       </IonContent>
     </IonPage>
   )
