@@ -39,28 +39,30 @@ const counterLoader: LoaderFunction = async ({ params }) => {
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <App />,
-    errorElement: <ErrorPage />
-  },
-  {
-    path: "counters/:id",
-    element: <CounterPage />,
-    loader: counterLoader,
-    action: counterPageAction,
-    errorElement: <ErrorPage />
-  },
-  {
-    path: "counters/new",
-    element: <NewCounterPage />,
-    action: newCounterPageAction
-  },
-  {
-    path: "counters/:id/edit",
-    element: <EditCounterPage />,
-    loader: counterLoader,
-    action: editCounterPageAction,
-    errorElement: <ErrorPage />
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/",
+        element: <App />
+      },
+      {
+        path: "counters/:id",
+        element: <CounterPage />,
+        loader: counterLoader,
+        action: counterPageAction
+      },
+      {
+        path: "counters/new",
+        element: <NewCounterPage />,
+        action: newCounterPageAction
+      },
+      {
+        path: "counters/:id/edit",
+        element: <EditCounterPage />,
+        loader: counterLoader,
+        action: editCounterPageAction
+      }
+    ]
   }
 ])
 
