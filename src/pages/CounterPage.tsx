@@ -1,10 +1,11 @@
-import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from "@ionic/react";
-import { create, trash } from 'ionicons/icons';
-import { ActionFunction, Form, redirect, useFetcher, useLoaderData } from "react-router-dom";
+import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonList, IonPage, IonPopover, IonTitle, IonToolbar } from "@ionic/react";
+import { ellipsisVertical } from 'ionicons/icons';
+import { ActionFunction, redirect, useFetcher, useLoaderData } from "react-router-dom";
 import { db } from "../db";
 import { Counter } from "../types";
 import BackButton from "../components/BackButton";
 import { increment } from "../utils";
+import ContextMenuItem from "../components/ContextMenuItem";
 
 export const action: ActionFunction = async ({ params, request }) => {
   const { id } = params;
@@ -12,6 +13,7 @@ export const action: ActionFunction = async ({ params, request }) => {
 
   if (request.method === 'DELETE') {
     if (!confirm('Are you sure you want to delete this counter?')) {
+      document.querySelector<HTMLIonPopoverElement>('ion-popover')?.dismiss();
       return false;
     }
 
@@ -40,16 +42,17 @@ function CounterPage() {
           </IonButtons>
           <IonTitle>{counter?.name}</IonTitle>
           <IonButtons slot="primary">
-            <Form action="edit">
-              <IonButton type="submit">
-                <IonIcon slot="icon-only" icon={create}></IonIcon>
-              </IonButton>
-            </Form>
-            <Form method="delete">
-              <IonButton type="submit">
-                <IonIcon slot="icon-only" icon={trash}></IonIcon>
-              </IonButton>
-            </Form>
+            <IonButton id="more-options">
+              <IonIcon slot="icon-only" icon={ellipsisVertical} />
+            </IonButton>
+            <IonPopover trigger="more-options">
+              <IonContent>
+                <IonList>
+                  <ContextMenuItem action="edit">Edit</ContextMenuItem>
+                  <ContextMenuItem method="delete">Delete</ContextMenuItem>
+                </IonList>
+              </IonContent>
+            </IonPopover>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
