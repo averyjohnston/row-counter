@@ -17,16 +17,18 @@ function CounterListPage() {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        {counters?.map((counter) => (
-          <div key={counter.id} className="counter">
-            <Link className="counter__name" to={`counters/${counter.id}`}>{counter.name}</Link>
-            <div className="counter__count" onClick={() => {
-              db.counters.update(counter, {
-                count: counter.count + 1
-              });
-            }}>{counter.count}</div>
-          </div>
-        ))}
+        <div className="counters">
+          {counters?.map((counter) => (
+            <div key={counter.id} className="counter">
+              <Link className="counter__name" to={`counters/${counter.id}`}>{counter.name}</Link>
+              <div className="counter__count" onClick={() => {
+                db.counters.update(counter, {
+                  count: counter.count + 1
+                });
+              }}>{counter.count}</div>
+            </div>
+          ))}
+        </div>
         <IonFab slot="fixed" horizontal="end" vertical="bottom">
           <Link to="counters/new">
             <IonFabButton>
