@@ -11,7 +11,7 @@ export const action: ActionFunction = async ({ params, request }) => {
 
   if (request.method === 'DELETE') {
     if (!confirm('Are you sure you want to delete this counter?')) {
-      return true;
+      return false;
     }
 
     await db.counters.delete(idNum);

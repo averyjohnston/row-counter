@@ -26,12 +26,12 @@ const counterLoader: LoaderFunction = async ({ params }) => {
   const { id } = params;
   const idNum = parseInt(id || '');
   if (isNaN(idNum)) {
-    return redirect('/404');
+    throw new Error(`Invalid counter ID: ${id}`);
   }
 
   const counter = await db.counters.get(idNum);
   if (counter === undefined) {
-    return redirect('/404');
+    throw new Error(`No counter matching ID: ${id}`);
   }
 
   return counter;
@@ -47,7 +47,8 @@ const router = createBrowserRouter([
     path: "counters/:id",
     element: <CounterPage />,
     loader: counterLoader,
-    action: counterPageAction
+    action: counterPageAction,
+    errorElement: <ErrorPage />
   },
   {
     path: "counters/new",
@@ -58,7 +59,8 @@ const router = createBrowserRouter([
     path: "counters/:id/edit",
     element: <EditCounterPage />,
     loader: counterLoader,
-    action: editCounterPageAction
+    action: editCounterPageAction,
+    errorElement: <ErrorPage />
   }
 ])
 
