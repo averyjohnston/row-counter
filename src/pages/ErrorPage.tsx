@@ -1,5 +1,5 @@
 import { IonContent, IonPage } from '@ionic/react';
-import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
+import { Link, isRouteErrorResponse, useRouteError } from 'react-router-dom';
 
 function ErrorPage() {
   const error = useRouteError();
@@ -21,6 +21,9 @@ function ErrorPage() {
       <IonContent className="ion-padding">
         <p>Sorry, an unexpected error has occurred.</p>
         <p>{errorMessage}</p>
+        <p>
+          <Link to="/">Return to home page</Link>
+        </p>
       </IonContent>
     </IonPage>
   )
