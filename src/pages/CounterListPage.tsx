@@ -8,6 +8,8 @@ import './CounterListPage.scss';
 
 function CounterListPage() {
   const counters = useLiveQuery(() => db.counters.toArray());
+  const countersLoading = counters === undefined;
+  const countersEmpty = counters !== undefined && counters.length === 0;
 
   return (
     <IonPage id="counter-list-page">
@@ -17,6 +19,8 @@ function CounterListPage() {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
+        {countersLoading && <p className="message">Loading...</p>}
+        {countersEmpty && <p className="message">Click the <IonIcon icon={add} /> button to create a new counter!</p>}
         <div className="counters">
           {counters?.map((counter) => (
             <div key={counter.id} className="counter">

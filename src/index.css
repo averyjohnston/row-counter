@@ -3,6 +3,10 @@ body {
   margin: 0;
 }
 
+p {
+  margin-top: 0;
+}
+
 ion-buttons + ion-title {
   padding-inline-start: 0;
 }
@@ -17,4 +21,9 @@ ion-list.list-md {
 
 ion-item {
   --padding-start: 4px;
+}
+
+.message {
+  color: gray;
+  font-style: italic;
 }
