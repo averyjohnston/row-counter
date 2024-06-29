@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import { add, removeCircle, addCircle } from 'ionicons/icons';
+import { add, removeCircleOutline, addCircleOutline } from 'ionicons/icons';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../db';
 import { getContrastColor } from '../utils';
@@ -33,7 +33,7 @@ function CounterListPage() {
                   count: counter.count - 1
                 });
               }}>
-                <IonIcon icon={removeCircle} />
+                <IonIcon icon={removeCircleOutline} />
               </button>
               <Link className="counter__info" to={`counters/${counter.id}`}>
                 <p>{counter.name}</p>
@@ -44,7 +44,7 @@ function CounterListPage() {
                   count: counter.count + 1
                 });
               }}>
-                <IonIcon icon={addCircle} />
+                <IonIcon icon={addCircleOutline} />
               </button>
             </div>
           ))}
