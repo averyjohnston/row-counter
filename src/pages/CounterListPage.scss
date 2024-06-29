@@ -16,9 +16,10 @@
 
   &__info {
     color: inherit;
+    min-width: 0; // prevent horizontal overflow with long names
+    text-align: center;
     text-decoration: none;
 
-    align-items: center;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
