@@ -1,3 +1,6 @@
+import { db } from "./db";
+import { Counter } from "./types";
+
 export function getContrastColor(baseColor: string) {
   const black = '#000000';
   const white = '#ffffff';
@@ -16,4 +19,16 @@ export function getContrastColor(baseColor: string) {
   // https://stackoverflow.com/a/3943023
   // 150 is a luminance threshold and can be adjusted to taste
   return rgb[0]*0.299 + rgb[1]*0.587 + rgb[2]*0.114 > 150 ? black : white;
+}
+
+export function increment(counter: Counter) {
+  db.counters.update(counter, {
+    count: counter.count + 1
+  });
+}
+
+export function decrement(counter: Counter) {
+  db.counters.update(counter, {
+    count: counter.count - 1
+  });
 }
