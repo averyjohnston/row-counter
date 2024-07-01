@@ -1,9 +1,13 @@
 import 'react';
 
-export interface Counter {
-  id: number;
+export interface CounterFormProps {
   name: string;
   color: string;
+  resetValue: number;
+}
+
+export interface Counter extends CounterFormProps {
+  id: number;
   count: number;
 }
 

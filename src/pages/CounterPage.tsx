@@ -39,6 +39,8 @@ function CounterPage() {
   const counter = useLoaderData() as Counter;
   const fetcher = useFetcher();
 
+  // TODO: implement reset button
+
   return (
     <IonPage id="counter-page">
       <IonHeader>

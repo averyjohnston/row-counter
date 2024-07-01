@@ -10,11 +10,12 @@ export const action: ActionFunction = async ({ params, request }) => {
   const idNum = parseInt(id!); // we already validated ID in loader, no need to do it again
 
   const formData = await request.formData();
-  const { name, color } = Object.fromEntries(formData);
+  const { name, color, resetValue } = Object.fromEntries(formData);
 
   await db.counters.update(idNum, {
     name: name.toString(),
-    color: color.toString()
+    color: color.toString(),
+    resetValue: parseInt(resetValue.toString())
   });
 
   return redirect(`/counters/${idNum}`);
@@ -22,6 +23,8 @@ export const action: ActionFunction = async ({ params, request }) => {
 
 function EditCounterPage() {
   const counter = useLoaderData() as Counter;
+
+  // TODO: reset value briefly flickers back to old value on submit
 
   return (
     <IonPage>
@@ -34,7 +37,7 @@ function EditCounterPage() {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        <CounterForm name={counter.name} color={counter.color} />
+        <CounterForm name={counter.name} color={counter.color} resetValue={counter.resetValue} />
       </IonContent>
     </IonPage>
   )

@@ -6,11 +6,13 @@ import BackButton from "../components/BackButton";
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
-  const { name, color } = Object.fromEntries(formData);
+  const { name, color, resetValue } = Object.fromEntries(formData);
 
+  // TODO: make a util that takes formData and converts it to a properly typed Counter (can also use in edit page)
   await db.counters.add({
     name: name.toString(),
     color: color.toString(),
+    resetValue: parseInt(resetValue.toString()),
     count: 0
   });
 
