@@ -1,0 +1,23 @@
+#counter-page {
+  .increment-wrapper {
+    height: 100%;
+    width: 100%;
+  }
+
+  .increment-button {
+    background: none;
+    padding: 0 25px;
+
+    height: 100%;
+    width: 100%;
+  }
+
+  .increment-inner {
+    background-color: var(--background);
+    border-radius: 20px;
+    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.3);
+    color: var(--color);
+    font-size: 110px;
+    padding: 25px;
+  }
+}

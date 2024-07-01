@@ -10,3 +10,5 @@ function App() {
 export default App;
 
 // TODO: add stricter linting, especially for quote types and import order
+
+// TODO: dark mode switch
