@@ -8,7 +8,18 @@ import { createCounterColorStyles, decrement, increment } from '../utils';
 import './CounterListPage.scss';
 
 function CounterListPage() {
+  /**
+   * We use Dexie's hook here instead of React Router's loader API so the rest of the
+   * page (header, FAB) can still be displayed while the counters are loading. We
+   * could instead make a separate index component showing just the other stuff and
+   * have the list on a sibling route to that, but this seemed easier.
+   *
+   * Note that starting the app on other pages, like the counter page, will show a
+   * totally white screen while loading. This is a less likely case, so covering it
+   * felt unnecessary.
+   */
   const counters = useLiveQuery(() => db.counters.toArray());
+
   const countersLoading = counters === undefined;
   const countersEmpty = counters !== undefined && counters.length === 0;
 
