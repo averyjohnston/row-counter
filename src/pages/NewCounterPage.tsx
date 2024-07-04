@@ -3,17 +3,13 @@ import { ActionFunction, redirect } from "react-router-dom";
 import { db } from "../db";
 import CounterForm from "../components/CounterForm";
 import BackButton from "../components/BackButton";
-import { createDefaultCounter } from "../utils";
+import { createDefaultCounter, parseFormData } from "../utils";
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
-  const { name, color, resetValue } = Object.fromEntries(formData);
 
-  // TODO: make a util that takes formData and converts it to a properly typed Counter (can also use in edit page)
   await db.counters.add({
-    name: name.toString(),
-    color: color.toString(),
-    resetValue: parseInt(resetValue.toString()),
+    ...parseFormData(formData),
     count: 0
   });
 

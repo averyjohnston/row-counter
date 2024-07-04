@@ -4,19 +4,14 @@ import { db } from "../db";
 import CounterForm from "../components/CounterForm";
 import { Counter } from "../types";
 import BackButton from "../components/BackButton";
+import { parseFormData } from "../utils";
 
 export const action: ActionFunction = async ({ params, request }) => {
   const { id } = params;
   const idNum = parseInt(id!); // we already validated ID in loader, no need to do it again
 
   const formData = await request.formData();
-  const { name, color, resetValue } = Object.fromEntries(formData);
-
-  await db.counters.update(idNum, {
-    name: name.toString(),
-    color: color.toString(),
-    resetValue: parseInt(resetValue.toString())
-  });
+  await db.counters.update(idNum, parseFormData(formData));
 
   return redirect(`/counters/${idNum}`);
 };

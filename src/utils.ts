@@ -1,6 +1,6 @@
 import { CSSProperties } from "react";
 import { db } from "./db";
-import { Counter } from "./types";
+import { Counter, CounterFormProps } from "./types";
 
 export function createDefaultCounter(): Counter {
   return {
@@ -45,4 +45,14 @@ export async function increment(counterID: number) {
 
 export async function decrement(counterID: number) {
   return db.counters.where({ id: counterID }).modify(counter => { counter.count--; });
+}
+
+export function parseFormData(formData: FormData): CounterFormProps {
+  const { name, color, resetValue } = Object.fromEntries(formData);
+
+  return {
+    name: name.toString(),
+    color: color.toString(),
+    resetValue: parseInt(resetValue.toString())
+  };
 }
