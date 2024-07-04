@@ -1,5 +1,5 @@
 import { IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react";
-import { ActionFunction, redirect, useLoaderData } from "react-router-dom";
+import { ActionFunction, redirect, useLoaderData, useNavigation } from "react-router-dom";
 import { db } from "../db";
 import CounterForm from "../components/CounterForm";
 import { Counter } from "../types";
@@ -18,8 +18,11 @@ export const action: ActionFunction = async ({ params, request }) => {
 
 function EditCounterPage() {
   const counter = useLoaderData() as Counter;
+  const navigation = useNavigation();
 
-  // TODO: reset value briefly flickers back to old value on submit
+  // optimistic UI -- if a counter update is being submitted, show the values entered by the user
+  // ensures form doesn't flicker to old values on submit since the update isn't instantaneous
+  const displayedCounter = navigation.formData ? parseFormData(navigation.formData) : counter;
 
   return (
     <IonPage>
@@ -32,7 +35,7 @@ function EditCounterPage() {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        <CounterForm {...counter} />
+        <CounterForm {...displayedCounter} />
       </IonContent>
     </IonPage>
   )
