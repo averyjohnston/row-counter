@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import { add, removeCircleOutline, addCircleOutline } from 'ionicons/icons';
+import { IonButton, IonButtons, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { add, removeCircleOutline, addCircleOutline, settingsOutline } from 'ionicons/icons';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../db';
 import { createCounterColorStyles, decrement, increment } from '../utils';
@@ -28,6 +28,13 @@ function CounterListPage() {
       <IonHeader>
         <IonToolbar>
           <IonTitle>All Counters</IonTitle>
+          <IonButtons slot="primary">
+            <Link to="/settings">
+              <IonButton>
+                <IonIcon slot="icon-only" icon={settingsOutline} />
+              </IonButton>
+            </Link>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
