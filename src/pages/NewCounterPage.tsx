@@ -3,6 +3,7 @@ import { ActionFunction, redirect } from "react-router-dom";
 import { db } from "../db";
 import CounterForm from "../components/CounterForm";
 import BackButton from "../components/BackButton";
+import { createDefaultCounter } from "../utils";
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
@@ -20,6 +21,8 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 function NewCounterPage() {
+  const defaultCounter = createDefaultCounter();
+
   return (
     <IonPage>
       <IonHeader>
@@ -31,7 +34,7 @@ function NewCounterPage() {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        <CounterForm />
+        <CounterForm {...defaultCounter} />
       </IonContent>
     </IonPage>
   )

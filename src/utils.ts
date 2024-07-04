@@ -1,4 +1,15 @@
 import { db } from "./db";
+import { Counter } from "./types";
+
+export function createDefaultCounter(): Counter {
+  return {
+    id: 0,
+    name: "",
+    count: 0,
+    color: '#f5f5f5',
+    resetValue: 0
+  };
+}
 
 export function getContrastColor(baseColor: string) {
   const black = '#000000';
