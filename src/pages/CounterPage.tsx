@@ -9,6 +9,10 @@ import ContextMenuItem from "../components/ContextMenuItem";
 
 import "./CounterPage.scss";
 
+// TODO: add notes feature
+// TODO: sub-counters w/ just names and colors (make counter display from list page into reusable component?)
+// TODO (nice to have): Ravelry integration, including generic login, to link with specific project
+
 export const action: ActionFunction = async ({ params, request }) => {
   const { id } = params;
   const idNum = parseInt(id!); // we already validated ID in loader, no need to do it again
