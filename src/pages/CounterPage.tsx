@@ -12,6 +12,7 @@ import "./CounterPage.scss";
 // TODO: add notes feature
 // TODO: sub-counters w/ just names and colors (make counter display from list page into reusable component?)
 // TODO (nice to have): Ravelry integration, including generic login, to link with specific project
+// TODO: haptics?
 
 export const action: ActionFunction = async ({ params, request }) => {
   const { id } = params;
@@ -46,8 +47,6 @@ function CounterPage() {
   const fetcher = useFetcher();
 
   // TODO: implement reset button
-
-  // TODO: haptics?
 
   return (
     <IonPage id="counter-page">
