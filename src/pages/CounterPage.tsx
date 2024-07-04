@@ -9,7 +9,6 @@ import ContextMenuItem from "../components/ContextMenuItem";
 
 import "./CounterPage.scss";
 
-// TODO: add notes feature
 // TODO: sub-counters w/ just names and colors (make counter display from list page into reusable component?)
 // TODO (nice to have): Ravelry integration, including generic login, to link with specific project
 // TODO: haptics?
@@ -71,7 +70,7 @@ function CounterPage() {
               <IonButton type="submit">
                 <IonIcon slot="icon-only" icon={refreshCircleOutline} />
               </IonButton>
-              <input type="hidden"  name="intent" value="reset" />
+              <input type="hidden" name="intent" value="reset" />
             </fetcher.Form>
             <IonButton id="more-options">
               <IonIcon slot="icon-only" icon={ellipsisVertical} />
