@@ -47,6 +47,10 @@ export async function decrement(counterID: number) {
   return db.counters.where({ id: counterID }).modify(counter => { counter.count--; });
 }
 
+export async function reset(counterID: number) {
+  return db.counters.where({ id: counterID }).modify(counter => { counter.count = counter.resetValue });
+}
+
 export function parseFormData(formData: FormData): CounterFormProps {
   const { name, color, resetValue } = Object.fromEntries(formData);
 

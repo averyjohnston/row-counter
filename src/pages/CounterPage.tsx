@@ -1,10 +1,10 @@
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonList, IonPage, IonPopover, IonTitle, IonToolbar } from "@ionic/react";
-import { ellipsisVertical, removeCircleOutline } from 'ionicons/icons';
+import { ellipsisVertical, removeCircleOutline, refreshCircleOutline } from 'ionicons/icons';
 import { ActionFunction, redirect, useFetcher, useLoaderData } from "react-router-dom";
 import { db } from "../db";
 import { Counter } from "../types";
 import BackButton from "../components/BackButton";
-import { createCounterColorStyles, decrement, increment } from "../utils";
+import { createCounterColorStyles, decrement, increment, reset } from "../utils";
 import ContextMenuItem from "../components/ContextMenuItem";
 
 import "./CounterPage.scss";
@@ -30,10 +30,16 @@ export const action: ActionFunction = async ({ params, request }) => {
     const formData = await request.formData();
     const intent = formData.get('intent');
 
-    if (intent === 'increment') {
-      return await increment(idNum);
-    } else if (intent === 'decrement') {
-      return await decrement(idNum);
+    switch (intent) {
+      case 'increment': return await increment(idNum);
+      case 'decrement': return await decrement(idNum);
+      case 'reset': {
+        if (!confirm('Are you sure you want to reset this counter to its reset value?')) {
+          return false;
+        }
+
+        return await reset(idNum);
+      }
     }
 
     throw new Error(`Unknown form intent: ${intent}`);
@@ -45,8 +51,6 @@ export const action: ActionFunction = async ({ params, request }) => {
 function CounterPage() {
   const counter = useLoaderData() as Counter;
   const fetcher = useFetcher();
-
-  // TODO: implement reset button
 
   return (
     <IonPage id="counter-page">
@@ -62,6 +66,12 @@ function CounterPage() {
                 <IonIcon slot="icon-only" icon={removeCircleOutline} />
               </IonButton>
               <input type="hidden" name="intent" value="decrement" />
+            </fetcher.Form>
+            <fetcher.Form method="post">
+              <IonButton type="submit">
+                <IonIcon slot="icon-only" icon={refreshCircleOutline} />
+              </IonButton>
+              <input type="hidden"  name="intent" value="reset" />
             </fetcher.Form>
             <IonButton id="more-options">
               <IonIcon slot="icon-only" icon={ellipsisVertical} />
