@@ -4,7 +4,7 @@ import { ActionFunction, redirect, useFetcher, useLoaderData } from "react-route
 import { db } from "../db";
 import { Counter } from "../types";
 import BackButton from "../components/BackButton";
-import { decrement, getContrastColor, increment } from "../utils";
+import { createCounterColorStyles, decrement, increment } from "../utils";
 import ContextMenuItem from "../components/ContextMenuItem";
 
 import "./CounterPage.scss";
@@ -43,9 +43,6 @@ function CounterPage() {
 
   // TODO: implement reset button
 
-  // TODO: consider replacing style prop with provider component that takes the counter and sets styles automatically
-  // (or at least the vars)
-
   // TODO: haptics?
 
   return (
@@ -80,10 +77,7 @@ function CounterPage() {
       <IonContent scrollY={false}>
         <fetcher.Form method="post" className="increment-wrapper">
           <button className="increment-button" name="intent" value="increment">
-            <div className="increment-inner" style={{
-              '--background': counter.color,
-              '--color': getContrastColor(counter.color)
-            }}>{counter.count}</div>
+            <div className="increment-inner" style={createCounterColorStyles(counter)}>{counter.count}</div>
           </button>
         </fetcher.Form>
       </IonContent>

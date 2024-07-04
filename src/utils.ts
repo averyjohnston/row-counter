@@ -1,3 +1,4 @@
+import { CSSProperties } from "react";
 import { db } from "./db";
 import { Counter } from "./types";
 
@@ -8,6 +9,13 @@ export function createDefaultCounter(): Counter {
     count: 0,
     color: '#f5f5f5',
     resetValue: 0
+  };
+}
+
+export function createCounterColorStyles(counter: Counter): CSSProperties {
+  return {
+    '--background': counter.color,
+    '--color': getContrastColor(counter.color)
   };
 }
 

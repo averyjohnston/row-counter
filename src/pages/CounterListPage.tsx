@@ -3,7 +3,7 @@ import { IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonPage, IonTitle
 import { add, removeCircleOutline, addCircleOutline } from 'ionicons/icons';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../db';
-import { decrement, getContrastColor, increment } from '../utils';
+import { createCounterColorStyles, decrement, increment } from '../utils';
 
 import './CounterListPage.scss';
 
@@ -24,10 +24,7 @@ function CounterListPage() {
         {countersEmpty && <p className="message">Click the <IonIcon icon={add} /> button to create a new counter!</p>}
         <div className="counters">
           {counters?.map((counter) => (
-            <div key={counter.id} className="counter" style={{
-                '--background': counter.color,
-                '--color': getContrastColor(counter.color)
-              }}>
+            <div key={counter.id} className="counter" style={createCounterColorStyles(counter)}>
               <button className="counter__button" onClick={() => decrement(counter.id)}>
                 <IonIcon icon={removeCircleOutline} />
               </button>
