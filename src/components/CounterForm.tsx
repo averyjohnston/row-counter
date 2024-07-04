@@ -2,6 +2,8 @@ import { IonList, IonItem, IonInput, IonButton, IonLabel } from "@ionic/react";
 import { Form } from "react-router-dom";
 import { CounterFormProps } from "../types";
 
+// TODO: add field for max (should reset to resetValue once counter exceeds max)
+
 function CounterForm(props: CounterFormProps) {
   const { name, color, resetValue } = props;
 
