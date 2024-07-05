@@ -3,7 +3,7 @@ import { IonButton, IonButtons, IonContent, IonFab, IonFabButton, IonHeader, Ion
 import { add, removeCircleOutline, addCircleOutline, settingsOutline } from 'ionicons/icons';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../db';
-import { createCounterColorStyles, decrement, increment } from '../utils';
+import { clickVibrate, createCounterColorStyles, decrement, increment } from '../utils';
 
 import './CounterListPage.scss';
 
@@ -43,14 +43,20 @@ function CounterListPage() {
         <div className="counters">
           {counters?.map((counter) => (
             <div key={counter.id} className="counter" style={createCounterColorStyles(counter)}>
-              <button className="counter__button" onClick={() => decrement(counter.id)}>
+              <button className="counter__button" onClick={() => {
+                clickVibrate();
+                decrement(counter.id);
+              }}>
                 <IonIcon icon={removeCircleOutline} />
               </button>
               <Link className="counter__info" to={`counters/${counter.id}`}>
                 <p>{counter.name}</p>
                 <p>{counter.count}</p>
               </Link>
-              <button className="counter__button" onClick={() => increment(counter.id)}>
+              <button className="counter__button" onClick={() => {
+                clickVibrate();
+                increment(counter.id);
+              }}>
                 <IonIcon icon={addCircleOutline} />
               </button>
             </div>

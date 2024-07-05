@@ -60,3 +60,8 @@ export function parseFormData(formData: FormData): CounterFormProps {
     resetValue: parseInt(resetValue.toString())
   };
 }
+
+export function clickVibrate() {
+  // TODO: add and check global haptics setting
+  navigator.vibrate(50);
+}

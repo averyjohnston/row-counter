@@ -4,14 +4,13 @@ import { ActionFunction, redirect, useFetcher, useLoaderData } from "react-route
 import { db } from "../db";
 import { Counter } from "../types";
 import BackButton from "../components/BackButton";
-import { createCounterColorStyles, decrement, increment, reset } from "../utils";
+import { clickVibrate, createCounterColorStyles, decrement, increment, reset } from "../utils";
 import ContextMenuItem from "../components/ContextMenuItem";
 
 import "./CounterPage.scss";
 
 // TODO: sub-counters w/ just names and colors (make counter display from list page into reusable component?)
 // TODO (nice to have): Ravelry integration, including generic login, to link with specific project
-// TODO: haptics? (add global setting)
 
 export const action: ActionFunction = async ({ params, request }) => {
   const { id } = params;
@@ -30,13 +29,20 @@ export const action: ActionFunction = async ({ params, request }) => {
     const intent = formData.get('intent');
 
     switch (intent) {
-      case 'increment': return await increment(idNum);
-      case 'decrement': return await decrement(idNum);
+      case 'increment': {
+        clickVibrate();
+        return await increment(idNum);
+      }
+      case 'decrement': {
+        clickVibrate();
+        return await decrement(idNum);
+      }
       case 'reset': {
         if (!confirm('Are you sure you want to reset this counter to its reset value?')) {
           return false;
         }
 
+        clickVibrate();
         return await reset(idNum);
       }
     }
