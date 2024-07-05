@@ -29,14 +29,8 @@ export const action: ActionFunction = async ({ params, request }) => {
     const intent = formData.get('intent');
 
     switch (intent) {
-      case 'increment': {
-        clickVibrate();
-        return await increment(idNum);
-      }
-      case 'decrement': {
-        clickVibrate();
-        return await decrement(idNum);
-      }
+      case 'increment': return await increment(idNum);
+      case 'decrement': return await decrement(idNum);
       case 'reset': {
         if (!confirm('Are you sure you want to reset this counter to its reset value?')) {
           return false;
@@ -53,6 +47,7 @@ export const action: ActionFunction = async ({ params, request }) => {
   throw new Error(`Unknown request type: ${request.method}`);
 }
 
+// clickVibrate is called onClick instead of in action to avoid tiny but noticeable delay
 function CounterPage() {
   const counter = useLoaderData() as Counter;
   const fetcher = useFetcher();
@@ -67,7 +62,7 @@ function CounterPage() {
           <IonTitle>{counter?.name}</IonTitle>
           <IonButtons slot="primary">
             <fetcher.Form method="post">
-              <IonButton type="submit">
+              <IonButton type="submit" onClick={clickVibrate}>
                 <IonIcon slot="icon-only" icon={removeCircleOutline} />
               </IonButton>
               <input type="hidden" name="intent" value="decrement" />
@@ -93,7 +88,7 @@ function CounterPage() {
         </IonToolbar>
       </IonHeader>
       <IonContent scrollY={false}>
-        <fetcher.Form method="post" className="increment-wrapper">
+        <fetcher.Form method="post" className="increment-wrapper" onClick={clickVibrate}>
           <button className="increment-button" name="intent" value="increment">
             <div className="increment-inner" style={createCounterColorStyles(counter)}>{counter.count}</div>
           </button>
