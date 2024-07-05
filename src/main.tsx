@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, LoaderFunction, RouterProvider } from 'react-router-dom';
-import App from './App.tsx';
 import ErrorPage from './pages/ErrorPage.tsx';
 import CounterPage, { action as counterPageAction } from './pages/CounterPage.tsx';
 import NewCounterPage, { action as newCounterPageAction } from './pages/NewCounterPage.tsx';
 import EditCounterPage, { action as editCounterPageAction } from './pages/EditCounterPage.tsx';
+import CounterListPage from './pages/CounterListPage.tsx';
 import SettingsPage from './pages/SettingsPage.tsx';
-import { IonApp } from '@ionic/react';
+import { IonApp, setupIonicReact } from '@ionic/react';
 import { db } from './db.ts';
 
 import '@ionic/react/css/core.css';
@@ -22,6 +22,12 @@ import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
 import './index.css';
+
+// TODO: add stricter linting, especially for quote types and import order
+// TODO: dark mode switch
+// TODO: prevent device from going to sleep on any screen? (gate behind global setting)
+
+setupIonicReact();
 
 const counterLoader: LoaderFunction = async ({ params }) => {
   const { id } = params;
@@ -44,7 +50,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <App />
+        element: <CounterListPage />
       },
       {
         path: "counters/:id",
