@@ -3,6 +3,10 @@ body {
   margin: 0;
 }
 
+.ion-palette-dark {
+  --ion-color-primary-contrast: #fff;
+}
+
 p {
   margin-top: 0;
 }
