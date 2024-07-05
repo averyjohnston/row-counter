@@ -20,6 +20,7 @@ ion-list.list-md {
 }
 
 ion-item {
+  // avoid flicker when toggling dark mode
   --transition: none;
 }
 

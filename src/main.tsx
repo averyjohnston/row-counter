@@ -14,7 +14,7 @@ import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 import '@ionic/react/css/palettes/dark.class.css';
 
-import './index.css';
+import './index.scss';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
