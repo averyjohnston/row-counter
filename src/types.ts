@@ -11,6 +11,10 @@ export interface Counter extends CounterFormProps {
   count: number;
 }
 
+export interface GlobalSettings {
+  darkMode: boolean;
+}
+
 // extend CSSProperties type to allow variable declarations in style prop
 declare module 'react' {
   interface CSSProperties {

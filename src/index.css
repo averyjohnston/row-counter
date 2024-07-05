@@ -19,6 +19,10 @@ ion-list.list-md {
   padding-top: 0;
 }
 
+ion-item {
+  --transition: none;
+}
+
 .message {
   color: gray;
   font-style: italic;
