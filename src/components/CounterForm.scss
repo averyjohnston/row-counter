@@ -1,4 +1,8 @@
 .counter-form {
+  &__color-button {
+    width: 50px;
+  }
+
   &__color-popover {
     --background: transparent;
 
