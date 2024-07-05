@@ -42,7 +42,7 @@ function CounterForm(props: CounterFormProps) {
           }}></IonButton>
           <IonPopover trigger="color-picker-button" className="counter-form__color-popover" keepContentsMounted={true}>
             <HexColorPicker color={color} onChange={setColor} />
-            <HexColorInput prefixed={true} color={color} onChange={setColor} />
+            <HexColorInput prefixed={true} color={color} onChange={setColor} className="counter-form__color-input" />
           </IonPopover>
           <input type="hidden" name="color" value={color} />
         </IonItem>
