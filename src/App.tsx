@@ -7,7 +7,7 @@ import CounterPage, { action as counterPageAction } from './pages/CounterPage.ts
 import NewCounterPage, { action as newCounterPageAction } from './pages/NewCounterPage.tsx';
 import EditCounterPage, { action as editCounterPageAction } from './pages/EditCounterPage.tsx';
 import SettingsPage from './pages/SettingsPage.tsx';
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { GlobalSettings } from './types.ts';
 
 setupIonicReact();
@@ -17,12 +17,12 @@ setupIonicReact();
 
 export const globalSettingsContext = createContext<{
   globalSettings: GlobalSettings,
-  setGlobalSettings: (newSettings: GlobalSettings) => void
+  saveGlobalSettings: (newSettings: GlobalSettings) => void
 }>({
   globalSettings: {
     darkMode: false
   },
-  setGlobalSettings: () => {}
+  saveGlobalSettings: () => {}
 });
 
 const counterLoader: LoaderFunction = async ({ params }) => {
@@ -73,21 +73,29 @@ const router = createBrowserRouter([
   }
 ]);
 
-function App() {
-  // TODO: read saved settings instead, where they exist
+export default function App() {
   const [globalSettings, setGlobalSettings] = useState<GlobalSettings>({
     darkMode: false
   });
 
-  // TODO: wrap setGlobalSettings to also update storage
+  useEffect(() => {
+    const savedSettings = localStorage.getItem(GLOBAL_SETTINGS_KEY);
+    if (!savedSettings) return;
+    setGlobalSettings(JSON.parse(savedSettings));
+  }, []);
+
+  const saveGlobalSettings = (newSettings: GlobalSettings) => {
+    localStorage.setItem(GLOBAL_SETTINGS_KEY, JSON.stringify(newSettings));
+    setGlobalSettings(newSettings);
+  };
 
   return (
     <IonApp className={`${globalSettings.darkMode ? 'ion-palette-dark' : null}`}>
-      <globalSettingsContext.Provider value={{ globalSettings, setGlobalSettings }}>
+      <globalSettingsContext.Provider value={{ globalSettings, saveGlobalSettings }}>
         <RouterProvider router={router} />
       </globalSettingsContext.Provider>
     </IonApp>
   );
 }
 
-export default App;
+const GLOBAL_SETTINGS_KEY = 'global-settings';

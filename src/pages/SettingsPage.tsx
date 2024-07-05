@@ -9,7 +9,7 @@ import { globalSettingsContext } from "../App";
 // probably just use localstorage for this?
 
 export default function SettingsPage() {
-  const { globalSettings, setGlobalSettings } = useContext(globalSettingsContext);
+  const { globalSettings, saveGlobalSettings } = useContext(globalSettingsContext);
 
   return (
     <IonPage>
@@ -25,7 +25,7 @@ export default function SettingsPage() {
         <IonList>
           <IonItem>
             <IonToggle checked={globalSettings.darkMode} onIonChange={(ev) => {
-              setGlobalSettings({
+              saveGlobalSettings({
                 ...globalSettings,
                 darkMode: ev.detail.checked
               });
