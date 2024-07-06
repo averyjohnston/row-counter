@@ -1,10 +1,26 @@
-import { IonButtons, IonContent, IonHeader, IonItem, IonList, IonPage, IonTitle, IonToggle, IonToolbar } from "@ionic/react";
+import { IonButtons, IonContent, IonHeader, IonItem, IonLabel, IonList, IonNote, IonPage, IonTitle, IonToggle, IonToolbar } from "@ionic/react";
 import BackButton from "../components/BackButton";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { globalSettingsContext } from "../App";
+import useWakeLock from "react-use-wake-lock";
 
 export default function SettingsPage() {
   const { globalSettings, saveGlobalSettings } = useContext(globalSettingsContext);
+  const { request, release } = useWakeLock();
+
+  /**
+   * React-use-wake-lock has a bug where if the lock is requested on page load
+   * (like when refreshing the page with the setting on), the lock still goes
+   * through, but it doesn't get flagged as such internally. If the toggle is
+   * then switched off, the lock doesn't get released.
+   *
+   * We show a message whenever the toggle is switched off telling the user
+   * to refresh the page, ensuring the lock is released. Technically this isn't
+   * necessary if the setting was off on page load, but this way is simpler.
+   */
+  const [shouldShowLockMessage, setShouldShowLockMessage] = useState(false);
+
+  // TODO: disable screen lock setting if not supported (include note in item)
 
   return (
     <IonPage>
@@ -28,11 +44,22 @@ export default function SettingsPage() {
           </IonItem>
           <IonItem>
             <IonToggle checked={globalSettings.screenLock} onIonChange={(ev) => {
+              const shouldLock = ev.detail.checked;
+              if (shouldLock) {
+                request();
+              } else {
+                release();
+                setShouldShowLockMessage(true);
+              }
+
               saveGlobalSettings({
                 ...globalSettings,
-                screenLock: ev.detail.checked
-              })
-            }}>Screen always on</IonToggle>
+                screenLock: shouldLock
+              });
+            }}>
+              <IonLabel>Screen always on</IonLabel>
+              {shouldShowLockMessage && <IonNote>Refresh page to update</IonNote>}
+            </IonToggle>
           </IonItem>
         </IonList>
       </IonContent>

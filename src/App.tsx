@@ -9,6 +9,7 @@ import EditCounterPage, { action as editCounterPageAction } from './pages/EditCo
 import SettingsPage from './pages/SettingsPage.tsx';
 import { createContext, useEffect, useState } from 'react';
 import { GlobalSettings } from './types.ts';
+import useWakeLock from 'react-use-wake-lock';
 
 setupIonicReact();
 
@@ -77,11 +78,28 @@ const router = createBrowserRouter([
 
 export default function App() {
   const [globalSettings, setGlobalSettings] = useState<GlobalSettings>({ ...DEFAULT_SETTINGS });
+  const { request } = useWakeLock();
 
   useEffect(() => {
     const savedSettings = localStorage.getItem(GLOBAL_SETTINGS_KEY);
     if (!savedSettings) return;
-    setGlobalSettings(JSON.parse(savedSettings));
+    const parsedSettings = JSON.parse(savedSettings);
+
+    if (parsedSettings.screenLock) {
+      if (document.visibilityState === 'visible') {
+        request();
+      } else {
+        const handleVisibilityChange = () => {
+          if (document.visibilityState !== 'visible') return;
+          request();
+          document.removeEventListener('visibilitychange', handleVisibilityChange);
+        }
+
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+      }
+    }
+
+    setGlobalSettings(parsedSettings);
   }, []);
 
   const saveGlobalSettings = (newSettings: GlobalSettings) => {
