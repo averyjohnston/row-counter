@@ -108,7 +108,7 @@ export default function App() {
   };
 
   return (
-    <IonApp className={`${globalSettings.darkMode ? 'ion-palette-dark' : null}`}>
+    <IonApp className={`${globalSettings.darkMode ? 'ion-palette-dark' : ''}`}>
       <globalSettingsContext.Provider value={{ globalSettings, saveGlobalSettings }}>
         <RouterProvider router={router} />
       </globalSettingsContext.Provider>
