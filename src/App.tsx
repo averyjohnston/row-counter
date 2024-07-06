@@ -13,15 +13,17 @@ import { GlobalSettings } from './types.ts';
 setupIonicReact();
 
 // TODO: add stricter linting, especially for quote types and import order
-// TODO: prevent device from going to sleep on any screen? (gate behind global setting)
+
+const DEFAULT_SETTINGS: GlobalSettings = {
+  darkMode: false,
+  screenLock: false
+};
 
 export const globalSettingsContext = createContext<{
   globalSettings: GlobalSettings,
   saveGlobalSettings: (newSettings: GlobalSettings) => void
 }>({
-  globalSettings: {
-    darkMode: false
-  },
+  globalSettings: { ...DEFAULT_SETTINGS },
   saveGlobalSettings: () => {}
 });
 
@@ -74,9 +76,7 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  const [globalSettings, setGlobalSettings] = useState<GlobalSettings>({
-    darkMode: false
-  });
+  const [globalSettings, setGlobalSettings] = useState<GlobalSettings>({ ...DEFAULT_SETTINGS });
 
   useEffect(() => {
     const savedSettings = localStorage.getItem(GLOBAL_SETTINGS_KEY);

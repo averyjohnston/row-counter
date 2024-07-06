@@ -24,7 +24,15 @@ export default function SettingsPage() {
                 ...globalSettings,
                 darkMode: ev.detail.checked
               });
-            }}>Dark Mode</IonToggle>
+            }}>Dark mode</IonToggle>
+          </IonItem>
+          <IonItem>
+            <IonToggle checked={globalSettings.screenLock} onIonChange={(ev) => {
+              saveGlobalSettings({
+                ...globalSettings,
+                screenLock: ev.detail.checked
+              })
+            }}>Screen always on</IonToggle>
           </IonItem>
         </IonList>
       </IonContent>
