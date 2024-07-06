@@ -24,14 +24,20 @@ export function getContrastColor(baseColor: string) {
   const white = '#ffffff';
 
   const trimmed = baseColor.replace('#', '');
-  if (!/^[0-9A-F]{6}$/i.test(trimmed)) {
+  const rgb = [];
+
+  if (/^[0-9A-F]{3}$/i.test(trimmed)) {
+    for (let i = 0; i < trimmed.length; i++) {
+      const char = trimmed.charAt(i);
+      rgb.push(parseInt(char + char, 16));
+    }
+  } else if (/^[0-9A-F]{6}$/i.test(trimmed)) {
+    for (let i = 0; i < trimmed.length; i += 2) {
+      rgb.push(parseInt(trimmed.substring(i, i + 2), 16));
+    }
+  } else {
     console.warn('Invalid hex code supplied to getContrastColor:', baseColor);
     return black;
-  }
-
-  const rgb = [];
-  for (let i = 0; i < trimmed.length; i+= 2) {
-    rgb.push(parseInt(trimmed.substring(i, i+2), 16));
   }
 
   // https://stackoverflow.com/a/3943023

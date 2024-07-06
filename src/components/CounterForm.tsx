@@ -7,7 +7,6 @@ import { HexColorInput, HexColorPicker } from "react-colorful";
 import './CounterForm.scss';
 
 // TODO: add field for max (should reset to resetValue once counter exceeds max)
-// TODO: new color picker can take octal codes; adjust other stuff like getContrastColor to allow for those
 
 function CounterForm(props: CounterFormProps) {
   const { name, color: defaultColor, resetValue } = props;
