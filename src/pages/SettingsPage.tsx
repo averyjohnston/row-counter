@@ -6,7 +6,7 @@ import useWakeLock from "react-use-wake-lock";
 
 export default function SettingsPage() {
   const { globalSettings, saveGlobalSettings } = useContext(globalSettingsContext);
-  const { request, release } = useWakeLock();
+  const { request, release, isSupported } = useWakeLock();
 
   /**
    * React-use-wake-lock has a bug where if the lock is requested on page load
@@ -19,8 +19,6 @@ export default function SettingsPage() {
    * necessary if the setting was off on page load, but this way is simpler.
    */
   const [shouldShowLockMessage, setShouldShowLockMessage] = useState(false);
-
-  // TODO: disable screen lock setting if not supported (include note in item)
 
   return (
     <IonPage>
@@ -43,7 +41,7 @@ export default function SettingsPage() {
             }}>Dark mode</IonToggle>
           </IonItem>
           <IonItem>
-            <IonToggle checked={globalSettings.screenLock} onIonChange={(ev) => {
+            <IonToggle disabled={!isSupported} checked={isSupported && globalSettings.screenLock} onIonChange={(ev) => {
               const shouldLock = ev.detail.checked;
               if (shouldLock) {
                 request();
@@ -58,6 +56,7 @@ export default function SettingsPage() {
               });
             }}>
               <IonLabel>Screen always on</IonLabel>
+              {!isSupported && <IonNote>Not supported on your device</IonNote>}
               {shouldShowLockMessage && <IonNote>Refresh page to update</IonNote>}
             </IonToggle>
           </IonItem>
