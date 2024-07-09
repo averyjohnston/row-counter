@@ -11,7 +11,7 @@ import { globalSettingsContext } from "../App";
 
 import "./CounterPage.scss";
 
-// TODO: sub-counters w/ just names and colors (make counter display from list page into reusable component?)
+// TODO: sub-counters w/ just names and colors (make counter display from list page into reusable component? should also have reset button, maybe to the side)
 // TODO (nice to have): Ravelry integration, including generic login, to link with specific project
 
 export const action: ActionFunction = async ({ params, request }) => {
