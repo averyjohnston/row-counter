@@ -3,9 +3,7 @@ import BackButton from "../components/BackButton";
 import { useContext, useState } from "react";
 import { globalSettingsContext } from "../App";
 import useWakeLock from "react-use-wake-lock";
-
-// TODO: consider making wrapper component for basic settings toggle
-// probably just don't worry about replacing screen lock setting since it's fairly custom
+import BasicSettingToggle from "../components/BasicSettingToggle";
 
 export default function SettingsPage() {
   const { globalSettings, saveGlobalSettings } = useContext(globalSettingsContext);
@@ -36,20 +34,10 @@ export default function SettingsPage() {
       <IonContent className="ion-padding">
         <IonList>
           <IonItem>
-            <IonToggle checked={globalSettings.darkMode} onIonChange={(ev) => {
-              saveGlobalSettings({
-                ...globalSettings,
-                darkMode: ev.detail.checked
-              });
-            }}>Dark mode</IonToggle>
+            <BasicSettingToggle settingKey="darkMode">Dark mode</BasicSettingToggle>
           </IonItem>
           <IonItem>
-            <IonToggle checked={globalSettings.haptics} onIonChange={(ev) => {
-              saveGlobalSettings({
-                ...globalSettings,
-                haptics: ev.detail.checked
-              })
-            }}>Vibration</IonToggle>
+            <BasicSettingToggle settingKey="haptics">Vibration</BasicSettingToggle>
           </IonItem>
           <IonItem>
             <IonToggle disabled={!isSupported} checked={isSupported && globalSettings.screenLock} onIonChange={(ev) => {
