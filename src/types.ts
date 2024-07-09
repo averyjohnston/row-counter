@@ -14,6 +14,7 @@ export interface Counter extends CounterFormProps {
 export interface GlobalSettings {
   darkMode: boolean;
   screenLock: boolean;
+  haptics: boolean;
 }
 
 // extend CSSProperties type to allow variable declarations in style prop

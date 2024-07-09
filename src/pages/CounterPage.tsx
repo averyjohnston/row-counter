@@ -6,6 +6,8 @@ import { Counter } from "../types";
 import BackButton from "../components/BackButton";
 import { clickVibrate, createCounterColorStyles, decrement, increment, reset } from "../utils";
 import ContextMenuItem from "../components/ContextMenuItem";
+import { useContext } from "react";
+import { globalSettingsContext } from "../App";
 
 import "./CounterPage.scss";
 
@@ -36,7 +38,7 @@ export const action: ActionFunction = async ({ params, request }) => {
           return false;
         }
 
-        clickVibrate();
+        if (formData.get('hapticsEnabled') === 'true') clickVibrate();
         return await reset(idNum);
       }
     }
@@ -51,6 +53,7 @@ export const action: ActionFunction = async ({ params, request }) => {
 function CounterPage() {
   const counter = useLoaderData() as Counter;
   const fetcher = useFetcher();
+  const { globalSettings } = useContext(globalSettingsContext);
 
   return (
     <IonPage id="counter-page">
@@ -62,7 +65,7 @@ function CounterPage() {
           <IonTitle>{counter?.name}</IonTitle>
           <IonButtons slot="primary">
             <fetcher.Form method="post">
-              <IonButton type="submit" onClick={clickVibrate}>
+              <IonButton type="submit" onClick={globalSettings.haptics ? clickVibrate : undefined}>
                 <IonIcon slot="icon-only" icon={removeCircleOutline} />
               </IonButton>
               <input type="hidden" name="intent" value="decrement" />
@@ -72,6 +75,7 @@ function CounterPage() {
                 <IonIcon slot="icon-only" icon={refreshCircleOutline} />
               </IonButton>
               <input type="hidden" name="intent" value="reset" />
+              <input type="hidden" name="hapticsEnabled" value={globalSettings.haptics ? "true" : "false"} />
             </fetcher.Form>
             <IonButton id="more-options">
               <IonIcon slot="icon-only" icon={ellipsisVertical} />
@@ -88,7 +92,7 @@ function CounterPage() {
         </IonToolbar>
       </IonHeader>
       <IonContent scrollY={false}>
-        <fetcher.Form method="post" className="increment-wrapper" onClick={clickVibrate}>
+        <fetcher.Form method="post" className="increment-wrapper" onClick={globalSettings.haptics ? clickVibrate : undefined}>
           <button className="increment-button" name="intent" value="increment">
             <div className="increment-inner" style={createCounterColorStyles(counter)}>{counter.count}</div>
           </button>

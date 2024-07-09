@@ -17,7 +17,8 @@ setupIonicReact();
 
 const DEFAULT_SETTINGS: GlobalSettings = {
   darkMode: false,
-  screenLock: false
+  screenLock: false,
+  haptics: true
 };
 
 export const globalSettingsContext = createContext<{
@@ -99,7 +100,10 @@ export default function App() {
       }
     }
 
-    setGlobalSettings(parsedSettings);
+    setGlobalSettings({
+      ...globalSettings,
+      ...parsedSettings
+    });
   }, []);
 
   const saveGlobalSettings = (newSettings: GlobalSettings) => {

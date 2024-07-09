@@ -68,6 +68,5 @@ export function parseFormData(formData: FormData): CounterFormProps {
 }
 
 export function clickVibrate() {
-  // TODO: add and check global haptics setting
   navigator.vibrate(50);
 }

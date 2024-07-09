@@ -4,6 +4,9 @@ import { useContext, useState } from "react";
 import { globalSettingsContext } from "../App";
 import useWakeLock from "react-use-wake-lock";
 
+// TODO: consider making wrapper component for basic settings toggle
+// probably just don't worry about replacing screen lock setting since it's fairly custom
+
 export default function SettingsPage() {
   const { globalSettings, saveGlobalSettings } = useContext(globalSettingsContext);
   const { request, release, isSupported } = useWakeLock();
@@ -39,6 +42,14 @@ export default function SettingsPage() {
                 darkMode: ev.detail.checked
               });
             }}>Dark mode</IonToggle>
+          </IonItem>
+          <IonItem>
+            <IonToggle checked={globalSettings.haptics} onIonChange={(ev) => {
+              saveGlobalSettings({
+                ...globalSettings,
+                haptics: ev.detail.checked
+              })
+            }}>Vibration</IonToggle>
           </IonItem>
           <IonItem>
             <IonToggle disabled={!isSupported} checked={isSupported && globalSettings.screenLock} onIonChange={(ev) => {

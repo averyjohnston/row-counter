@@ -4,10 +4,14 @@ import { add, removeCircleOutline, addCircleOutline, settingsOutline } from 'ion
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../db';
 import { clickVibrate, createCounterColorStyles, decrement, increment } from '../utils';
+import { globalSettingsContext } from '../App';
+import { useContext } from 'react';
 
 import './CounterListPage.scss';
 
 function CounterListPage() {
+  const { globalSettings } = useContext(globalSettingsContext);
+
   /**
    * We use Dexie's hook here instead of React Router's loader API so the rest of the
    * page (header, FAB) can still be displayed while the counters are loading. We
@@ -44,7 +48,7 @@ function CounterListPage() {
           {counters?.map((counter) => (
             <div key={counter.id} className="counter" style={createCounterColorStyles(counter)}>
               <button className="counter__button" onClick={() => {
-                clickVibrate();
+                if (globalSettings.haptics) clickVibrate();
                 decrement(counter.id);
               }}>
                 <IonIcon icon={removeCircleOutline} />
@@ -54,7 +58,7 @@ function CounterListPage() {
                 <p>{counter.count}</p>
               </Link>
               <button className="counter__button" onClick={() => {
-                clickVibrate();
+                if (globalSettings.haptics) clickVibrate();
                 increment(counter.id);
               }}>
                 <IonIcon icon={addCircleOutline} />
