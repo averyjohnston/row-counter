@@ -8,7 +8,8 @@ export function createDefaultCounter(): Counter {
     name: "",
     count: 0,
     color: '#f5f5f5',
-    resetValue: 0
+    resetValue: 0,
+    subCounters: []
   };
 }
 

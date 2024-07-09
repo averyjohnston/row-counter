@@ -7,10 +7,12 @@ import { createDefaultCounter, parseFormData } from "../utils";
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
+  const { id, ...defaultCounterNoId } = createDefaultCounter();
 
+  // don't specify the ID so Dexie can get it from auto-incrementing
   await db.counters.add({
-    ...parseFormData(formData),
-    count: 0
+    ...defaultCounterNoId,
+    ...parseFormData(formData)
   });
 
   return redirect('/');

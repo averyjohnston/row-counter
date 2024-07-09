@@ -1,20 +1,24 @@
 import 'react';
 
-export interface CounterFormProps {
-  name: string;
-  color: string;
-  resetValue: number;
+export type CounterFormProps = {
+  name: string,
+  color: string,
+  resetValue: number
 }
 
-export interface Counter extends CounterFormProps {
-  id: number;
-  count: number;
+export type SubCounter = CounterFormProps & {
+  id: number,
+  count: number
 }
 
-export interface GlobalSettings {
-  darkMode: boolean;
-  screenLock: boolean;
-  haptics: boolean;
+export type Counter = SubCounter & {
+  subCounters: number[]
+}
+
+export type GlobalSettings = {
+  darkMode: boolean,
+  screenLock: boolean,
+  haptics: boolean
 }
 
 // extend CSSProperties type to allow variable declarations in style prop
