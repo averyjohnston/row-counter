@@ -6,8 +6,6 @@ import { HexColorInput, HexColorPicker } from "react-colorful";
 
 import './CounterForm.scss';
 
-// TODO: add field for max (should reset to resetValue once counter exceeds max)
-
 function CounterForm(props: CounterFormProps) {
   const { name, color: defaultColor, resetValue } = props;
   const [color, setColor] = useState(defaultColor);
