@@ -12,13 +12,13 @@ import "./ContextMenuItem.scss";
  * Note that the button should NOT be inside the IonItem to avoid nested interactives.
  */
 export default function ContextMenuItem(props: PropsWithChildren<{ method?: FormMethod, action?: string }>) {
-  const { method, action } = props;
+  const { method, action, children } = props;
   const hiddenButtonRef = useRef<HTMLButtonElement>(null);
 
   return (
     <Form method={method} action={action} className="context-menu-item">
       <IonItem lines="none" button={true} onClick={() => hiddenButtonRef.current?.click()}>
-        {props.children}
+        {children}
       </IonItem>
       <button type="submit" className="hidden-button" ref={hiddenButtonRef} />
     </Form>
