@@ -92,11 +92,13 @@ function CounterPage() {
         </IonToolbar>
       </IonHeader>
       <IonContent scrollY={false}>
-        <fetcher.Form method="post" className="increment-wrapper" onClick={globalSettings.haptics ? clickVibrate : undefined}>
-          <button className="increment-button" name="intent" value="increment">
-            <div className="increment-inner" style={createCounterColorStyles(counter)}>{counter.count}</div>
-          </button>
-        </fetcher.Form>
+        <div className="counter-display">
+          <fetcher.Form method="post" className="increment-wrapper" onClick={globalSettings.haptics ? clickVibrate : undefined}>
+            <button className="increment-button" name="intent" value="increment">
+              <div className="increment-inner" style={createCounterColorStyles(counter)}>{counter.count}</div>
+            </button>
+          </fetcher.Form>
+        </div>
       </IonContent>
     </IonPage>
   )

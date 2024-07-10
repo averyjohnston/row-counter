@@ -1,7 +1,14 @@
 #counter-page {
-  .increment-wrapper {
+  .counter-display {
+    display: flex;
+    flex-direction: column;
+
     height: 100%;
     width: 100%;
+  }
+
+  .increment-wrapper {
+    flex-grow: 1;
   }
 
   .increment-button {
