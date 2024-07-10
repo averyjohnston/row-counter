@@ -35,7 +35,7 @@ function EditCounterPage() {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        <CounterForm {...displayedCounter} />
+        <CounterForm {...displayedCounter} submitText="Save Changes" />
       </IonContent>
     </IonPage>
   )

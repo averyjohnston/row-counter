@@ -6,8 +6,8 @@ import { HexColorInput, HexColorPicker } from "react-colorful";
 
 import './CounterForm.scss';
 
-function CounterForm(props: CounterFormProps) {
-  const { name, color: defaultColor, resetValue } = props;
+function CounterForm(props: CounterFormProps & { submitText?: string }) {
+  const { name, color: defaultColor, resetValue, submitText } = props;
   const [color, setColor] = useState(defaultColor);
 
   const nameInputRef = useRef<HTMLIonInputElement>(null);
@@ -46,7 +46,7 @@ function CounterForm(props: CounterFormProps) {
         <IonItem>
           <IonInput label="Reset Value" labelPlacement="stacked" type="number" name="resetValue" required ref={resetValueInputRef}></IonInput>
         </IonItem>
-        <IonButton type="submit" expand="block" className="ion-margin-top">Submit</IonButton>
+        <IonButton type="submit" expand="block" className="ion-margin-top">{submitText || 'Submit'}</IonButton>
       </IonList>
     </Form>
   );

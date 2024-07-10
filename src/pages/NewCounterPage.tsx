@@ -32,7 +32,7 @@ function NewCounterPage() {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        <CounterForm {...defaultCounter} />
+        <CounterForm {...defaultCounter} submitText="Create New Counter" />
       </IonContent>
     </IonPage>
   )
