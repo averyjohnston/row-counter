@@ -46,12 +46,14 @@ export function getContrastColor(baseColor: string) {
   return rgb[0]*0.299 + rgb[1]*0.587 + rgb[2]*0.114 > 150 ? black : white;
 }
 
-export async function increment(counterID: number) {
-  return db.counters.where({ id: counterID }).modify(counter => { counter.count++; });
+export async function increment(counterID: number, isSubCounter = false) {
+  const table = isSubCounter ? 'subCounters' : 'counters';
+  return db[table].where({ id: counterID }).modify(counter => { counter.count++; });
 }
 
-export async function decrement(counterID: number) {
-  return db.counters.where({ id: counterID }).modify(counter => { counter.count--; });
+export async function decrement(counterID: number, isSubCounter = false) {
+  const table = isSubCounter ? 'subCounters' : 'counters';
+  return db[table].where({ id: counterID }).modify(counter => { counter.count--; });
 }
 
 export async function reset(counterID: number) {
