@@ -10,6 +10,7 @@ import SettingsPage from './pages/SettingsPage.tsx';
 import { createContext, useEffect, useState } from 'react';
 import { GlobalSettings } from './types.ts';
 import useWakeLock from 'react-use-wake-lock';
+import NewSubCounterPage, { action as newSubCounterPageAction } from './pages/NewSubCounterPage.tsx';
 
 setupIonicReact();
 
@@ -68,6 +69,11 @@ const router = createBrowserRouter([
         element: <EditCounterPage />,
         loader: counterLoader,
         action: editCounterPageAction
+      },
+      {
+        path: "counters/:id/new-sub",
+        element: <NewSubCounterPage />,
+        action: newSubCounterPageAction
       },
       {
         path: "settings",

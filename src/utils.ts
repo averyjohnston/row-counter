@@ -1,6 +1,6 @@
 import { CSSProperties } from "react";
 import { db } from "./db";
-import { Counter, CounterFormProps } from "./types";
+import { Counter, CounterFormProps, SubCounter } from "./types";
 
 export function createDefaultCounter(): Counter {
   return {
@@ -11,6 +11,11 @@ export function createDefaultCounter(): Counter {
     resetValue: 0,
     subCounters: []
   };
+}
+
+export function createDefaultSubCounter(): SubCounter {
+  const { subCounters, ...defaultCounterNoSubs } = createDefaultCounter();
+  return defaultCounterNoSubs;
 }
 
 export function createCounterColorStyles(counter: Counter): CSSProperties {

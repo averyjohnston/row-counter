@@ -24,6 +24,7 @@ export const action: ActionFunction = async ({ params, request }) => {
       return false;
     }
 
+    // TODO: also delete all sub-counters
     await db.counters.delete(idNum);
     return redirect('/');
   } else if (request.method === 'POST') {
@@ -54,6 +55,7 @@ function CounterPage() {
   const counter = useLoaderData() as Counter;
   const fetcher = useFetcher();
   const { globalSettings } = useContext(globalSettingsContext);
+  const { subCounters } = counter;
 
   return (
     <IonPage id="counter-page">
@@ -84,6 +86,7 @@ function CounterPage() {
               <IonContent>
                 <IonList>
                   <ContextMenuItem action="edit">Edit</ContextMenuItem>
+                  <ContextMenuItem to="new-sub">New sub-counter</ContextMenuItem>
                   <ContextMenuItem method="delete">Delete</ContextMenuItem>
                 </IonList>
               </IonContent>
@@ -98,6 +101,9 @@ function CounterPage() {
               <div className="increment-inner" style={createCounterColorStyles(counter)}>{counter.count}</div>
             </button>
           </fetcher.Form>
+          {subCounters.length > 0 && <div className="sub-counters">
+            sub-counters!
+          </div>}
         </div>
       </IonContent>
     </IonPage>

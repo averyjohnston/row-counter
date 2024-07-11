@@ -1,6 +1,6 @@
 import { IonItem } from "@ionic/react";
 import { PropsWithChildren, useRef } from "react";
-import { Form, FormMethod } from "react-router-dom";
+import { Form, FormMethod, Link } from "react-router-dom";
 
 import "./ContextMenuItem.scss";
 
@@ -10,17 +10,29 @@ import "./ContextMenuItem.scss";
  * button in the light DOM and pass clicks to it instead.
  *
  * Note that the button should NOT be inside the IonItem to avoid nested interactives.
+ *
+ * If `to` is defined, a Link is rendered instead, without the hidden button.
  */
-export default function ContextMenuItem(props: PropsWithChildren<{ method?: FormMethod, action?: string }>) {
-  const { method, action, children } = props;
+export default function ContextMenuItem(props: PropsWithChildren<{ method?: FormMethod, action?: string, to?: string }>) {
+  const { method, action, children, to } = props;
   const hiddenButtonRef = useRef<HTMLButtonElement>(null);
 
-  return (
-    <Form method={method} action={action} className="context-menu-item">
-      <IonItem lines="none" button={true} onClick={() => hiddenButtonRef.current?.click()}>
-        {children}
-      </IonItem>
-      <button type="submit" className="hidden-button" ref={hiddenButtonRef} />
-    </Form>
-  );
+  if (to === undefined) {
+    return (
+      <Form method={method} action={action} className="context-menu-item">
+        <IonItem lines="none" button={true} onClick={() => hiddenButtonRef.current?.click()}>
+          {children}
+        </IonItem>
+        <button type="submit" className="hidden-button" ref={hiddenButtonRef} />
+      </Form>
+    );
+  } else {
+    return (
+      <Link to={to} className="context-menu-item">
+        <IonItem lines="none" button={true}>
+          {children}
+        </IonItem>
+      </Link>
+    )
+  }
 }

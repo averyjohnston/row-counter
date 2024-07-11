@@ -1,3 +1,7 @@
-.context-menu-item .hidden-button {
-  display: none;
+.context-menu-item {
+  text-decoration: none;
+
+  .hidden-button {
+    display: none;
+  }
 }
