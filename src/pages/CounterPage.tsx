@@ -104,8 +104,14 @@ function CounterPage() {
               <div className="increment-inner" style={createCounterColorStyles(counter)}>{counter.count}</div>
             </button>
           </fetcher.Form>
+          {/* TODO: add reset button to one side and edit/delete buttons to the other */ }
+          {/* also add context menu option that toggles global setting for whether to show those buttons (show checkbox) */}
           {subIDs.length > 0 && <div className="sub-counters">
-            {subCounters?.map(sc => sc && <MiniCounter key={sc.id} counter={sc} />)}
+            {subCounters?.map(sc => sc && (
+              <div key={sc.id} className="sub-counters__counter">
+                <MiniCounter counter={sc} />
+              </div>
+            ))}
           </div>}
         </div>
       </IonContent>
