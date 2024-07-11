@@ -15,8 +15,20 @@ import "./CounterPage.scss";
 // TODO (nice to have): Ravelry integration, including generic login, to link with specific project
 
 export const action: ActionFunction = async ({ params, request }) => {
-  const { id } = params;
-  const idNum = parseInt(id!); // we already validated ID in loader, no need to do it again
+  const formData = await request.formData();
+  let id: string;
+
+  // if there's an ID specified in the form, we're dealing with a sub-counter
+  // otherwise, it's the main counter, so just use the ID in the URL
+  const idFromForm = formData.get('counterID');
+  if (idFromForm !== null) {
+    id = idFromForm.toString();
+  } else {
+    id = params.id!; // we already validated ID in loader, no need to do it again
+  }
+
+  const idNum = parseInt(id);
+  const isSub = formData.get('isSubCounter') === 'true';
 
   if (request.method === 'DELETE') {
     if (!confirm('Are you sure you want to delete this counter?')) {
@@ -28,12 +40,11 @@ export const action: ActionFunction = async ({ params, request }) => {
     await db.counters.delete(idNum);
     return redirect('/');
   } else if (request.method === 'POST') {
-    const formData = await request.formData();
     const intent = formData.get('intent');
 
     switch (intent) {
-      case 'increment': return await increment(idNum);
-      case 'decrement': return await decrement(idNum);
+      case 'increment': return await increment(idNum, isSub);
+      case 'decrement': return await decrement(idNum, isSub);
       case 'reset': {
         if (!confirm('Are you sure you want to reset this counter to its reset value?')) {
           return false;
