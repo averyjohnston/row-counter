@@ -8,6 +8,8 @@ import { clickVibrate, createCounterColorStyles, decrement, increment, reset } f
 import ContextMenuItem from "../components/ContextMenuItem";
 import { useContext } from "react";
 import { globalSettingsContext } from "../App";
+import { useLiveQuery } from "dexie-react-hooks";
+import MiniCounter from "../components/MiniCounter";
 
 import "./CounterPage.scss";
 
@@ -55,7 +57,8 @@ function CounterPage() {
   const counter = useLoaderData() as Counter;
   const fetcher = useFetcher();
   const { globalSettings } = useContext(globalSettingsContext);
-  const { subCounters } = counter;
+  const { subCounters: subIDs } = counter;
+  const subCounters = useLiveQuery(() => db.subCounters.bulkGet(subIDs));
 
   return (
     <IonPage id="counter-page">
@@ -101,8 +104,8 @@ function CounterPage() {
               <div className="increment-inner" style={createCounterColorStyles(counter)}>{counter.count}</div>
             </button>
           </fetcher.Form>
-          {subCounters.length > 0 && <div className="sub-counters">
-            sub-counters!
+          {subIDs.length > 0 && <div className="sub-counters">
+            {subCounters?.map(sc => sc && <MiniCounter key={sc.id} counter={sc} />)}
           </div>}
         </div>
       </IonContent>

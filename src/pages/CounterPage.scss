@@ -1,5 +1,7 @@
 #counter-page {
   .counter-display {
+    padding: 0 25px;
+
     display: flex;
     flex-direction: column;
 
@@ -13,7 +15,6 @@
 
   .increment-button {
     background: none;
-    padding: 0 25px;
 
     height: 100%;
     width: 100%;
@@ -26,5 +27,12 @@
     color: var(--color);
     font-size: 110px;
     padding: 25px;
+  }
+
+  .sub-counters {
+    overflow-y: auto;
+    padding-bottom: 8px;
+
+    max-height: 235px;
   }
 }

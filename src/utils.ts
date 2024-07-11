@@ -2,6 +2,8 @@ import { CSSProperties } from "react";
 import { db } from "./db";
 import { Counter, CounterFormProps, SubCounter } from "./types";
 
+// TODO: check if any of these are only used in one place and move to there instead if so
+
 export function createDefaultCounter(): Counter {
   return {
     id: 0,
@@ -18,7 +20,7 @@ export function createDefaultSubCounter(): SubCounter {
   return defaultCounterNoSubs;
 }
 
-export function createCounterColorStyles(counter: Counter): CSSProperties {
+export function createCounterColorStyles(counter: Counter | SubCounter): CSSProperties {
   return {
     '--background': counter.color,
     '--color': getContrastColor(counter.color)
@@ -77,4 +79,8 @@ export function parseFormData(formData: FormData): CounterFormProps {
 
 export function clickVibrate() {
   navigator.vibrate(50);
+}
+
+export function isSubCounter(counter: Counter | SubCounter): counter is SubCounter {
+  return (counter as Counter).subCounters === undefined;
 }
