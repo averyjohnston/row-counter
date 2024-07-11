@@ -63,8 +63,9 @@ export async function decrement(counterID: number, isSubCounter = false) {
   return db[table].where({ id: counterID }).modify(counter => { counter.count--; });
 }
 
-export async function reset(counterID: number) {
-  return db.counters.where({ id: counterID }).modify(counter => { counter.count = counter.resetValue });
+export async function reset(counterID: number, isSubCounter = false) {
+  const table = isSubCounter ? 'subCounters' : 'counters';
+  return db[table].where({ id: counterID }).modify(counter => { counter.count = counter.resetValue });
 }
 
 export function parseFormData(formData: FormData): CounterFormProps {

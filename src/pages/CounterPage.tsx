@@ -52,7 +52,7 @@ export const action: ActionFunction = async ({ params, request }) => {
         }
 
         if (formData.get('hapticsEnabled') === 'true') clickVibrate();
-        return await reset(idNum);
+        return await reset(idNum, isSub);
       }
     }
 
@@ -96,6 +96,7 @@ function CounterPage() {
             <IonPopover trigger="more-options">
               <IonContent>
                 <IonList>
+                  {/* add option to toggle mini counter extra buttons as a global option (show checkbox) */}
                   <ContextMenuItem action="edit">Edit</ContextMenuItem>
                   <ContextMenuItem to="new-sub">New sub-counter</ContextMenuItem>
                   <ContextMenuItem method="delete">Delete</ContextMenuItem>
@@ -112,11 +113,8 @@ function CounterPage() {
               <div className="increment-inner" style={createCounterColorStyles(counter)}>{counter.count}</div>
             </button>
           </fetcher.Form>
-          {/* TODO: add reset button to one side and edit/delete buttons to the other */}
-          {/* also add context menu option that toggles global setting for whether to show those buttons (show checkbox) */}
-          {/* action is already mostly in place, should just need to copy existing logic */}
           {subCounters.length > 0 && <div className="sub-counters">
-            {subCounters?.map(sc => sc && <MiniCounter key={sc.id} counter={sc} /> )}
+            {subCounters?.map(sc => sc && <MiniCounter key={sc.id} counter={sc} showExtraButtons={true} /> )}
           </div>}
         </div>
       </IonContent>

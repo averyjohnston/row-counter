@@ -2,17 +2,17 @@ import { useContext } from "react";
 import { Counter, SubCounter } from "../types";
 import { clickVibrate, createCounterColorStyles, isSubCounter } from "../utils";
 import { globalSettingsContext } from "../App";
-import { IonIcon } from "@ionic/react";
-import { removeCircleOutline, addCircleOutline } from "ionicons/icons";
+import { IonButton, IonIcon } from "@ionic/react";
+import { removeCircleOutline, addCircleOutline, refreshCircleOutline } from "ionicons/icons";
 import { Link, useFetcher } from "react-router-dom";
 
 import './MiniCounter.scss';
 
 export default function MiniCounter(props: {
   counter: Counter | SubCounter,
-  showButtons?: boolean
+  showExtraButtons?: boolean
 }) {
-  const { counter } = props;
+  const { counter, showExtraButtons } = props;
   const { globalSettings } = useContext(globalSettingsContext);
   const isSub = isSubCounter(counter);
   const fetcher = useFetcher();
@@ -31,8 +31,18 @@ export default function MiniCounter(props: {
   };
 
   // clickVibrate is called onClick instead of in action to avoid tiny but noticeable delay
+  // TODO: add reset button to one side and edit/delete buttons to the other
   return (
     <div className="mini-counter">
+      {showExtraButtons && <div className="mini-counter__extra-buttons">
+        <fetcher.Form method="post">
+          <IonButton type="submit" fill="clear">
+            <IonIcon slot="icon-only" size="large" icon={refreshCircleOutline} />
+          </IonButton>
+          {makeHiddenInputs('reset')}
+          <input type="hidden" name="hapticsEnabled" value={globalSettings.haptics ? "true" : "false"} />
+        </fetcher.Form>
+      </div>}
       <div className="mini-counter__counter" style={createCounterColorStyles(counter)}>
         <fetcher.Form method="post">
           <button className="mini-counter__button" onClick={globalSettings.haptics ? clickVibrate : undefined}>
