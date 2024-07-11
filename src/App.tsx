@@ -1,5 +1,5 @@
 import { IonApp, setupIonicReact } from '@ionic/react';
-import CounterListPage, { loader as counterListPageLoader } from './pages/CounterListPage';
+import CounterListPage, { loader as counterListPageLoader, action as CounterListPageAction } from './pages/CounterListPage';
 import { LoaderFunction, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { db } from './db';
 import ErrorPage from './pages/ErrorPage.tsx';
@@ -57,7 +57,8 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <CounterListPage />,
-        loader: counterListPageLoader
+        loader: counterListPageLoader,
+        action: CounterListPageAction
       },
       {
         path: "counters/:id",

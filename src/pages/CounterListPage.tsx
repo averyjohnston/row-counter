@@ -1,15 +1,30 @@
-import { Link, LoaderFunction, useLoaderData } from 'react-router-dom';
+import { ActionFunction, Link, LoaderFunction, useLoaderData } from 'react-router-dom';
 import { IonButton, IonButtons, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { add, settingsOutline } from 'ionicons/icons';
 import { db } from '../db';
 import MiniCounter from '../components/MiniCounter';
 import { Counter } from '../types';
+import { increment, decrement } from '../utils';
 
 import './CounterListPage.scss';
 
 export const loader: LoaderFunction = async () => {
   const counters = await db.counters.toArray();
   return counters;
+};
+
+export const action: ActionFunction = async ({ request }) => {
+  const formData = await request.formData();
+  const intent = formData.get('intent');
+  const idNum = parseInt(formData.get('counterID')?.toString()!);
+  const isSub = formData.get('isSubCounter') === 'true';
+
+  switch (intent) {
+    case 'increment': return await increment(idNum, isSub);
+    case 'decrement': return await decrement(idNum, isSub);
+  }
+
+  throw new Error(`Unknown form intent: ${intent}`);
 };
 
 function CounterListPage() {
