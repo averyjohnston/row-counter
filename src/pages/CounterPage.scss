@@ -29,9 +29,11 @@
     padding: 25px;
   }
 
+  // padding + negative margin prevents box shadow from getting cut off at the sides
   .sub-counters {
+    margin: 0 -5px;
     overflow-y: auto;
-    padding-bottom: 8px;
+    padding: 0 5px 8px;
 
     max-height: 235px;
   }
