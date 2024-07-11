@@ -1,5 +1,5 @@
 import { IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react";
-import { ActionFunction, redirect } from "react-router-dom";
+import { ActionFunction, redirect, useParams } from "react-router-dom";
 import { db } from "../db";
 import CounterForm from "../components/CounterForm";
 import BackButton from "../components/BackButton";
@@ -26,13 +26,14 @@ export const action: ActionFunction = async ({ request, params }) => {
 
 export default function NewSubCounterPage() {
   const defaultCounter = createDefaultCounter();
+  const { id: parentID } = useParams();
 
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <BackButton />
+            <BackButton to={`/counters/${parentID}`} />
           </IonButtons>
           <IonTitle>New Sub-Counter</IonTitle>
         </IonToolbar>
