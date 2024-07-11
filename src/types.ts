@@ -21,6 +21,11 @@ export type GlobalSettings = {
   haptics: boolean
 }
 
+export type CounterLoaderResults = {
+  counter: Counter,
+  subCounters: SubCounter[]
+}
+
 // extend CSSProperties type to allow variable declarations in style prop
 declare module 'react' {
   interface CSSProperties {

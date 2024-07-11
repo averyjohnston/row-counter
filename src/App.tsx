@@ -1,5 +1,5 @@
 import { IonApp, setupIonicReact } from '@ionic/react';
-import CounterListPage from './pages/CounterListPage';
+import CounterListPage, { loader as counterListPageLoader } from './pages/CounterListPage';
 import { LoaderFunction, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { db } from './db';
 import ErrorPage from './pages/ErrorPage.tsx';
@@ -42,7 +42,12 @@ const counterLoader: LoaderFunction = async ({ params }) => {
     throw new Error(`No counter matching ID: ${id}`);
   }
 
-  return counter;
+  const subCounters = await db.subCounters.bulkGet(counter.subCounters);
+
+  return {
+    counter,
+    subCounters
+  };
 };
 
 const router = createBrowserRouter([
@@ -51,7 +56,8 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <CounterListPage />
+        element: <CounterListPage />,
+        loader: counterListPageLoader
       },
       {
         path: "counters/:id",

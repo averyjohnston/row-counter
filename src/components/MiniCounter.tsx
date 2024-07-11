@@ -18,6 +18,7 @@ export default function MiniCounter(props: { counter: Counter | SubCounter }) {
     <p>{counter.count}</p>
   </>;
 
+  // TODO: wrap buttons in fetcher forms and use action instead
   return (
     <div className="mini-counter" style={createCounterColorStyles(counter)}>
       <button className="mini-counter__button" onClick={() => {

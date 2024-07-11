@@ -2,7 +2,7 @@ import { IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from
 import { ActionFunction, redirect, useLoaderData, useNavigation } from "react-router-dom";
 import { db } from "../db";
 import CounterForm from "../components/CounterForm";
-import { Counter } from "../types";
+import { CounterLoaderResults } from "../types";
 import BackButton from "../components/BackButton";
 import { parseFormData } from "../utils";
 
@@ -17,7 +17,7 @@ export const action: ActionFunction = async ({ params, request }) => {
 };
 
 function EditCounterPage() {
-  const counter = useLoaderData() as Counter;
+  const { counter } = useLoaderData() as CounterLoaderResults;
   const navigation = useNavigation();
 
   // optimistic UI -- if a counter update is being submitted, show the values entered by the user

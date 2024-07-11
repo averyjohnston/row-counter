@@ -2,18 +2,16 @@ import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonList, IonPage
 import { ellipsisVertical, removeCircleOutline, refreshCircleOutline } from 'ionicons/icons';
 import { ActionFunction, redirect, useFetcher, useLoaderData } from "react-router-dom";
 import { db } from "../db";
-import { Counter } from "../types";
+import { CounterLoaderResults } from "../types";
 import BackButton from "../components/BackButton";
 import { clickVibrate, createCounterColorStyles, decrement, increment, reset } from "../utils";
 import ContextMenuItem from "../components/ContextMenuItem";
 import { useContext } from "react";
 import { globalSettingsContext } from "../App";
-import { useLiveQuery } from "dexie-react-hooks";
 import MiniCounter from "../components/MiniCounter";
 
 import "./CounterPage.scss";
 
-// TODO: sub-counters w/ just names and colors (make counter display from list page into reusable component? should also have reset button, maybe to the side)
 // TODO (nice to have): Ravelry integration, including generic login, to link with specific project
 
 export const action: ActionFunction = async ({ params, request }) => {
@@ -54,11 +52,9 @@ export const action: ActionFunction = async ({ params, request }) => {
 
 // clickVibrate is called onClick instead of in action to avoid tiny but noticeable delay
 function CounterPage() {
-  const counter = useLoaderData() as Counter;
+  const { counter, subCounters } = useLoaderData() as CounterLoaderResults;
   const fetcher = useFetcher();
   const { globalSettings } = useContext(globalSettingsContext);
-  const { subCounters: subIDs } = counter;
-  const subCounters = useLiveQuery(() => db.subCounters.bulkGet(subIDs));
 
   return (
     <IonPage id="counter-page">
@@ -106,7 +102,7 @@ function CounterPage() {
           </fetcher.Form>
           {/* TODO: add reset button to one side and edit/delete buttons to the other */ }
           {/* also add context menu option that toggles global setting for whether to show those buttons (show checkbox) */}
-          {subIDs.length > 0 && <div className="sub-counters">
+          {subCounters.length > 0 && <div className="sub-counters">
             {subCounters?.map(sc => sc && (
               <div key={sc.id} className="sub-counters__counter">
                 <MiniCounter counter={sc} />
