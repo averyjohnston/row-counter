@@ -30,13 +30,14 @@ export const action: ActionFunction = async ({ params, request }) => {
   const idNum = parseInt(id);
   const isSub = formData.get('isSubCounter') === 'true';
 
+  // TODO: update confirm messages to account for it being a sub-counter
   if (request.method === 'DELETE') {
     if (!confirm('Are you sure you want to delete this counter?')) {
       document.querySelector<HTMLIonPopoverElement>('ion-popover')?.dismiss();
       return false;
     }
 
-    // TODO: also delete all sub-counters
+    // TODO: also delete all sub-counters if this isn't a sub itself
     await db.counters.delete(idNum);
     return redirect('/');
   } else if (request.method === 'POST') {
@@ -111,14 +112,11 @@ function CounterPage() {
               <div className="increment-inner" style={createCounterColorStyles(counter)}>{counter.count}</div>
             </button>
           </fetcher.Form>
-          {/* TODO: add reset button to one side and edit/delete buttons to the other */ }
+          {/* TODO: add reset button to one side and edit/delete buttons to the other */}
           {/* also add context menu option that toggles global setting for whether to show those buttons (show checkbox) */}
+          {/* action is already mostly in place, should just need to copy existing logic */}
           {subCounters.length > 0 && <div className="sub-counters">
-            {subCounters?.map(sc => sc && (
-              <div key={sc.id} className="sub-counters__counter">
-                <MiniCounter counter={sc} />
-              </div>
-            ))}
+            {subCounters?.map(sc => sc && <MiniCounter key={sc.id} counter={sc} /> )}
           </div>}
         </div>
       </IonContent>

@@ -8,7 +8,10 @@ import { Link, useFetcher } from "react-router-dom";
 
 import './MiniCounter.scss';
 
-export default function MiniCounter(props: { counter: Counter | SubCounter }) {
+export default function MiniCounter(props: {
+  counter: Counter | SubCounter,
+  showButtons?: boolean
+}) {
   const { counter } = props;
   const { globalSettings } = useContext(globalSettingsContext);
   const isSub = isSubCounter(counter);
@@ -29,24 +32,26 @@ export default function MiniCounter(props: { counter: Counter | SubCounter }) {
 
   // clickVibrate is called onClick instead of in action to avoid tiny but noticeable delay
   return (
-    <div className="mini-counter" style={createCounterColorStyles(counter)}>
-      <fetcher.Form method="post">
-        <button className="mini-counter__button" onClick={globalSettings.haptics ? clickVibrate : undefined}>
-          <IonIcon icon={removeCircleOutline} />
-        </button>
-        {makeHiddenInputs('decrement')}
-      </fetcher.Form>
-      {/* TODO: consider doing this instead https://stackoverflow.com/a/69831173 */}
-      {isSub ?
-        <div className="mini-counter__info">{info}</div> :
-        <Link className="mini-counter__info" to={`counters/${(counter as Counter).id}`}>{info}</Link>
-      }
-      <fetcher.Form method="post">
-        <button className="mini-counter__button" onClick={globalSettings.haptics ? clickVibrate : undefined}>
-          <IonIcon icon={addCircleOutline} />
-        </button>
-        {makeHiddenInputs('increment')}
-      </fetcher.Form>
+    <div className="mini-counter">
+      <div className="mini-counter__counter" style={createCounterColorStyles(counter)}>
+        <fetcher.Form method="post">
+          <button className="mini-counter__button" onClick={globalSettings.haptics ? clickVibrate : undefined}>
+            <IonIcon icon={removeCircleOutline} />
+          </button>
+          {makeHiddenInputs('decrement')}
+        </fetcher.Form>
+        {/* TODO: consider doing this instead https://stackoverflow.com/a/69831173 */}
+        {isSub ?
+          <div className="mini-counter__info">{info}</div> :
+          <Link className="mini-counter__info" to={`counters/${(counter as Counter).id}`}>{info}</Link>
+        }
+        <fetcher.Form method="post">
+          <button className="mini-counter__button" onClick={globalSettings.haptics ? clickVibrate : undefined}>
+            <IonIcon icon={addCircleOutline} />
+          </button>
+          {makeHiddenInputs('increment')}
+        </fetcher.Form>
+      </div>
     </div>
   );
 }
