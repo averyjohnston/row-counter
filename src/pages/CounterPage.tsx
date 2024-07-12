@@ -117,9 +117,9 @@ function CounterPage() {
                 <IonList>
                   <ContextMenuItem action="edit">Edit</ContextMenuItem>
                   <ContextMenuItem to="new-sub">New sub-counter</ContextMenuItem>
-                  {subCounters.length > 0 && <IonItem lines="none">
+                  <IonItem lines="none">
                     <BasicSettingToggle settingKey="showMiniCounterExtraButtons" renderCheckbox={true}>Show sub-counter extras</BasicSettingToggle>
-                  </IonItem>}
+                  </IonItem>
                   <ContextMenuItem method="delete">Delete</ContextMenuItem>
                 </IonList>
               </IonContent>
