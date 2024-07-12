@@ -8,10 +8,9 @@ import './CounterForm.scss';
 
 function CounterForm(props: CounterFormProps & {
   submitText?: string,
-  isSubCounter?: boolean,
   counterID?: number
 }) {
-  const { name, color: defaultColor, resetValue, submitText, isSubCounter, counterID } = props;
+  const { name, color: defaultColor, resetValue, submitText, counterID } = props;
   const [color, setColor] = useState(defaultColor);
 
   const nameInputRef = useRef<HTMLIonInputElement>(null);
@@ -50,7 +49,6 @@ function CounterForm(props: CounterFormProps & {
         <IonItem>
           <IonInput label="Reset Value" labelPlacement="stacked" type="number" name="resetValue" required ref={resetValueInputRef}></IonInput>
         </IonItem>
-        {isSubCounter && <input type="hidden" name="isSubCounter" value="true" />}
         {counterID !== undefined && <input type="hidden" name="counterID" value={counterID} />}
         <IonButton type="submit" expand="block" className="ion-margin-top">{submitText || 'Submit'}</IonButton>
       </IonList>

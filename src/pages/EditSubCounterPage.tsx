@@ -54,7 +54,7 @@ function EditSubCounterPage() {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        <CounterForm {...displayedCounter} isSubCounter={true} counterID={subCounter.id} submitText="Save Changes" />
+        <CounterForm {...displayedCounter} counterID={subCounter.id} submitText="Save Changes" />
       </IonContent>
     </IonPage>
   )
