@@ -116,7 +116,7 @@ function CounterPage() {
               <div className="increment-inner" style={createCounterColorStyles(counter)}>{counter.count}</div>
             </button>
           </fetcher.Form>
-          {subCounters.length > 0 && <div className="sub-counters">
+          {subCounters.length > 0 && <div className={`sub-counters ${globalSettings.showMiniCounterExtraButtons ? 'sub-counters--has-extra-buttons' : ''}`}>
             {subCounters?.map(sc => sc && <MiniCounter key={sc.id} counter={sc} showExtraButtons={globalSettings.showMiniCounterExtraButtons} /> )}
           </div>}
         </div>
