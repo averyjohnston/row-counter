@@ -39,18 +39,26 @@ export const action: ActionFunction = async ({ params, request }) => {
       return false;
     }
 
-    // if it's not a sub-counter, first delete any sub-counters it had
-    if (!isSub) {
+    // if it's a sub-counter, remove it from the parent's ID list
+    if (isSub) {
+      const parentID = parseInt(params.id!);
+      await db.counters.where({ id: parentID }).modify(parentCounter => {
+        const index = parentCounter.subCounters.indexOf(idNum);
+        if (index === -1) return;
+        parentCounter.subCounters.splice(index, 1);
+      });
+    } else {
+      // if it's not a sub-counter, first delete any sub-counters it had
       const counter = await db.counters.get(idNum);
       const subCounters = counter?.subCounters;
       await db.subCounters.bulkDelete(subCounters || []);
-      return redirect('/');
     }
 
+    // now delete the counter we originally interacted with
     const table = isSub ? 'subCounters' : 'counters';
     await db[table].delete(idNum);
 
-    return true;
+    return isSub ? true : redirect('/');
   } else if (request.method === 'POST') {
     const intent = formData.get('intent');
 
