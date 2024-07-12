@@ -1,4 +1,4 @@
-import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonList, IonPage, IonPopover, IonTitle, IonToolbar } from "@ionic/react";
+import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonList, IonPage, IonPopover, IonTitle, IonToolbar } from "@ionic/react";
 import { ellipsisVertical, removeCircleOutline, refreshCircleOutline } from 'ionicons/icons';
 import { ActionFunction, redirect, useFetcher, useLoaderData } from "react-router-dom";
 import { db } from "../db";
@@ -9,6 +9,7 @@ import ContextMenuItem from "../components/ContextMenuItem";
 import { useContext } from "react";
 import { globalSettingsContext } from "../App";
 import MiniCounter from "../components/MiniCounter";
+import BasicSettingToggle from "../components/BasicSettingToggle";
 
 import "./CounterPage.scss";
 
@@ -96,9 +97,11 @@ function CounterPage() {
             <IonPopover trigger="more-options">
               <IonContent>
                 <IonList>
-                  {/* add option to toggle mini counter extra buttons as a global option (show checkbox) */}
                   <ContextMenuItem action="edit">Edit</ContextMenuItem>
                   <ContextMenuItem to="new-sub">New sub-counter</ContextMenuItem>
+                  {subCounters.length > 0 && <IonItem lines="none">
+                    <BasicSettingToggle settingKey="showMiniCounterExtraButtons" renderCheckbox={true}>Show sub-counter extras</BasicSettingToggle>
+                  </IonItem>}
                   <ContextMenuItem method="delete">Delete</ContextMenuItem>
                 </IonList>
               </IonContent>
@@ -114,7 +117,7 @@ function CounterPage() {
             </button>
           </fetcher.Form>
           {subCounters.length > 0 && <div className="sub-counters">
-            {subCounters?.map(sc => sc && <MiniCounter key={sc.id} counter={sc} showExtraButtons={true} /> )}
+            {subCounters?.map(sc => sc && <MiniCounter key={sc.id} counter={sc} showExtraButtons={globalSettings.showMiniCounterExtraButtons} /> )}
           </div>}
         </div>
       </IonContent>

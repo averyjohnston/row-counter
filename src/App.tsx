@@ -19,7 +19,8 @@ setupIonicReact();
 const DEFAULT_SETTINGS: GlobalSettings = {
   darkMode: false,
   screenLock: false,
-  haptics: true
+  haptics: true,
+  showMiniCounterExtraButtons: true
 };
 
 export const globalSettingsContext = createContext<{

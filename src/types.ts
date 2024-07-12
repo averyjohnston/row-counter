@@ -18,7 +18,8 @@ export type Counter = SubCounter & {
 export type GlobalSettings = {
   darkMode: boolean,
   screenLock: boolean,
-  haptics: boolean
+  haptics: boolean,
+  showMiniCounterExtraButtons: boolean
 }
 
 export type CounterLoaderResults = {
