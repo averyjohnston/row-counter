@@ -3,8 +3,8 @@ import { Counter, SubCounter } from "../types";
 import { clickVibrate, createCounterColorStyles, isSubCounter } from "../utils";
 import { globalSettingsContext } from "../App";
 import { IonButton, IonIcon } from "@ionic/react";
-import { removeCircleOutline, addCircleOutline, refreshCircleOutline, trashOutline } from "ionicons/icons";
-import { Link, useFetcher } from "react-router-dom";
+import { removeCircleOutline, addCircleOutline, refreshCircleOutline, trashOutline, createOutline } from "ionicons/icons";
+import { Form, Link, useFetcher } from "react-router-dom";
 
 import './MiniCounter.scss';
 
@@ -24,7 +24,8 @@ export default function MiniCounter(props: {
 
   // TODO: is there a better way to do this that doesn't involve rendering a million inputs?
   // maybe imperitive submits instead so it can be put in a helper func?
-  const makeHiddenInputs = (intent: string) => {
+  // or the state prop on the forms? (can you do that with a fetcher?)
+  const makeHiddenInputs = (intent?: string) => {
     return <>
       <input type="hidden" name="intent" value={intent} />
       <input type="hidden" name="counterID" value={counter.id} />
@@ -33,7 +34,6 @@ export default function MiniCounter(props: {
   };
 
   // clickVibrate is called onClick instead of in action to avoid tiny but noticeable delay
-  // TODO: add reset button to one side and edit/delete buttons to the other
   return (
     <div className="mini-counter">
       {showExtraButtons && <div className="mini-counter__extra-buttons">
@@ -64,6 +64,7 @@ export default function MiniCounter(props: {
           {makeHiddenInputs('increment')}
         </fetcher.Form>
       </div>
+      {/* TODO: consider moving these into a dropdown menu so it's symmetrical */}
       {showExtraButtons && <div className="mini-counter__extra-buttons">
         <fetcher.Form method="delete">
           <IonButton type="submit" fill="clear">
@@ -71,6 +72,12 @@ export default function MiniCounter(props: {
           </IonButton>
           {makeHiddenInputs('delete')}
         </fetcher.Form>
+        <Form action="edit-sub">
+          <IonButton type="submit" fill="clear">
+            <IonIcon slot="icon-only" size="large" icon={createOutline} />
+          </IonButton>
+          <input type="hidden" name="counterID" value={counter.id} />
+        </Form>
       </div>}
     </div>
   );

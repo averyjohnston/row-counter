@@ -11,6 +11,7 @@ import { createContext, useEffect, useState } from 'react';
 import { GlobalSettings } from './types.ts';
 import useWakeLock from 'react-use-wake-lock';
 import NewSubCounterPage, { action as newSubCounterPageAction } from './pages/NewSubCounterPage.tsx';
+import EditSubCounterPage, { action as editSubCounterPageAction, loader as editSubCounterPageLoader } from './pages/EditSubCounterPage.tsx';
 
 setupIonicReact();
 
@@ -82,6 +83,12 @@ const router = createBrowserRouter([
         path: "counters/:id/new-sub",
         element: <NewSubCounterPage />,
         action: newSubCounterPageAction
+      },
+      {
+        path: "counters/:id/edit-sub",
+        element: <EditSubCounterPage />,
+        action: editSubCounterPageAction,
+        loader: editSubCounterPageLoader
       },
       {
         path: "settings",
