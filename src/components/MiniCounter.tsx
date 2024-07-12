@@ -3,7 +3,7 @@ import { Counter, SubCounter } from "../types";
 import { clickVibrate, createCounterColorStyles, isSubCounter } from "../utils";
 import { globalSettingsContext } from "../App";
 import { IonButton, IonIcon } from "@ionic/react";
-import { removeCircleOutline, addCircleOutline, refreshCircleOutline } from "ionicons/icons";
+import { removeCircleOutline, addCircleOutline, refreshCircleOutline, trashOutline } from "ionicons/icons";
 import { Link, useFetcher } from "react-router-dom";
 
 import './MiniCounter.scss';
@@ -22,6 +22,8 @@ export default function MiniCounter(props: {
     <p>{counter.count}</p>
   </>;
 
+  // TODO: is there a better way to do this that doesn't involve rendering a million inputs?
+  // maybe imperitive submits instead so it can be put in a helper func?
   const makeHiddenInputs = (intent: string) => {
     return <>
       <input type="hidden" name="intent" value={intent} />
@@ -62,6 +64,14 @@ export default function MiniCounter(props: {
           {makeHiddenInputs('increment')}
         </fetcher.Form>
       </div>
+      {showExtraButtons && <div className="mini-counter__extra-buttons">
+        <fetcher.Form method="delete">
+          <IonButton type="submit" fill="clear">
+            <IonIcon slot="icon-only" size="large" icon={trashOutline} />
+          </IonButton>
+          {makeHiddenInputs('delete')}
+        </fetcher.Form>
+      </div>}
     </div>
   );
 }

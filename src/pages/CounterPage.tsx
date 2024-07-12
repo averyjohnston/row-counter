@@ -32,15 +32,25 @@ export const action: ActionFunction = async ({ params, request }) => {
   const isSub = formData.get('isSubCounter') === 'true';
 
   // TODO: update confirm messages to account for it being a sub-counter
+  // for main counters, also note that all sub-counters will be deleted too
   if (request.method === 'DELETE') {
     if (!confirm('Are you sure you want to delete this counter?')) {
       document.querySelector<HTMLIonPopoverElement>('ion-popover')?.dismiss();
       return false;
     }
 
-    // TODO: also delete all sub-counters if this isn't a sub itself
-    await db.counters.delete(idNum);
-    return redirect('/');
+    // if it's not a sub-counter, first delete any sub-counters it had
+    if (!isSub) {
+      const counter = await db.counters.get(idNum);
+      const subCounters = counter?.subCounters;
+      await db.subCounters.bulkDelete(subCounters || []);
+      return redirect('/');
+    }
+
+    const table = isSub ? 'subCounters' : 'counters';
+    await db[table].delete(idNum);
+
+    return true;
   } else if (request.method === 'POST') {
     const intent = formData.get('intent');
 
