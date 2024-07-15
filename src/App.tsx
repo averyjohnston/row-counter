@@ -16,6 +16,7 @@ import EditSubCounterPage, { action as editSubCounterPageAction, loader as editS
 setupIonicReact();
 
 // TODO: add stricter linting, especially for quote types and import order
+// TODO: View Transitions API? only supported in Chromium atm so make sure it fails gracefully
 
 const DEFAULT_SETTINGS: GlobalSettings = {
   darkMode: false,
