@@ -27,7 +27,8 @@ module.exports = {
     '@stylistic/jsx-wrap-multilines': 'warn',
     '@typescript-eslint/consistent-type-imports': 'warn',
     'sort-imports': ['warn', {
-      ignoreDeclarationSort: true
+      ignoreDeclarationSort: true,
+      ignoreCase: true,
     }]
   },
 }
