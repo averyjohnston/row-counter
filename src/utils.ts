@@ -1,17 +1,17 @@
-import { CSSProperties } from "react";
-import { db } from "./db";
-import { Counter, CounterFormProps, SubCounter } from "./types";
+import type { CSSProperties } from 'react';
+import { db } from './db';
+import type { Counter, CounterFormProps, SubCounter } from './types';
 
 // TODO: check if any of these are only used in one place and move to there instead if so
 
 export function createDefaultCounter(): Counter {
   return {
     id: 0,
-    name: "",
+    name: '',
     count: 0,
     color: '#f5f5f5',
     resetValue: 0,
-    subCounters: []
+    subCounters: [],
   };
 }
 
@@ -23,7 +23,7 @@ export function createDefaultSubCounter(): SubCounter {
 export function createCounterColorStyles(counter: Counter | SubCounter): CSSProperties {
   return {
     '--background': counter.color,
-    '--color': getContrastColor(counter.color)
+    '--color': getContrastColor(counter.color),
   };
 }
 
@@ -74,7 +74,7 @@ export function parseFormData(formData: FormData): CounterFormProps {
   return {
     name: name.toString(),
     color: color.toString(),
-    resetValue: parseInt(resetValue.toString())
+    resetValue: parseInt(resetValue.toString()),
   };
 }
 

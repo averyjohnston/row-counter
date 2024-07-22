@@ -8,5 +8,5 @@ export const db = new Dexie('CountersDatabase') as Dexie & {
 
 db.version(4).stores({
   counters: '++id, name',
-  subCounters: '++id, name'
+  subCounters: '++id, name',
 });

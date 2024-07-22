@@ -1,6 +1,7 @@
 import { IonApp, setupIonicReact } from '@ionic/react';
-import CounterListPage, { loader as counterListPageLoader, action as CounterListPageAction } from './pages/CounterListPage';
-import { LoaderFunction, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import CounterListPage, { action as CounterListPageAction, loader as counterListPageLoader } from './pages/CounterListPage';
+import type { LoaderFunction } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { db } from './db';
 import ErrorPage from './pages/ErrorPage.tsx';
 import CounterPage, { action as counterPageAction } from './pages/CounterPage.tsx';
@@ -8,7 +9,7 @@ import NewCounterPage, { action as newCounterPageAction } from './pages/NewCount
 import EditCounterPage, { action as editCounterPageAction } from './pages/EditCounterPage.tsx';
 import SettingsPage from './pages/SettingsPage.tsx';
 import { createContext, useEffect, useState } from 'react';
-import { GlobalSettings } from './types.ts';
+import type { GlobalSettings } from './types.ts';
 import useWakeLock from 'react-use-wake-lock';
 import NewSubCounterPage, { action as newSubCounterPageAction } from './pages/NewSubCounterPage.tsx';
 import EditSubCounterPage, { action as editSubCounterPageAction, loader as editSubCounterPageLoader } from './pages/EditSubCounterPage.tsx';
@@ -22,7 +23,7 @@ const DEFAULT_SETTINGS: GlobalSettings = {
   darkMode: false,
   screenLock: false,
   haptics: true,
-  showMiniCounterExtraButtons: true
+  showMiniCounterExtraButtons: true,
 };
 
 export const globalSettingsContext = createContext<{
@@ -30,7 +31,7 @@ export const globalSettingsContext = createContext<{
   saveGlobalSettings: (newSettings: GlobalSettings) => void
 }>({
   globalSettings: { ...DEFAULT_SETTINGS },
-  saveGlobalSettings: () => {}
+  saveGlobalSettings: () => {},
 });
 
 const counterLoader: LoaderFunction = async ({ params }) => {
@@ -49,7 +50,7 @@ const counterLoader: LoaderFunction = async ({ params }) => {
 
   return {
     counter,
-    subCounters
+    subCounters,
   };
 };
 
@@ -58,45 +59,45 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/",
+        path: '/',
         element: <CounterListPage />,
         loader: counterListPageLoader,
-        action: CounterListPageAction
+        action: CounterListPageAction,
       },
       {
-        path: "counters/:id",
+        path: 'counters/:id',
         element: <CounterPage />,
         loader: counterLoader,
-        action: counterPageAction
+        action: counterPageAction,
       },
       {
-        path: "counters/new",
+        path: 'counters/new',
         element: <NewCounterPage />,
-        action: newCounterPageAction
+        action: newCounterPageAction,
       },
       {
-        path: "counters/:id/edit",
+        path: 'counters/:id/edit',
         element: <EditCounterPage />,
         loader: counterLoader,
-        action: editCounterPageAction
+        action: editCounterPageAction,
       },
       {
-        path: "counters/:id/new-sub",
+        path: 'counters/:id/new-sub',
         element: <NewSubCounterPage />,
-        action: newSubCounterPageAction
+        action: newSubCounterPageAction,
       },
       {
-        path: "counters/:id/edit-sub",
+        path: 'counters/:id/edit-sub',
         element: <EditSubCounterPage />,
         action: editSubCounterPageAction,
-        loader: editSubCounterPageLoader
+        loader: editSubCounterPageLoader,
       },
       {
-        path: "settings",
-        element: <SettingsPage />
-      }
-    ]
-  }
+        path: 'settings',
+        element: <SettingsPage />,
+      },
+    ],
+  },
 ]);
 
 export default function App() {
@@ -124,7 +125,7 @@ export default function App() {
 
     setGlobalSettings({
       ...globalSettings,
-      ...parsedSettings
+      ...parsedSettings,
     });
   }, []);
 

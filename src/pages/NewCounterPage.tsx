@@ -1,9 +1,10 @@
-import { IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react";
-import { ActionFunction, redirect } from "react-router-dom";
-import { db } from "../db";
-import CounterForm from "../components/CounterForm";
-import BackButton from "../components/BackButton";
-import { createDefaultCounter, parseFormData } from "../utils";
+import { IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import type { ActionFunction } from 'react-router-dom';
+import { redirect } from 'react-router-dom';
+import { db } from '../db';
+import CounterForm from '../components/CounterForm';
+import BackButton from '../components/BackButton';
+import { createDefaultCounter, parseFormData } from '../utils';
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
@@ -12,7 +13,7 @@ export const action: ActionFunction = async ({ request }) => {
   // don't specify the ID so Dexie can get it from auto-incrementing
   await db.counters.add({
     ...defaultCounterNoId,
-    ...parseFormData(formData)
+    ...parseFormData(formData),
   });
 
   return redirect('/');

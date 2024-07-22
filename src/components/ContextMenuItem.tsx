@@ -1,8 +1,10 @@
-import { IonItem } from "@ionic/react";
-import { PropsWithChildren, useRef } from "react";
-import { Form, FormMethod, Link } from "react-router-dom";
+import { IonItem } from '@ionic/react';
+import type { PropsWithChildren } from 'react';
+import { useRef } from 'react';
+import type { FormMethod } from 'react-router-dom';
+import { Form, Link } from 'react-router-dom';
 
-import "./ContextMenuItem.scss";
+import './ContextMenuItem.scss';
 
 /**
  * IonItem button={true} type="submit" doesn't work because the button is rendered

@@ -1,10 +1,10 @@
-import { useContext } from "react";
-import { Counter, SubCounter } from "../types";
-import { clickVibrate, createCounterColorStyles, isSubCounter } from "../utils";
-import { globalSettingsContext } from "../App";
-import { IonButton, IonIcon } from "@ionic/react";
-import { removeCircleOutline, addCircleOutline, refreshCircleOutline, trashOutline, createOutline } from "ionicons/icons";
-import { Form, Link, useFetcher } from "react-router-dom";
+import { useContext } from 'react';
+import type { Counter, SubCounter } from '../types';
+import { clickVibrate, createCounterColorStyles, isSubCounter } from '../utils';
+import { globalSettingsContext } from '../App';
+import { IonButton, IonIcon } from '@ionic/react';
+import { addCircleOutline, createOutline, refreshCircleOutline, removeCircleOutline, trashOutline } from 'ionicons/icons';
+import { Form, Link, useFetcher } from 'react-router-dom';
 
 import './MiniCounter.scss';
 
@@ -42,7 +42,7 @@ export default function MiniCounter(props: {
             <IonIcon slot="icon-only" size="large" icon={refreshCircleOutline} />
           </IonButton>
           {makeHiddenInputs('reset')}
-          <input type="hidden" name="hapticsEnabled" value={globalSettings.haptics ? "true" : "false"} />
+          <input type="hidden" name="hapticsEnabled" value={globalSettings.haptics ? 'true' : 'false'} />
         </fetcher.Form>
       </div>}
       <div className="mini-counter__counter" style={createCounterColorStyles(counter)}>

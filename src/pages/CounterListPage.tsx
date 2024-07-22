@@ -1,10 +1,11 @@
-import { ActionFunction, Link, LoaderFunction, useLoaderData } from 'react-router-dom';
+import type { ActionFunction, LoaderFunction} from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import { IonButton, IonButtons, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { add, settingsOutline } from 'ionicons/icons';
 import { db } from '../db';
 import MiniCounter from '../components/MiniCounter';
-import { Counter } from '../types';
-import { increment, decrement } from '../utils';
+import type { Counter } from '../types';
+import { decrement, increment } from '../utils';
 
 import './CounterListPage.scss';
 
@@ -54,7 +55,7 @@ function CounterListPage() {
         <IonFab slot="fixed" horizontal="end" vertical="bottom">
           <Link to="counters/new">
             <IonFabButton>
-              <IonIcon icon={add}></IonIcon>
+              <IonIcon icon={add} />
             </IonFabButton>
           </Link>
         </IonFab>

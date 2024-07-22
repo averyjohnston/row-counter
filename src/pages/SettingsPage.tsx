@@ -1,9 +1,9 @@
-import { IonButtons, IonContent, IonHeader, IonItem, IonLabel, IonList, IonNote, IonPage, IonTitle, IonToggle, IonToolbar } from "@ionic/react";
-import BackButton from "../components/BackButton";
-import { useContext, useState } from "react";
-import { globalSettingsContext } from "../App";
-import useWakeLock from "react-use-wake-lock";
-import BasicSettingToggle from "../components/BasicSettingToggle";
+import { IonButtons, IonContent, IonHeader, IonItem, IonLabel, IonList, IonNote, IonPage, IonTitle, IonToggle, IonToolbar } from '@ionic/react';
+import BackButton from '../components/BackButton';
+import { useContext, useState } from 'react';
+import { globalSettingsContext } from '../App';
+import useWakeLock from 'react-use-wake-lock';
+import BasicSettingToggle from '../components/BasicSettingToggle';
 
 export default function SettingsPage() {
   const { globalSettings, saveGlobalSettings } = useContext(globalSettingsContext);
@@ -51,7 +51,7 @@ export default function SettingsPage() {
 
               saveGlobalSettings({
                 ...globalSettings,
-                screenLock: shouldLock
+                screenLock: shouldLock,
               });
             }}>
               <IonLabel>Screen always on</IonLabel>

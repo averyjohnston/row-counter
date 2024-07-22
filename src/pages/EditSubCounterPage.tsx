@@ -1,10 +1,11 @@
-import { IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react";
-import { ActionFunction, LoaderFunction, redirect, useLoaderData, useNavigation, useParams } from "react-router-dom";
-import { db } from "../db";
-import CounterForm from "../components/CounterForm";
-import { SubCounter } from "../types";
-import BackButton from "../components/BackButton";
-import { parseFormData } from "../utils";
+import { IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import type { ActionFunction, LoaderFunction } from 'react-router-dom';
+import { redirect, useLoaderData, useNavigation, useParams } from 'react-router-dom';
+import { db } from '../db';
+import CounterForm from '../components/CounterForm';
+import type { SubCounter } from '../types';
+import BackButton from '../components/BackButton';
+import { parseFormData } from '../utils';
 
 export const loader: LoaderFunction = async ({ request }) => {
   const params = new URL(request.url).searchParams;
@@ -48,7 +49,7 @@ function EditSubCounterPage() {
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <BackButton to={`/counters/${parentID}`}></BackButton>
+            <BackButton to={`/counters/${parentID}`} />
           </IonButtons>
           <IonTitle>Edit Sub-Counter: {subCounter.name}</IonTitle>
         </IonToolbar>

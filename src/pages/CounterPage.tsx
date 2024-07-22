@@ -1,17 +1,18 @@
-import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonList, IonPage, IonPopover, IonTitle, IonToolbar } from "@ionic/react";
-import { ellipsisVertical, removeCircleOutline, refreshCircleOutline } from 'ionicons/icons';
-import { ActionFunction, redirect, useFetcher, useLoaderData } from "react-router-dom";
-import { db } from "../db";
-import { CounterLoaderResults } from "../types";
-import BackButton from "../components/BackButton";
-import { clickVibrate, createCounterColorStyles, decrement, increment, reset } from "../utils";
-import ContextMenuItem from "../components/ContextMenuItem";
-import { useContext } from "react";
-import { globalSettingsContext } from "../App";
-import MiniCounter from "../components/MiniCounter";
-import BasicSettingToggle from "../components/BasicSettingToggle";
+import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonList, IonPage, IonPopover, IonTitle, IonToolbar } from '@ionic/react';
+import { ellipsisVertical, refreshCircleOutline, removeCircleOutline } from 'ionicons/icons';
+import type { ActionFunction } from 'react-router-dom';
+import { redirect, useFetcher, useLoaderData } from 'react-router-dom';
+import { db } from '../db';
+import type { CounterLoaderResults } from '../types';
+import BackButton from '../components/BackButton';
+import { clickVibrate, createCounterColorStyles, decrement, increment, reset } from '../utils';
+import ContextMenuItem from '../components/ContextMenuItem';
+import { useContext } from 'react';
+import { globalSettingsContext } from '../App';
+import MiniCounter from '../components/MiniCounter';
+import BasicSettingToggle from '../components/BasicSettingToggle';
 
-import "./CounterPage.scss";
+import './CounterPage.scss';
 
 // TODO (nice to have): Ravelry integration, including generic login, to link with specific project
 
@@ -107,7 +108,7 @@ function CounterPage() {
                 <IonIcon slot="icon-only" icon={refreshCircleOutline} />
               </IonButton>
               <input type="hidden" name="intent" value="reset" />
-              <input type="hidden" name="hapticsEnabled" value={globalSettings.haptics ? "true" : "false"} />
+              <input type="hidden" name="hapticsEnabled" value={globalSettings.haptics ? 'true' : 'false'} />
             </fetcher.Form>
             <IonButton id="more-options">
               <IonIcon slot="icon-only" icon={ellipsisVertical} />
