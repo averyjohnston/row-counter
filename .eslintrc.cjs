@@ -25,6 +25,9 @@ module.exports = {
     '@stylistic/jsx-self-closing-comp': 'warn',
     '@stylistic/jsx-wrap-multilines': 'warn',
     '@typescript-eslint/consistent-type-imports': 'warn',
+    '@typescript-eslint/no-base-to-string': ['warn', {
+      ignoredTypeNames: ['Error', 'FormDataEntryValue', 'RegExp', 'URL', 'URLSearchParams']
+    }],
     'sort-imports': ['warn', {
       ignoreDeclarationSort: true,
       ignoreCase: true,
