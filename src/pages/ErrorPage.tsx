@@ -7,7 +7,8 @@ function ErrorPage() {
 
   let errorMessage: string = '';
   if (isRouteErrorResponse(error)) {
-    errorMessage = error.data.message || error.statusText;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+    errorMessage = error.data?.message || error.statusText;
   } else if (error instanceof Error) {
     errorMessage = error.message;
   } else if(typeof error === 'string') {
