@@ -15,7 +15,7 @@ import EditSubCounterPage, { action as editSubCounterPageAction, loader as editS
 
 setupIonicReact();
 
-// TODO: add stricter linting, especially for quote types and import order
+// TODO: try this out once everything else is fixed https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md
 // TODO: View Transitions API? only supported in Chromium atm so make sure it fails gracefully
 
 const DEFAULT_SETTINGS: GlobalSettings = {

@@ -26,5 +26,7 @@ module.exports = {
     '@stylistic/spaced-comment': 'warn',
     '@stylistic/jsx-self-closing-comp': 'warn',
     '@stylistic/jsx-wrap-multilines': 'warn',
+    '@typescript-eslint/consistent-type-imports': 'warn',
+    'sort-imports': 'warn'
   },
 }
