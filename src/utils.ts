@@ -16,7 +16,7 @@ export function createDefaultCounter(): Counter {
 }
 
 export function createDefaultSubCounter(): SubCounter {
-  const { subCounters, ...defaultCounterNoSubs } = createDefaultCounter();
+  const { subCounters: _, ...defaultCounterNoSubs } = createDefaultCounter();
   return defaultCounterNoSubs;
 }
 

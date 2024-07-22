@@ -36,7 +36,7 @@ export const action: ActionFunction = async ({ params, request }) => {
   // for main counters, also note that all sub-counters will be deleted too
   if (request.method === 'DELETE') {
     if (!confirm('Are you sure you want to delete this counter?')) {
-      document.querySelector<HTMLIonPopoverElement>('ion-popover')?.dismiss();
+      void document.querySelector<HTMLIonPopoverElement>('ion-popover')?.dismiss();
       return false;
     }
 
@@ -76,7 +76,7 @@ export const action: ActionFunction = async ({ params, request }) => {
       }
     }
 
-    throw new Error(`Unknown form intent: ${intent}`);
+    throw new Error(`Unknown form intent: ${intent?.toString()}`);
   }
 
   throw new Error(`Unknown request type: ${request.method}`);

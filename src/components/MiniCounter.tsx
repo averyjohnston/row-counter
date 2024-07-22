@@ -17,20 +17,24 @@ export default function MiniCounter(props: {
   const isSub = isSubCounter(counter);
   const fetcher = useFetcher();
 
-  const info = <>
-    <p>{counter.name}</p>
-    <p>{counter.count}</p>
-  </>;
+  const info = (
+    <>
+      <p>{counter.name}</p>
+      <p>{counter.count}</p>
+    </>
+  );
 
   // TODO: is there a better way to do this that doesn't involve rendering a million inputs?
   // maybe imperitive submits instead so it can be put in a helper func?
   // or the state prop on the forms? (can you do that with a fetcher?)
   const makeHiddenInputs = (intent?: string) => {
-    return <>
-      <input type="hidden" name="intent" value={intent} />
-      <input type="hidden" name="counterID" value={counter.id} />
-      <input type="hidden" name="isSubCounter" value={isSub + ''} />
-    </>;
+    return (
+      <>
+        <input type="hidden" name="intent" value={intent} />
+        <input type="hidden" name="counterID" value={counter.id} />
+        <input type="hidden" name="isSubCounter" value={isSub + ''} />
+      </>
+    );
   };
 
   // clickVibrate is called onClick instead of in action to avoid tiny but noticeable delay

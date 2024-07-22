@@ -8,7 +8,7 @@ import { createDefaultCounter, createDefaultSubCounter, parseFormData } from '..
 
 export const action: ActionFunction = async ({ request, params }) => {
   const formData = await request.formData();
-  const { id: defaultID, ...defaultSubCounterNoId } = createDefaultSubCounter();
+  const { id: _, ...defaultSubCounterNoId } = createDefaultSubCounter();
   const { id } = params;
   const parentID = parseInt(id!);
 

@@ -27,7 +27,7 @@ export const action: ActionFunction = async ({ request }) => {
     case 'decrement': return await decrement(idNum, isSub);
   }
 
-  throw new Error(`Unknown form intent: ${intent}`);
+  throw new Error(`Unknown form intent: ${intent?.toString()}`);
 };
 
 function CounterListPage() {

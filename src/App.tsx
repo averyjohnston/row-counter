@@ -107,7 +107,7 @@ export default function App() {
   useEffect(() => {
     const savedSettings = localStorage.getItem(GLOBAL_SETTINGS_KEY);
     if (!savedSettings) return;
-    const parsedSettings = JSON.parse(savedSettings);
+    const parsedSettings = JSON.parse(savedSettings) as GlobalSettings;
 
     if (parsedSettings.screenLock) {
       if (document.visibilityState === 'visible') {
@@ -127,7 +127,7 @@ export default function App() {
       ...globalSettings,
       ...parsedSettings,
     });
-  }, []);
+  }, [globalSettings, request]);
 
   const saveGlobalSettings = (newSettings: GlobalSettings) => {
     localStorage.setItem(GLOBAL_SETTINGS_KEY, JSON.stringify(newSettings));
