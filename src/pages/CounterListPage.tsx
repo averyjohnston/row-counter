@@ -17,7 +17,9 @@ export const loader: LoaderFunction = async () => {
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
   const intent = formData.get('intent');
-  const idNum = parseInt(formData.get('counterID')?.toString()!);
+  const counterID = formData.get('counterID');
+  if (counterID === null) throw new Error('Missing counter ID');
+  const idNum = parseInt(counterID.toString());
   const isSub = formData.get('isSubCounter') === 'true';
 
   switch (intent) {
