@@ -15,9 +15,6 @@ module.exports = {
   },
   plugins: ['react-refresh', '@stylistic'],
   rules: {
-    'react-refresh/only-export-components': ['warn', {
-      allowConstantExport: true
-    }],
     '@stylistic/quotes': ['warn', 'single'],
     '@stylistic/no-extra-parens': ['warn', 'all', {
       ignoreJSX: 'multi-line'
