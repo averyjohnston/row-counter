@@ -27,7 +27,7 @@ function CounterForm(props: CounterFormProps & {
       nameInputRef.current.value = name;
       resetValueInputRef.current.value = resetValue;
     }
-  }, [nameInputRef, resetValueInputRef]);
+  }, [nameInputRef, resetValueInputRef, name, resetValue]);
 
   return (
     <Form method="post" className="counter-form">
