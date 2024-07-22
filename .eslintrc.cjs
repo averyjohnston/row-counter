@@ -28,6 +28,11 @@ module.exports = {
     '@typescript-eslint/no-base-to-string': ['warn', {
       ignoredTypeNames: ['Error', 'FormDataEntryValue', 'RegExp', 'URL', 'URLSearchParams']
     }],
+    '@typescript-eslint/no-unused-vars': ['error', {
+      argsIgnorePattern: '^_',
+      varsIgnorePattern: '^_',
+      caughtErrorsIgnorePattern: '^_'
+    }],
     'sort-imports': ['warn', {
       ignoreDeclarationSort: true,
       ignoreCase: true,
