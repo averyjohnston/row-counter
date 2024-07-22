@@ -19,7 +19,9 @@ module.exports = {
       allowConstantExport: true
     }],
     '@stylistic/quotes': ['warn', 'single'],
-    '@stylistic/no-extra-parens': 'warn',
+    '@stylistic/no-extra-parens': ['warn', 'all', {
+      ignoreJSX: 'multi-line'
+    }],
     '@stylistic/comma-dangle': ['warn', 'always-multiline'],
     '@stylistic/jsx-quotes': 'warn',
     '@stylistic/spaced-comment': 'warn',
