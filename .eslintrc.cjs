@@ -15,10 +15,9 @@ module.exports = {
   },
   plugins: ['react-refresh', '@stylistic'],
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
+    'react-refresh/only-export-components': ['warn', {
+      allowConstantExport: true
+    }],
     '@stylistic/quotes': ['warn', 'single'],
     '@stylistic/no-extra-parens': 'warn',
     '@stylistic/comma-dangle': ['warn', 'always-multiline'],
@@ -27,6 +26,8 @@ module.exports = {
     '@stylistic/jsx-self-closing-comp': 'warn',
     '@stylistic/jsx-wrap-multilines': 'warn',
     '@typescript-eslint/consistent-type-imports': 'warn',
-    'sort-imports': 'warn'
+    'sort-imports': ['warn', {
+      ignoreDeclarationSort: true
+    }]
   },
 }
