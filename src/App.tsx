@@ -127,7 +127,9 @@ export default function App() {
       ...globalSettings,
       ...parsedSettings,
     });
-  }, [globalSettings, request]);
+  // false positive on missing deps; causes infinite loop rerenders
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const saveGlobalSettings = (newSettings: GlobalSettings) => {
     localStorage.setItem(GLOBAL_SETTINGS_KEY, JSON.stringify(newSettings));
