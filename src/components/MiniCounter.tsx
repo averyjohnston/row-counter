@@ -1,12 +1,13 @@
-import { IonButton, IonIcon } from '@ionic/react';
-import { addCircleOutline, createOutline, refreshCircleOutline, removeCircleOutline, trashOutline } from 'ionicons/icons';
+import { IonButton, IonContent, IonIcon, IonList, IonPopover } from '@ionic/react';
+import { addCircleOutline, ellipsisVertical, refreshCircleOutline, removeCircleOutline } from 'ionicons/icons';
 import { useContext } from 'react';
-import { Form, Link, useFetcher } from 'react-router-dom';
+import { Link, useFetcher } from 'react-router-dom';
 
 import { globalSettingsContext } from '../App';
 import type { Counter, SubCounter } from '../types';
 import { clickVibrate, createCounterColorStyles, isSubCounter } from '../utils';
 
+import ContextMenuItem from './ContextMenuItem';
 import './MiniCounter.scss';
 
 export default function MiniCounter(props: {
@@ -37,6 +38,8 @@ export default function MiniCounter(props: {
       </>
     );
   };
+
+  const moreOptionsButtonID = `more-options-${counter.id}`;
 
   // clickVibrate is called onClick instead of in action to avoid tiny but noticeable delay
   return (
@@ -69,20 +72,24 @@ export default function MiniCounter(props: {
           {makeHiddenInputs('increment')}
         </fetcher.Form>
       </div>
-      {/* TODO: consider moving these into a dropdown menu so it's symmetrical */}
       {showExtraButtons && <div className="mini-counter__extra-buttons">
-        <fetcher.Form method="delete">
-          <IonButton type="submit" fill="clear">
-            <IonIcon slot="icon-only" size="large" icon={trashOutline} />
-          </IonButton>
-          {makeHiddenInputs('delete')}
-        </fetcher.Form>
-        <Form action="edit-sub">
-          <IonButton type="submit" fill="clear">
-            <IonIcon slot="icon-only" size="large" icon={createOutline} />
-          </IonButton>
-          <input type="hidden" name="counterID" value={counter.id} />
-        </Form>
+        <IonButton fill="clear" id={moreOptionsButtonID}>
+          <IonIcon slot="icon-only" icon={ellipsisVertical} />
+        </IonButton>
+        <IonPopover trigger={moreOptionsButtonID}>
+          <IonContent>
+            <IonList>
+              <ContextMenuItem action="edit-sub">
+                Edit
+                <input type="hidden" name="counterID" value={counter.id} />
+              </ContextMenuItem>
+              <ContextMenuItem method="delete">
+                Delete
+                {makeHiddenInputs('delete')}
+              </ContextMenuItem>
+            </IonList>
+          </IonContent>
+        </IonPopover>
       </div>}
     </div>
   );
