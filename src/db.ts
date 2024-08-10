@@ -1,4 +1,5 @@
 import Dexie, { type EntityTable } from 'dexie';
+
 import type { Counter, SubCounter } from './types';
 
 export const db = new Dexie('CountersDatabase') as Dexie & {

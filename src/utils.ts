@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react';
+
 import { db } from './db';
 import type { Counter, CounterFormProps, SubCounter } from './types';
 
