@@ -34,7 +34,6 @@ export const action: ActionFunction = async ({ request }) => {
 function CounterListPage() {
   const counters = useLoaderData() as Counter[];
   const countersEmpty = counters.length === 0;
-  // TODO: loading message (maybe render at app level instead?)
 
   return (
     <IonPage id="counter-list-page">
