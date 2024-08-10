@@ -32,11 +32,11 @@ export const action: ActionFunction = async ({ params, request }) => {
 
   const idNum = parseInt(id);
   const isSub = formData.get('isSubCounter') === 'true';
+  const counterTypeStr = isSub ? 'sub-counter' : 'counter';
 
-  // TODO: update confirm messages to account for it being a sub-counter
   // for main counters, also note that all sub-counters will be deleted too
   if (request.method === 'DELETE') {
-    if (!confirm('Are you sure you want to delete this counter?')) {
+    if (!confirm(`Are you sure you want to delete this ${counterTypeStr}?`)) {
       void document.querySelector<HTMLIonPopoverElement>('ion-popover')?.dismiss();
       return false;
     }
@@ -68,7 +68,7 @@ export const action: ActionFunction = async ({ params, request }) => {
       case 'increment': return await increment(idNum, isSub);
       case 'decrement': return await decrement(idNum, isSub);
       case 'reset': {
-        if (!confirm('Are you sure you want to reset this counter to its reset value?')) {
+        if (!confirm(`Are you sure you want to reset this ${counterTypeStr} to its reset value?`)) {
           return false;
         }
 
