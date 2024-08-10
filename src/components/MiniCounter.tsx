@@ -70,7 +70,7 @@ export default function MiniCounter(props: {
         <IonPopover trigger={moreOptionsButtonID}>
           <IonContent>
             <IonList>
-              {/* TODO: consider replacing with another version of ContextMenuItem */}
+              {/* TODO: consider replacing with some version of ContextMenuItem */}
               <IonItem lines="none" button={true} onClick={() => {
                 submit({
                   counterID: counter.id,

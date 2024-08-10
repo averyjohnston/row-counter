@@ -6,6 +6,8 @@ import { Form, Link } from 'react-router-dom';
 
 import './ContextMenuItem.scss';
 
+// TODO: split into different components for form and link
+
 /**
  * IonItem button={true} type="submit" doesn't work because the button is rendered
  * in the shadow DOM, so submit events don't make it to the Form. Render a hidden
