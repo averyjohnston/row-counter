@@ -3,8 +3,6 @@ import type { CSSProperties } from 'react';
 import { db } from './db';
 import type { Counter, CounterFormProps, SubCounter } from './types';
 
-// TODO: check if any of these are only used in one place and move to there instead if so
-
 export function createDefaultCounter(): Counter {
   return {
     id: 0,
@@ -21,14 +19,7 @@ export function createDefaultSubCounter(): SubCounter {
   return defaultCounterNoSubs;
 }
 
-export function createCounterColorStyles(counter: Counter | SubCounter): CSSProperties {
-  return {
-    '--background': counter.color,
-    '--color': getContrastColor(counter.color),
-  };
-}
-
-export function getContrastColor(baseColor: string) {
+function getContrastColor(baseColor: string) {
   const black = '#000000';
   const white = '#ffffff';
 
@@ -51,7 +42,14 @@ export function getContrastColor(baseColor: string) {
 
   // https://stackoverflow.com/a/3943023
   // 150 is a luminance threshold and can be adjusted to taste
-  return rgb[0]*0.299 + rgb[1]*0.587 + rgb[2]*0.114 > 150 ? black : white;
+  return rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114 > 150 ? black : white;
+}
+
+export function createCounterColorStyles(counter: Counter | SubCounter): CSSProperties {
+  return {
+    '--background': counter.color,
+    '--color': getContrastColor(counter.color),
+  };
 }
 
 export async function increment(counterID: number, isSubCounter = false) {
