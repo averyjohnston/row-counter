@@ -34,53 +34,48 @@ export const action: ActionFunction = async ({ params, request }) => {
   const isSub = formData.get('isSubCounter') === 'true';
   const counterTypeStr = isSub ? 'sub-counter' : 'counter';
 
-  // for main counters, also note that all sub-counters will be deleted too
-  if (request.method === 'DELETE') {
-    if (!confirm(`Are you sure you want to delete this ${counterTypeStr}?`)) {
-      void document.querySelector<HTMLIonPopoverElement>('ion-popover')?.dismiss();
-      return false;
-    }
-
-    // if it's a sub-counter, remove it from the parent's ID list
-    if (isSub) {
-      const parentID = parseInt(params.id!);
-      await db.counters.where({ id: parentID }).modify(parentCounter => {
-        const index = parentCounter.subCounters.indexOf(idNum);
-        if (index === -1) return;
-        parentCounter.subCounters.splice(index, 1);
-      });
-    } else {
-      // if it's not a sub-counter, first delete any sub-counters it had
-      const counter = await db.counters.get(idNum);
-      const subCounters = counter?.subCounters;
-      await db.subCounters.bulkDelete(subCounters || []);
-    }
-
-    // now delete the counter we originally interacted with
-    const table = isSub ? 'subCounters' : 'counters';
-    await db[table].delete(idNum);
-
-    return isSub ? true : redirect('/');
-  } else if (request.method === 'POST') {
-    const intent = formData.get('intent');
-
-    switch (intent) {
-      case 'increment': return await increment(idNum, isSub);
-      case 'decrement': return await decrement(idNum, isSub);
-      case 'reset': {
-        if (!confirm(`Are you sure you want to reset this ${counterTypeStr} to its reset value?`)) {
-          return false;
-        }
-
-        if (formData.get('hapticsEnabled') === 'true') clickVibrate();
-        return await reset(idNum, isSub);
+  const intent = formData.get('intent');
+  switch (intent) {
+    case 'increment': return await increment(idNum, isSub);
+    case 'decrement': return await decrement(idNum, isSub);
+    case 'reset': {
+      if (!confirm(`Are you sure you want to reset this ${counterTypeStr} to its reset value?`)) {
+        return false;
       }
-    }
 
-    throw new Error(`Unknown form intent: ${intent?.toString()}`);
+      if (formData.get('hapticsEnabled') === 'true') clickVibrate();
+      return await reset(idNum, isSub);
+    }
+    case 'delete': {
+      if (!confirm(`Are you sure you want to delete this ${counterTypeStr}?`)) {
+        void document.querySelector<HTMLIonPopoverElement>('ion-popover')?.dismiss();
+        return false;
+      }
+
+      // if it's a sub-counter, remove it from the parent's ID list
+      if (isSub) {
+        const parentID = parseInt(params.id!);
+        await db.counters.where({ id: parentID }).modify(parentCounter => {
+          const index = parentCounter.subCounters.indexOf(idNum);
+          if (index === -1) return;
+          parentCounter.subCounters.splice(index, 1);
+        });
+      } else {
+        // if it's not a sub-counter, first delete any sub-counters it had
+        const counter = await db.counters.get(idNum);
+        const subCounters = counter?.subCounters;
+        await db.subCounters.bulkDelete(subCounters || []);
+      }
+
+      // now delete the counter we originally interacted with
+      const table = isSub ? 'subCounters' : 'counters';
+      await db[table].delete(idNum);
+
+      return isSub ? true : redirect('/');
+    }
   }
 
-  throw new Error(`Unknown request type: ${request.method}`);
+  throw new Error(`Unknown form intent: ${intent?.toString()}`);
 }
 
 // clickVibrate is called onClick instead of in action to avoid tiny but noticeable delay
@@ -122,6 +117,7 @@ function CounterPage() {
                   <IonItem lines="none">
                     <BasicSettingToggle settingKey="showMiniCounterExtraButtons" renderCheckbox={true}>Show sub-counter extras</BasicSettingToggle>
                   </IonItem>
+                  {/* TODO: update to use intent instead */}
                   <ContextMenuItem method="delete">Delete</ContextMenuItem>
                 </IonList>
               </IonContent>
