@@ -1,10 +1,11 @@
-import { useContext } from 'react';
-import type { Counter, SubCounter } from '../types';
-import { clickVibrate, createCounterColorStyles, isSubCounter } from '../utils';
-import { globalSettingsContext } from '../App';
 import { IonButton, IonIcon } from '@ionic/react';
 import { addCircleOutline, createOutline, refreshCircleOutline, removeCircleOutline, trashOutline } from 'ionicons/icons';
+import { useContext } from 'react';
 import { Form, Link, useFetcher } from 'react-router-dom';
+
+import { globalSettingsContext } from '../App';
+import type { Counter, SubCounter } from '../types';
+import { clickVibrate, createCounterColorStyles, isSubCounter } from '../utils';
 
 import './MiniCounter.scss';
 

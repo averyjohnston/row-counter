@@ -1,9 +1,10 @@
-import type { ActionFunction, LoaderFunction} from 'react-router-dom';
-import { Link, useLoaderData } from 'react-router-dom';
 import { IonButton, IonButtons, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { add, settingsOutline } from 'ionicons/icons';
-import { db } from '../db';
+import type { ActionFunction, LoaderFunction} from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
+
 import MiniCounter from '../components/MiniCounter';
+import { db } from '../db';
 import type { Counter } from '../types';
 import { decrement, increment } from '../utils';
 

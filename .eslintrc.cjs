@@ -13,7 +13,7 @@ module.exports = {
   parserOptions: {
     project: ['tsconfig.json']
   },
-  plugins: ['react-refresh', '@stylistic'],
+  plugins: ['react-refresh', '@stylistic', 'import'],
   rules: {
     '@stylistic/quotes': ['warn', 'single'],
     '@stylistic/no-extra-parens': ['warn', 'all', {
@@ -36,6 +36,14 @@ module.exports = {
     'sort-imports': ['warn', {
       ignoreDeclarationSort: true,
       ignoreCase: true,
+    }],
+    'import/order': ['warn', {
+      'newlines-between': 'always',
+      alphabetize: {
+        order: 'asc',
+        caseInsensitive: true,
+      },
+      warnOnUnassignedImports: true
     }]
   },
 }

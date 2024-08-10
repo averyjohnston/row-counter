@@ -1,8 +1,9 @@
 import { IonCheckbox, IonToggle } from '@ionic/react';
-import type { GlobalSettings } from '../types';
 import type { PropsWithChildren } from 'react';
 import { useContext } from 'react';
+
 import { globalSettingsContext } from '../App';
+import type { GlobalSettings } from '../types';
 
 export default function BasicSettingToggle(props: PropsWithChildren<{
   settingKey: keyof GlobalSettings,

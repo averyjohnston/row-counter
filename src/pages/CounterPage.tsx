@@ -1,16 +1,17 @@
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonList, IonPage, IonPopover, IonTitle, IonToolbar } from '@ionic/react';
 import { ellipsisVertical, refreshCircleOutline, removeCircleOutline } from 'ionicons/icons';
+import { useContext } from 'react';
 import type { ActionFunction } from 'react-router-dom';
 import { redirect, useFetcher, useLoaderData } from 'react-router-dom';
+
+import { globalSettingsContext } from '../App';
+import BackButton from '../components/BackButton';
+import BasicSettingToggle from '../components/BasicSettingToggle';
+import ContextMenuItem from '../components/ContextMenuItem';
+import MiniCounter from '../components/MiniCounter';
 import { db } from '../db';
 import type { CounterLoaderResults } from '../types';
-import BackButton from '../components/BackButton';
 import { clickVibrate, createCounterColorStyles, decrement, increment, reset } from '../utils';
-import ContextMenuItem from '../components/ContextMenuItem';
-import { useContext } from 'react';
-import { globalSettingsContext } from '../App';
-import MiniCounter from '../components/MiniCounter';
-import BasicSettingToggle from '../components/BasicSettingToggle';
 
 import './CounterPage.scss';
 

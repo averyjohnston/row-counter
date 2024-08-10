@@ -1,9 +1,10 @@
 import { IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import type { ActionFunction } from 'react-router-dom';
 import { redirect } from 'react-router-dom';
-import { db } from '../db';
-import CounterForm from '../components/CounterForm';
+
 import BackButton from '../components/BackButton';
+import CounterForm from '../components/CounterForm';
+import { db } from '../db';
 import { createDefaultCounter, parseFormData } from '../utils';
 
 export const action: ActionFunction = async ({ request }) => {

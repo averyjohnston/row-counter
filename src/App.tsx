@@ -1,22 +1,22 @@
 import { IonApp, setupIonicReact } from '@ionic/react';
-import CounterListPage, { action as CounterListPageAction, loader as counterListPageLoader } from './pages/CounterListPage';
+import { createContext, useEffect, useState } from 'react';
 import type { LoaderFunction } from 'react-router-dom';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { db } from './db';
-import ErrorPage from './pages/ErrorPage.tsx';
-import CounterPage, { action as counterPageAction } from './pages/CounterPage.tsx';
-import NewCounterPage, { action as newCounterPageAction } from './pages/NewCounterPage.tsx';
-import EditCounterPage, { action as editCounterPageAction } from './pages/EditCounterPage.tsx';
-import SettingsPage from './pages/SettingsPage.tsx';
-import { createContext, useEffect, useState } from 'react';
-import type { GlobalSettings } from './types.ts';
 import useWakeLock from 'react-use-wake-lock';
-import NewSubCounterPage, { action as newSubCounterPageAction } from './pages/NewSubCounterPage.tsx';
+
+import { db } from './db';
+import CounterListPage, { action as CounterListPageAction, loader as counterListPageLoader } from './pages/CounterListPage';
+import CounterPage, { action as counterPageAction } from './pages/CounterPage.tsx';
+import EditCounterPage, { action as editCounterPageAction } from './pages/EditCounterPage.tsx';
 import EditSubCounterPage, { action as editSubCounterPageAction, loader as editSubCounterPageLoader } from './pages/EditSubCounterPage.tsx';
+import ErrorPage from './pages/ErrorPage.tsx';
+import NewCounterPage, { action as newCounterPageAction } from './pages/NewCounterPage.tsx';
+import NewSubCounterPage, { action as newSubCounterPageAction } from './pages/NewSubCounterPage.tsx';
+import SettingsPage from './pages/SettingsPage.tsx';
+import type { GlobalSettings } from './types.ts';
 
 setupIonicReact();
 
-// TODO: try this out once everything else is fixed https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md
 // TODO: View Transitions API? only supported in Chromium atm so make sure it fails gracefully
 
 const DEFAULT_SETTINGS: GlobalSettings = {

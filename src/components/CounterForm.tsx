@@ -1,8 +1,9 @@
 import { IonButton, IonInput, IonItem, IonLabel, IonList, IonPopover } from '@ionic/react';
-import { Form } from 'react-router-dom';
-import type { CounterFormProps } from '../types';
 import { useEffect, useRef, useState } from 'react';
 import { HexColorInput, HexColorPicker } from 'react-colorful';
+import { Form } from 'react-router-dom';
+
+import type { CounterFormProps } from '../types';
 
 import './CounterForm.scss';
 

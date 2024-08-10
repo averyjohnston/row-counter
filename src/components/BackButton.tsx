@@ -1,6 +1,6 @@
 import { IonButton, IonIcon } from '@ionic/react';
-import { Link } from 'react-router-dom';
 import { arrowBack } from 'ionicons/icons';
+import { Link } from 'react-router-dom';
 
 function BackButton(props: { to?: string }) {
   const { to } = props;
