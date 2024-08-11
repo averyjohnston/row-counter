@@ -26,6 +26,9 @@ export const action: ActionFunction = async ({ params, request }) => {
 
   // if there's an ID specified in the form, we're dealing with a sub-counter
   // otherwise, it's the main counter, so just use the ID in the URL
+  // TODO: could we always pass counterID, even for main counters, and avoid checking the URL?
+  // if not, isSub could probably be removed instead and counterID renamed to subCounterID or something
+  // former seems more extensible though, and less confusing
   const idFromForm = formData.get('counterID');
   if (idFromForm !== null) {
     id = idFromForm.toString();
