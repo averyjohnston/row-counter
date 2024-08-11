@@ -138,6 +138,7 @@ function CounterPage() {
             </button>
           </fetcher.Form>
           {subCounters.length > 0 && <div className={`sub-counters ${globalSettings.showMiniCounterExtraButtons ? 'sub-counters--has-extra-buttons' : ''}`}>
+            {/* TODO: can showExtraButtons prop be removed in lieu of MiniCounter checking that itself? */}
             {subCounters?.map(sc => sc && <MiniCounter key={sc.id} counter={sc} showExtraButtons={globalSettings.showMiniCounterExtraButtons} /> )}
           </div>}
         </div>
