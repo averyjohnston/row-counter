@@ -7,7 +7,7 @@ import { globalSettingsContext } from '../App';
 import type { Counter, SubCounter } from '../types';
 import { clickVibrate, createCounterColorStyles, isSubCounter } from '../utils';
 
-import ContextMenuItemForm from './ContextMenuItemForm';
+import ContextMenuItemAction from './ContextMenuItemAction';
 import './MiniCounter.scss';
 
 export default function MiniCounter(props: {
@@ -76,11 +76,11 @@ export default function MiniCounter(props: {
         <IonPopover trigger={moreOptionsButtonID}>
           <IonContent>
             <IonList>
-              <ContextMenuItemForm action="edit-sub" formData={{ counterID: counter.id }}>Edit</ContextMenuItemForm>
-              <ContextMenuItemForm method="post" formData={{
+              <ContextMenuItemAction action="edit-sub" formData={{ counterID: counter.id }}>Edit</ContextMenuItemAction>
+              <ContextMenuItemAction method="post" formData={{
                 ...submissionInPlaceFormData,
                 intent: 'delete',
-              }}>Delete</ContextMenuItemForm>
+              }}>Delete</ContextMenuItemAction>
             </IonList>
           </IonContent>
         </IonPopover>

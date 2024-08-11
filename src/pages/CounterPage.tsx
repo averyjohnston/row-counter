@@ -7,7 +7,7 @@ import { redirect, useFetcher, useLoaderData } from 'react-router-dom';
 import { globalSettingsContext } from '../App';
 import BackButton from '../components/BackButton';
 import BasicSettingToggle from '../components/BasicSettingToggle';
-import ContextMenuItemForm from '../components/ContextMenuItemForm';
+import ContextMenuItemAction from '../components/ContextMenuItemAction';
 import ContextMenuItemLink from '../components/ContextMenuItemLink';
 import MiniCounter from '../components/MiniCounter';
 import { db } from '../db';
@@ -121,12 +121,12 @@ function CounterPage() {
             <IonPopover trigger="more-options">
               <IonContent>
                 <IonList>
-                  <ContextMenuItemForm action="edit">Edit</ContextMenuItemForm>
+                  <ContextMenuItemAction action="edit">Edit</ContextMenuItemAction>
                   <ContextMenuItemLink to="new-sub">New sub-counter</ContextMenuItemLink>
                   <IonItem lines="none">
                     <BasicSettingToggle settingKey="showMiniCounterExtraButtons" renderCheckbox={true}>Show sub-counter extras</BasicSettingToggle>
                   </IonItem>
-                  <ContextMenuItemForm method="post" formData={{ intent: 'delete' }}>Delete</ContextMenuItemForm>
+                  <ContextMenuItemAction method="post" formData={{ intent: 'delete' }}>Delete</ContextMenuItemAction>
                 </IonList>
               </IonContent>
             </IonPopover>

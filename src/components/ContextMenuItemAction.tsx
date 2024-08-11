@@ -15,7 +15,7 @@ import type { SubmitTarget } from 'react-router-dom/dist/dom';
  *    to the surrounding Form. The workaround would be to render a hidden
  *    button and pass clicks to that instead, but that was deemed unwieldy.
  */
-export default function ContextMenuItemForm(props: PropsWithChildren<{ method?: FormMethod, action?: string, formData?: SubmitTarget }>) {
+export default function ContextMenuItemAction(props: PropsWithChildren<{ method?: FormMethod, action?: string, formData?: SubmitTarget }>) {
   const { method, action, formData, children } = props;
   const submit = useSubmit();
 
