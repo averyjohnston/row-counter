@@ -99,9 +99,9 @@ function CounterPage() {
               <IonIcon slot="icon-only" icon={removeCircleOutline} />
             </ButtonAction>
             <ButtonAction ionButton={true} formData={{
-                intent: 'reset',
-                hapticsEnabled: globalSettings.haptics + '',
-              }}>
+              intent: 'reset',
+              hapticsEnabled: globalSettings.haptics + '',
+            }}>
               <IonIcon slot="icon-only" icon={refreshCircleOutline} />
             </ButtonAction>
             <IonButton id="more-options">
