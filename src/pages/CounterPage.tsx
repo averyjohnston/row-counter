@@ -7,7 +7,8 @@ import { redirect, useFetcher, useLoaderData } from 'react-router-dom';
 import { globalSettingsContext } from '../App';
 import BackButton from '../components/BackButton';
 import BasicSettingToggle from '../components/BasicSettingToggle';
-import ContextMenuItem from '../components/ContextMenuItem';
+import ContextMenuItemForm from '../components/ContextMenuItemForm';
+import ContextMenuItemLink from '../components/ContextMenuItemLink';
 import MiniCounter from '../components/MiniCounter';
 import { db } from '../db';
 import type { CounterLoaderResults } from '../types';
@@ -85,6 +86,7 @@ function CounterPage() {
   const { globalSettings } = useContext(globalSettingsContext);
 
   // avoids needing to render a bunch of hidden inputs in forms
+  // TODO: consider replacing; see similar function in MiniCounter
   const submitWithoutNavigation = (intent: string, vibrate: boolean = false) => {
     // vibrate before action gets called to avoid tiny but noticeable delay
     if (vibrate && globalSettings.haptics) clickVibrate();
@@ -118,14 +120,12 @@ function CounterPage() {
             <IonPopover trigger="more-options">
               <IonContent>
                 <IonList>
-                  {/* TODO next: replace with imperative submits where it makes sense */}
-                  <ContextMenuItem action="edit">Edit</ContextMenuItem>
-                  <ContextMenuItem to="new-sub">New sub-counter</ContextMenuItem>
+                  <ContextMenuItemForm action="edit">Edit</ContextMenuItemForm>
+                  <ContextMenuItemLink to="new-sub">New sub-counter</ContextMenuItemLink>
                   <IonItem lines="none">
                     <BasicSettingToggle settingKey="showMiniCounterExtraButtons" renderCheckbox={true}>Show sub-counter extras</BasicSettingToggle>
                   </IonItem>
-                  {/* TODO: update to use intent instead */}
-                  <ContextMenuItem method="delete">Delete</ContextMenuItem>
+                  <ContextMenuItemForm method="post" formData={{ intent: 'delete' }}>Delete</ContextMenuItemForm>
                 </IonList>
               </IonContent>
             </IonPopover>
