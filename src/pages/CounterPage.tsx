@@ -84,6 +84,19 @@ function CounterPage() {
   const fetcher = useFetcher();
   const { globalSettings } = useContext(globalSettingsContext);
 
+  // avoids needing to render a bunch of hidden inputs in forms
+  const submitWithoutNavigation = (intent: string, vibrate: boolean = false) => {
+    // vibrate before action gets called to avoid tiny but noticeable delay
+    if (vibrate && globalSettings.haptics) clickVibrate();
+
+    fetcher.submit({
+      intent,
+      hapticsEnabled: globalSettings.haptics ? 'true' : 'false',
+    }, {
+      method: 'post',
+    })
+  };
+
   return (
     <IonPage id="counter-page">
       <IonHeader>
@@ -93,25 +106,19 @@ function CounterPage() {
           </IonButtons>
           <IonTitle>{counter?.name}</IonTitle>
           <IonButtons slot="primary">
-            <fetcher.Form method="post">
-              <IonButton type="submit" onClick={globalSettings.haptics ? clickVibrate : undefined}>
-                <IonIcon slot="icon-only" icon={removeCircleOutline} />
-              </IonButton>
-              <input type="hidden" name="intent" value="decrement" />
-            </fetcher.Form>
-            <fetcher.Form method="post">
-              <IonButton type="submit">
-                <IonIcon slot="icon-only" icon={refreshCircleOutline} />
-              </IonButton>
-              <input type="hidden" name="intent" value="reset" />
-              <input type="hidden" name="hapticsEnabled" value={globalSettings.haptics ? 'true' : 'false'} />
-            </fetcher.Form>
+            <IonButton type="submit" onClick={() => submitWithoutNavigation('decrement', true)}>
+              <IonIcon slot="icon-only" icon={removeCircleOutline} />
+            </IonButton>
+            <IonButton type="submit" onClick={() => submitWithoutNavigation('reset')}>
+              <IonIcon slot="icon-only" icon={refreshCircleOutline} />
+            </IonButton>
             <IonButton id="more-options">
               <IonIcon slot="icon-only" icon={ellipsisVertical} />
             </IonButton>
             <IonPopover trigger="more-options">
               <IonContent>
                 <IonList>
+                  {/* TODO next: replace with imperative submits where it makes sense */}
                   <ContextMenuItem action="edit">Edit</ContextMenuItem>
                   <ContextMenuItem to="new-sub">New sub-counter</ContextMenuItem>
                   <IonItem lines="none">
