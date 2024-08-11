@@ -7,6 +7,7 @@ import { redirect, useFetcher, useLoaderData } from 'react-router-dom';
 import { globalSettingsContext } from '../App';
 import BackButton from '../components/BackButton';
 import BasicSettingToggle from '../components/BasicSettingToggle';
+import ButtonAction from '../components/ButtonAction';
 import ContextMenuItemAction from '../components/ContextMenuItemAction';
 import ContextMenuItemLink from '../components/ContextMenuItemLink';
 import MiniCounter from '../components/MiniCounter';
@@ -86,19 +87,7 @@ function CounterPage() {
   const fetcher = useFetcher();
   const { globalSettings } = useContext(globalSettingsContext);
 
-  // avoids needing to render a bunch of hidden inputs in forms
-  // TODO: consider replacing; see similar function in MiniCounter
-  const submitWithoutNavigation = (intent: string, vibrate: boolean = false) => {
-    // vibrate before action gets called to avoid tiny but noticeable delay
-    if (vibrate && globalSettings.haptics) clickVibrate();
-
-    fetcher.submit({
-      intent,
-      hapticsEnabled: globalSettings.haptics ? 'true' : 'false',
-    }, {
-      method: 'post',
-    })
-  };
+  const hapticsEnabled = globalSettings.haptics ? 'true' : 'false';
 
   return (
     <IonPage id="counter-page">
@@ -109,12 +98,12 @@ function CounterPage() {
           </IonButtons>
           <IonTitle>{counter?.name}</IonTitle>
           <IonButtons slot="primary">
-            <IonButton onClick={() => submitWithoutNavigation('decrement', true)}>
+            <ButtonAction ionButton={true} haptics={true} formData={{ intent: 'decrement', hapticsEnabled }}>
               <IonIcon slot="icon-only" icon={removeCircleOutline} />
-            </IonButton>
-            <IonButton onClick={() => submitWithoutNavigation('reset')}>
+            </ButtonAction>
+            <ButtonAction ionButton={true} formData={{ intent: 'reset', hapticsEnabled }}>
               <IonIcon slot="icon-only" icon={refreshCircleOutline} />
-            </IonButton>
+            </ButtonAction>
             <IonButton id="more-options">
               <IonIcon slot="icon-only" icon={ellipsisVertical} />
             </IonButton>
