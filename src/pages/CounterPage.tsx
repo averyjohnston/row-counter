@@ -109,10 +109,10 @@ function CounterPage() {
           </IonButtons>
           <IonTitle>{counter?.name}</IonTitle>
           <IonButtons slot="primary">
-            <IonButton type="submit" onClick={() => submitWithoutNavigation('decrement', true)}>
+            <IonButton onClick={() => submitWithoutNavigation('decrement', true)}>
               <IonIcon slot="icon-only" icon={removeCircleOutline} />
             </IonButton>
-            <IonButton type="submit" onClick={() => submitWithoutNavigation('reset')}>
+            <IonButton onClick={() => submitWithoutNavigation('reset')}>
               <IonIcon slot="icon-only" icon={refreshCircleOutline} />
             </IonButton>
             <IonButton id="more-options">

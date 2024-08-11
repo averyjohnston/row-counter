@@ -52,7 +52,7 @@ export default function MiniCounter(props: {
   return (
     <div className="mini-counter">
       {showExtraButtons && <div className="mini-counter__extra-buttons">
-        <IonButton type="submit" fill="clear" onClick={() => submitWithoutNavigation('reset')}>
+        <IonButton fill="clear" onClick={() => submitWithoutNavigation('reset')}>
           <IonIcon slot="icon-only" size="large" icon={refreshCircleOutline} />
         </IonButton>
       </div>}
