@@ -2,7 +2,7 @@ import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonList
 import { ellipsisVertical, refreshCircleOutline, removeCircleOutline } from 'ionicons/icons';
 import { useContext } from 'react';
 import type { ActionFunction } from 'react-router-dom';
-import { redirect, useFetcher, useLoaderData } from 'react-router-dom';
+import { redirect, useLoaderData } from 'react-router-dom';
 
 import { globalSettingsContext } from '../App';
 import BackButton from '../components/BackButton';
@@ -84,7 +84,6 @@ export const action: ActionFunction = async ({ params, request }) => {
 // clickVibrate is called onClick instead of in action to avoid tiny but noticeable delay
 function CounterPage() {
   const { counter, subCounters } = useLoaderData() as CounterLoaderResults;
-  const fetcher = useFetcher();
   const { globalSettings } = useContext(globalSettingsContext);
 
   return (
@@ -125,11 +124,9 @@ function CounterPage() {
       </IonHeader>
       <IonContent scrollY={false}>
         <div className="counter-display">
-          <fetcher.Form method="post" className="increment-wrapper" onClick={globalSettings.haptics ? clickVibrate : undefined}>
-            <button className="increment-button" name="intent" value="increment">
-              <div className="increment-inner" style={createCounterColorStyles(counter)}>{counter.count}</div>
-            </button>
-          </fetcher.Form>
+          <ButtonAction className="increment-button" haptics={true} formData={{ intent: 'increment' }}>
+            <div className="increment-inner" style={createCounterColorStyles(counter)}>{counter.count}</div>
+          </ButtonAction>
           {subCounters.length > 0 && <div className={`sub-counters ${globalSettings.showMiniCounterExtraButtons ? 'sub-counters--has-extra-buttons' : ''}`}>
             {/* TODO: can showExtraButtons prop be removed in lieu of MiniCounter checking that itself? */}
             {subCounters?.map(sc => sc && <MiniCounter key={sc.id} counter={sc} showExtraButtons={globalSettings.showMiniCounterExtraButtons} /> )}
