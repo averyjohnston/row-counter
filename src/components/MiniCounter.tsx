@@ -1,12 +1,13 @@
-import { IonButton, IonContent, IonIcon, IonItem, IonList, IonPopover } from '@ionic/react';
+import { IonButton, IonContent, IonIcon, IonList, IonPopover } from '@ionic/react';
 import { addCircleOutline, ellipsisVertical, refreshCircleOutline, removeCircleOutline } from 'ionicons/icons';
 import { useContext } from 'react';
-import { Link, useFetcher, useSubmit } from 'react-router-dom';
+import { Link, useFetcher } from 'react-router-dom';
 
 import { globalSettingsContext } from '../App';
 import type { Counter, SubCounter } from '../types';
 import { clickVibrate, createCounterColorStyles, isSubCounter } from '../utils';
 
+import ContextMenuItemForm from './ContextMenuItemForm';
 import './MiniCounter.scss';
 
 export default function MiniCounter(props: {
@@ -17,7 +18,6 @@ export default function MiniCounter(props: {
   const { globalSettings } = useContext(globalSettingsContext);
   const isSub = isSubCounter(counter);
   const fetcher = useFetcher();
-  const submit = useSubmit();
 
   const info = (
     <>
@@ -26,19 +26,25 @@ export default function MiniCounter(props: {
     </>
   );
 
-  // avoids needing to render a million hidden inputs in forms
+  // submitting this imperatively avoids needing to render a ton of hidden inputs
+  const submissionInPlaceFormData = {
+    counterID: counter.id,
+    isSubCounter: isSub + '',
+    hapticsEnabled: globalSettings.haptics ? 'true' : 'false',
+  };
+
+  // TODO: does it make sense to create a similar helper component for the buttons that use this?
+  // so we don't have this weird behavior duplication?
   const submitWithoutNavigation = (intent: string, vibrate: boolean = false) => {
     // vibrate before action gets called to avoid tiny but noticeable delay
     if (vibrate && globalSettings.haptics) clickVibrate();
 
     fetcher.submit({
       intent,
-      counterID: counter.id,
-      isSubCounter: isSub + '',
-      hapticsEnabled: globalSettings.haptics ? 'true' : 'false',
+      ...submissionInPlaceFormData,
     }, {
       method: 'post',
-    })
+    });
   };
 
   const moreOptionsButtonID = `more-options-${counter.id}`;
@@ -70,15 +76,11 @@ export default function MiniCounter(props: {
         <IonPopover trigger={moreOptionsButtonID}>
           <IonContent>
             <IonList>
-              {/* TODO: consider replacing with some version of ContextMenuItem */}
-              <IonItem lines="none" button={true} onClick={() => {
-                submit({
-                  counterID: counter.id,
-                }, {
-                  action: 'edit-sub',
-                })
-              }}>Edit</IonItem>
-              <IonItem lines="none" button={true} onClick={() => submitWithoutNavigation('delete')}>Delete</IonItem>
+              <ContextMenuItemForm action="edit-sub" formData={{ counterID: counter.id }}>Edit</ContextMenuItemForm>
+              <ContextMenuItemForm method="post" formData={{
+                ...submissionInPlaceFormData,
+                intent: 'delete',
+              }}>Delete</ContextMenuItemForm>
             </IonList>
           </IonContent>
         </IonPopover>
