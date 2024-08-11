@@ -26,11 +26,9 @@ export default function MiniCounter(props: {
     </>
   );
 
-  // submitting this imperatively avoids needing to render a ton of hidden inputs
-  const submissionInPlaceFormData = {
+  const counterData = {
     counterID: counter.id,
     isSubCounter: isSub + '',
-    hapticsEnabled: globalSettings.haptics ? 'true' : 'false',
   };
 
   const moreOptionsButtonID = `more-options-${counter.id}`;
@@ -40,16 +38,14 @@ export default function MiniCounter(props: {
       {showExtraButtons && <div className="mini-counter__extra-buttons">
         <ButtonAction ionButton={true} formData={{
           intent: 'reset',
-          ...submissionInPlaceFormData,
+          ...counterData,
+          hapticsEnabled: globalSettings.haptics + '',
         }}>
           <IonIcon slot="icon-only" size="large" icon={refreshCircleOutline} />
         </ButtonAction>
       </div>}
       <div className="mini-counter__counter" style={createCounterColorStyles(counter)}>
-        <ButtonAction haptics={true} className="mini-counter__button" formData={{
-          intent: 'decrement',
-          ...submissionInPlaceFormData,
-        }}>
+        <ButtonAction haptics={true} className="mini-counter__button" formData={{ intent: 'decrement', ...counterData }}>
           <IonIcon icon={removeCircleOutline} />
         </ButtonAction>
         {/* TODO: consider doing this instead https://stackoverflow.com/a/69831173 */}
@@ -57,10 +53,7 @@ export default function MiniCounter(props: {
           <div className="mini-counter__info">{info}</div> :
           <Link className="mini-counter__info" to={`counters/${(counter as Counter).id}`}>{info}</Link>
         }
-        <ButtonAction haptics={true} className="mini-counter__button" formData={{
-          intent: 'increment',
-          ...submissionInPlaceFormData,
-        }}>
+        <ButtonAction haptics={true} className="mini-counter__button" formData={{ intent: 'increment', ...counterData }}>
           <IonIcon icon={addCircleOutline} />
         </ButtonAction>
       </div>
@@ -72,10 +65,7 @@ export default function MiniCounter(props: {
           <IonContent>
             <IonList>
               <ContextMenuItemAction action="edit-sub" formData={{ counterID: counter.id }}>Edit</ContextMenuItemAction>
-              <ContextMenuItemAction method="post" formData={{
-                ...submissionInPlaceFormData,
-                intent: 'delete',
-              }}>Delete</ContextMenuItemAction>
+              <ContextMenuItemAction method="post" formData={{ intent: 'delete', ...counterData }}>Delete</ContextMenuItemAction>
             </IonList>
           </IonContent>
         </IonPopover>

@@ -87,8 +87,6 @@ function CounterPage() {
   const fetcher = useFetcher();
   const { globalSettings } = useContext(globalSettingsContext);
 
-  const hapticsEnabled = globalSettings.haptics ? 'true' : 'false';
-
   return (
     <IonPage id="counter-page">
       <IonHeader>
@@ -98,10 +96,13 @@ function CounterPage() {
           </IonButtons>
           <IonTitle>{counter?.name}</IonTitle>
           <IonButtons slot="primary">
-            <ButtonAction ionButton={true} haptics={true} formData={{ intent: 'decrement', hapticsEnabled }}>
+            <ButtonAction ionButton={true} haptics={true} formData={{ intent: 'decrement' }}>
               <IonIcon slot="icon-only" icon={removeCircleOutline} />
             </ButtonAction>
-            <ButtonAction ionButton={true} formData={{ intent: 'reset', hapticsEnabled }}>
+            <ButtonAction ionButton={true} formData={{
+                intent: 'reset',
+                hapticsEnabled: globalSettings.haptics + '',
+              }}>
               <IonIcon slot="icon-only" icon={refreshCircleOutline} />
             </ButtonAction>
             <IonButton id="more-options">
