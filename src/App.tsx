@@ -17,7 +17,8 @@ import type { GlobalSettings } from './types.ts';
 
 setupIonicReact();
 
-// TODO: View Transitions API? only supported in Chromium atm so make sure it fails gracefully
+// TODO: consider adding View Transitions API once it becomes stable in React Router and/or supported by more browsers
+// https://reactrouter.com/en/6.26.1/components/link#unstable_viewtransition
 
 const DEFAULT_SETTINGS: GlobalSettings = {
   darkMode: false,
