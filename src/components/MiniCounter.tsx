@@ -48,7 +48,6 @@ export default function MiniCounter(props: {
         <ButtonAction haptics={true} className="mini-counter__button" formData={{ intent: 'decrement', ...counterData }}>
           <IonIcon icon={removeCircleOutline} />
         </ButtonAction>
-        {/* TODO: consider doing this instead https://stackoverflow.com/a/69831173 */}
         {isSub ?
           <div className="mini-counter__info">{info}</div> :
           <Link className="mini-counter__info" to={`counters/${(counter as Counter).id}`}>{info}</Link>
