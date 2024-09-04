@@ -18,7 +18,6 @@ import { clickVibrate, createCounterColorStyles, decrement, increment, reset } f
 import './CounterPage.scss';
 
 // TODO (nice to have): Ravelry integration, including generic login, to link with specific project
-// TODO: anything we can do about that error ion-backdrop is generating on popover dismiss?
 
 export const action: ActionFunction = async ({ params, request }) => {
   const formData = await request.formData();
