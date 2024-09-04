@@ -15,6 +15,13 @@ export default function MiniCounter(props: {
   counter: Counter | SubCounter,
   showExtraButtons?: boolean
 }) {
+  /**
+   * Note: Even though the showExtraButtons prop is generally just a mirror for the
+   * showMiniCounterExtraButtons global setting, it's only set in certain circumstances,
+   * i.e. when the MiniCounter is used to show a sub-counter (as opposed to in the main
+   * counter list). We use a prop instead of checking the setting && isSub so that this
+   * component doesn't concern itself too much with where it's being used.
+   */
   const { counter, showExtraButtons } = props;
   const { globalSettings } = useContext(globalSettingsContext);
   const isSub = isSubCounter(counter);
