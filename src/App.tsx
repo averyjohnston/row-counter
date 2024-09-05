@@ -23,6 +23,7 @@ setupIonicReact();
 // TODO: better hardware back button support? is that even possible without getting into Capacitor stuff?
 // should generally go up a level similar to how BackButton component works now
 // hitting it on counter list should close page if possible
+// (actually might not need HBB-specific logic if you can pull off general hijacking of history)
 
 const DEFAULT_SETTINGS: GlobalSettings = {
   darkMode: false,
