@@ -5,7 +5,6 @@ import { HexColorInput, HexColorPicker } from 'react-colorful';
 
 import './ColorPicker.scss';
 
-// TODO: fix scroll bar appearing when moving cursor to the right of the color picker
 // TODO: fix input text not being visible in dark mode
 // TODO: consider adding a larger display somewhere for what color is currently selected (maybe the text box itself?)
 

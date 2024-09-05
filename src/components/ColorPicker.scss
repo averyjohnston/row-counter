@@ -7,6 +7,8 @@
     --width: 200px;
 
     .react-colorful {
+      overflow: hidden;
+
       &__saturation,
       &__hue {
         border-radius: 0;
