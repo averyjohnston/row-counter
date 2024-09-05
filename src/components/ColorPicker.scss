@@ -1,12 +1,10 @@
 .color-picker {
-  &__button {
+  &__main-button {
     width: 50px;
   }
 
   &__popover {
-    --background: transparent;
-
-    --width: auto;
+    --width: 200px;
 
     .react-colorful {
       &__saturation,
@@ -14,6 +12,22 @@
         border-radius: 0;
       }
     }
+  }
+
+  &__default-buttons {
+    padding: 8px;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  &__default-button {
+    &:not(:nth-child(4n)) {
+      margin-right: 8px;
+    }
+
+    width: 35px;
   }
 
   &__input {
