@@ -1,11 +1,10 @@
-import { IonButton, IonInput, IonItem, IonLabel, IonList, IonPopover } from '@ionic/react';
+import { IonButton, IonInput, IonItem, IonLabel, IonList } from '@ionic/react';
 import { useEffect, useRef, useState } from 'react';
-import { HexColorInput, HexColorPicker } from 'react-colorful';
 import { Form } from 'react-router-dom';
 
 import type { CounterFormProps } from '../types';
 
-import './CounterForm.scss';
+import ColorPicker from './ColorPicker';
 
 function CounterForm(props: CounterFormProps & {
   submitText?: string,
@@ -38,13 +37,7 @@ function CounterForm(props: CounterFormProps & {
         </IonItem>
         <IonItem>
           <IonLabel>Color</IonLabel>
-          <IonButton id="color-picker-button" className="counter-form__color-button" size="small" style={{
-            '--background': color,
-          }} />
-          <IonPopover trigger="color-picker-button" className="counter-form__color-popover" keepContentsMounted={true}>
-            <HexColorPicker color={color} onChange={setColor} />
-            <HexColorInput prefixed={true} color={color} onChange={setColor} className="counter-form__color-input" />
-          </IonPopover>
+          <ColorPicker color={color} setColor={setColor} />
           <input type="hidden" name="color" value={color} />
         </IonItem>
         <IonItem>

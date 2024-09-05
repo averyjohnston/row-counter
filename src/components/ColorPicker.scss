@@ -1,9 +1,9 @@
-.counter-form {
-  &__color-button {
+.color-picker {
+  &__button {
     width: 50px;
   }
 
-  &__color-popover {
+  &__popover {
     --background: transparent;
 
     --width: auto;
@@ -16,7 +16,7 @@
     }
   }
 
-  &__color-input {
+  &__input {
     font-family: monospace;
     font-size: 16px;
 
