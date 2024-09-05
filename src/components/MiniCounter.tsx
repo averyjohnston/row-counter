@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { globalSettingsContext } from '../App';
 import type { Counter, SubCounter } from '../types';
-import { createCounterColorStyles, isSubCounter } from '../utils';
+import { createContrastColorStyles, isSubCounter } from '../utils';
 
 import ButtonAction from './ButtonAction';
 import ContextMenuItemAction from './ContextMenuItemAction';
@@ -51,7 +51,7 @@ export default function MiniCounter(props: {
           <IonIcon slot="icon-only" size="large" icon={refreshCircleOutline} />
         </ButtonAction>
       </div>}
-      <div className="mini-counter__counter" style={createCounterColorStyles(counter)}>
+      <div className="mini-counter__counter" style={createContrastColorStyles(counter.color)}>
         <ButtonAction haptics={true} className="mini-counter__button" formData={{ intent: 'decrement', ...counterData }}>
           <IonIcon icon={removeCircleOutline} />
         </ButtonAction>

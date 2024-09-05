@@ -3,6 +3,8 @@ import type { Dispatch, MouseEventHandler, SetStateAction } from 'react';
 import { useRef, useState } from 'react';
 import { HexColorInput, HexColorPicker } from 'react-colorful';
 
+import { createContrastColorStyles } from '../utils';
+
 import './ColorPicker.scss';
 
 // TODO: fix input text not being visible in dark mode
@@ -55,7 +57,7 @@ export default function ColorPicker(props: {
           ))}
         </div>
         <HexColorPicker color={color} onChange={setColor} />
-        <HexColorInput prefixed={true} color={color} onChange={setColor} className="color-picker__input" />
+        <HexColorInput style={createContrastColorStyles(color)} prefixed={true} color={color} onChange={setColor} className="color-picker__input" />
       </IonPopover>
     </>
   );

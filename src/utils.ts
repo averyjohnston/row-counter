@@ -45,10 +45,10 @@ function getContrastColor(baseColor: string) {
   return rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114 > 150 ? black : white;
 }
 
-export function createCounterColorStyles(counter: Counter | SubCounter): CSSProperties {
+export function createContrastColorStyles(color: string): CSSProperties {
   return {
-    '--background': counter.color,
-    '--color': getContrastColor(counter.color),
+    '--background': color,
+    '--color': getContrastColor(color),
   };
 }
 

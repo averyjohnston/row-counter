@@ -13,7 +13,7 @@ import ContextMenuItemLink from '../components/ContextMenuItemLink';
 import MiniCounter from '../components/MiniCounter';
 import { db } from '../db';
 import type { CounterLoaderResults } from '../types';
-import { clickVibrate, createCounterColorStyles, decrement, increment, reset } from '../utils';
+import { clickVibrate, createContrastColorStyles, decrement, increment, reset } from '../utils';
 
 import './CounterPage.scss';
 
@@ -125,7 +125,7 @@ function CounterPage() {
       <IonContent scrollY={false}>
         <div className="counter-display">
           <ButtonAction className="increment-button" haptics={true} formData={{ intent: 'increment' }}>
-            <div className="increment-inner" style={createCounterColorStyles(counter)}>{counter.count}</div>
+            <div className="increment-inner" style={createContrastColorStyles(counter.color)}>{counter.count}</div>
           </ButtonAction>
           {subCounters.length > 0 && <div className={`sub-counters ${globalSettings.showMiniCounterExtraButtons ? 'sub-counters--has-extra-buttons' : ''}`}>
             {subCounters?.map(sc => sc && <MiniCounter key={sc.id} counter={sc} showExtraButtons={globalSettings.showMiniCounterExtraButtons} /> )}
