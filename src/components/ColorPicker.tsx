@@ -7,9 +7,6 @@ import { createContrastColorStyles } from '../utils';
 
 import './ColorPicker.scss';
 
-// TODO: fix input text not being visible in dark mode
-// TODO: consider adding a larger display somewhere for what color is currently selected (maybe the text box itself?)
-
 const DEFAULT_COLORS = [
   '#e71c1c', // red
   '#ebe716', // yellow
