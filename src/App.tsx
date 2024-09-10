@@ -20,10 +20,8 @@ setupIonicReact();
 // TODO: consider adding View Transitions API once it becomes stable in React Router and/or supported by more browsers
 // https://reactrouter.com/en/6.26.1/components/link#unstable_viewtransition
 
-// TODO: better hardware back button support? is that even possible without getting into Capacitor stuff?
-// should generally go up a level similar to how BackButton component works now
-// hitting it on counter list should close page if possible
-// (actually might not need HBB-specific logic if you can pull off general hijacking of history)
+// TODO: whenever there's a BackButton on the page, intercept browser back button presses and click the component instead
+// React Router v6 doesn't have great support for this sort of functionality at the time of writing, so revisit later
 
 const DEFAULT_SETTINGS: GlobalSettings = {
   darkMode: false,
