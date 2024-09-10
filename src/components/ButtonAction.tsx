@@ -12,6 +12,10 @@ import { clickVibrate } from '../utils';
  * are done in place (i.e. without navigation), though this functionality
  * could be added in the future if needed.
  *
+ * onPointerDown is used instead of onClick to improve responsiveness,
+ * especially with large clickable areas where the user's finger might
+ * slide slightly before the gesture ends.
+ *
  * A Form component is not used to avoid needing to render extra
  * unnecessary hidden inputs.
  *
