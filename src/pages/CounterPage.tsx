@@ -19,6 +19,9 @@ import './CounterPage.scss';
 
 // TODO (nice to have): Ravelry integration, including generic login, to link with specific project
 
+// TODO: change general increment gesture to mouseup/touchend instead of click
+// currently it's too easy to accidentally slide your finger across the screen and have it not count
+
 export const action: ActionFunction = async ({ params, request }) => {
   const formData = await request.formData();
   let id: string;
@@ -81,7 +84,6 @@ export const action: ActionFunction = async ({ params, request }) => {
   throw new Error(`Unknown form intent: ${intent?.toString()}`);
 }
 
-// clickVibrate is called onClick instead of in action to avoid tiny but noticeable delay
 function CounterPage() {
   const { counter, subCounters } = useLoaderData() as CounterLoaderResults;
   const { globalSettings } = useContext(globalSettingsContext);

@@ -7,6 +7,8 @@ import CounterForm from '../components/CounterForm';
 import { db } from '../db';
 import { createDefaultCounter, createDefaultSubCounter, parseFormData } from '../utils';
 
+// TODO: consider defaulting color to that of the parent counter
+
 export const action: ActionFunction = async ({ request, params }) => {
   const formData = await request.formData();
   const { id: _, ...defaultSubCounterNoId } = createDefaultSubCounter();

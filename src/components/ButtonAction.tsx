@@ -19,7 +19,9 @@ import { clickVibrate } from '../utils';
  * Otherwise, a normal button element will be used instead.
  *
  * If the haptics prop is true, clicking the button will cause the device
- * to vibrate, if the global haptics setting is enabled.
+ * to vibrate, if the global haptics setting is enabled. (Triggering haptics
+ * before form submission is sometimes necessary to avoid a tiny but
+ * noticeable delay.)
  */
 export default function ButtonAction(props: PropsWithChildren<{
   formData?: SubmitTarget,
