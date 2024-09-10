@@ -39,7 +39,7 @@ export default function ButtonAction(props: PropsWithChildren<{
   };
 
   return ionButton ?
-    <IonButton className={className} fill="clear" onClick={submit}>{children}</IonButton> :
-    <button className={className} onClick={submit}>{children}</button>
+    <IonButton className={className} fill="clear" onPointerDown={submit}>{children}</IonButton> :
+    <button className={className} onPointerDown={submit}>{children}</button>
   ;
 }
