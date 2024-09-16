@@ -50,36 +50,48 @@ export async function loadCounterWithSubs(params: Params<string>) {
   };
 }
 
-function getContrastColor(baseColor: string) {
+function getContrastColor(baseColor: string, baseColor2?: string) {
   const black = '#000000';
   const white = '#ffffff';
 
-  const trimmed = baseColor.replace('#', '');
-  const rgb = [];
+  const calculateLuminance = (color: string) => {
+    const trimmed = color.replace('#', '');
+    const rgb = [];
 
-  if (/^[0-9A-F]{3}$/i.test(trimmed)) {
-    for (let i = 0; i < trimmed.length; i++) {
-      const char = trimmed.charAt(i);
-      rgb.push(parseInt(char + char, 16));
+    if (/^[0-9A-F]{3}$/i.test(trimmed)) {
+      for (let i = 0; i < trimmed.length; i++) {
+        const char = trimmed.charAt(i);
+        rgb.push(parseInt(char + char, 16));
+      }
+    } else if (/^[0-9A-F]{6}$/i.test(trimmed)) {
+      for (let i = 0; i < trimmed.length; i += 2) {
+        rgb.push(parseInt(trimmed.substring(i, i + 2), 16));
+      }
+    } else {
+      console.warn('Invalid hex code supplied to getContrastColor:', color);
+      return 0;
     }
-  } else if (/^[0-9A-F]{6}$/i.test(trimmed)) {
-    for (let i = 0; i < trimmed.length; i += 2) {
-      rgb.push(parseInt(trimmed.substring(i, i + 2), 16));
-    }
-  } else {
-    console.warn('Invalid hex code supplied to getContrastColor:', baseColor);
-    return black;
+
+    // https://stackoverflow.com/a/3943023
+    return rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114;
+  };
+
+  let luminance = calculateLuminance(baseColor);
+
+  if (baseColor2 !== undefined) {
+    luminance = (luminance + calculateLuminance(baseColor2)) / 2;
   }
 
-  // https://stackoverflow.com/a/3943023
-  // 150 is a luminance threshold and can be adjusted to taste
-  return rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114 > 150 ? black : white;
+  // threshold can be adjusted to taste
+  return luminance > 150 ? black : white;
 }
 
-export function createContrastColorStyles(color: string): CSSProperties {
+export function createContrastColorStyles(color: string, color2?: string): CSSProperties {
+  const bg = color2 ? `linear-gradient(to right, ${color} 25%, ${color2} 75%)` : color;
+
   return {
-    '--background': color,
-    '--color': getContrastColor(color),
+    '--background': bg,
+    '--color': getContrastColor(color, color2),
   };
 }
 

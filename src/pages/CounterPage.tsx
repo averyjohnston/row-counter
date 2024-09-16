@@ -128,7 +128,7 @@ function CounterPage() {
       <IonContent scrollY={false}>
         <div className="counter-display">
           <ButtonAction className="increment-button" event="onPointerDown" haptics={true} formData={{ intent: 'increment' }}>
-            <div className="increment-inner" style={createContrastColorStyles(counter.color)}>{counter.count}</div>
+            <div className="increment-inner" style={createContrastColorStyles(counter.color, counter.color2)}>{counter.count}</div>
           </ButtonAction>
           {subCounters.length > 0 && <div className={`sub-counters ${globalSettings.showMiniCounterExtraButtons ? 'sub-counters--has-extra-buttons' : ''}`}>
             {subCounters?.map(sc => sc && <MiniCounter key={sc.id} counter={sc} showExtraButtons={globalSettings.showMiniCounterExtraButtons} /> )}

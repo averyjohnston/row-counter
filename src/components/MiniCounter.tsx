@@ -51,7 +51,7 @@ export default function MiniCounter(props: {
           <IonIcon slot="icon-only" size="large" icon={refreshCircleOutline} />
         </ButtonAction>
       </div>}
-      <div className="mini-counter__counter" style={createContrastColorStyles(counter.color)}>
+      <div className="mini-counter__counter" style={createContrastColorStyles(counter.color, counter.color2)}>
         <ButtonAction haptics={true} className="mini-counter__button" formData={{ intent: 'decrement', ...counterData }}>
           <IonIcon icon={removeCircleOutline} />
         </ButtonAction>
