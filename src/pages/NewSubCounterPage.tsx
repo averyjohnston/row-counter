@@ -5,7 +5,7 @@ import { redirect, useParams } from 'react-router-dom';
 import BackButton from '../components/BackButton';
 import CounterForm from '../components/CounterForm';
 import { db } from '../db';
-import { createDefaultCounter, createDefaultSubCounter, parseFormData } from '../utils';
+import { createDefaultSubCounter, parseFormData } from '../utils';
 
 // TODO: consider defaulting color to that of the parent counter
 
@@ -29,7 +29,7 @@ export const action: ActionFunction = async ({ request, params }) => {
 };
 
 export default function NewSubCounterPage() {
-  const defaultCounter = createDefaultCounter();
+  const defaultSubCounter = createDefaultSubCounter();
   const { id: parentID } = useParams();
 
   return (
@@ -43,7 +43,7 @@ export default function NewSubCounterPage() {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        <CounterForm {...defaultCounter} submitText="Add Sub-Counter" />
+        <CounterForm {...defaultSubCounter} submitText="Add Sub-Counter" />
       </IonContent>
     </IonPage>
   )
