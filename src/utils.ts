@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react';
+import type { Params } from 'react-router-dom';
 
 import { db } from './db';
 import type { Counter, CounterFormProps, SubCounter } from './types';
@@ -22,6 +23,31 @@ export function createDefaultSubCounter(parentCounter?: Counter): SubCounter {
   }
 
   return defaultCounterNoSubs;
+}
+
+export async function loadCounter(params: Params<string>) {
+  const { id } = params;
+  const idNum = parseInt(id || '');
+  if (isNaN(idNum)) {
+    throw new Error(`Invalid counter ID: ${id}`);
+  }
+
+  const counter = await db.counters.get(idNum);
+  if (counter === undefined) {
+    throw new Error(`No counter matching ID: ${id}`);
+  }
+
+  return counter;
+}
+
+export async function loadCounterWithSubs(params: Params<string>) {
+  const counter = await loadCounter(params);
+  const subCounters = await db.subCounters.bulkGet(counter.subCounters);
+
+  return {
+    counter,
+    subCounters,
+  };
 }
 
 function getContrastColor(baseColor: string) {

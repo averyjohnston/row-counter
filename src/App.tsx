@@ -1,17 +1,15 @@
 import { IonApp, setupIonicReact } from '@ionic/react';
 import { createContext, useEffect, useState } from 'react';
-import type { LoaderFunction } from 'react-router-dom';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import useWakeLock from 'react-use-wake-lock';
 
-import { db } from './db';
 import CounterListPage, { action as CounterListPageAction, loader as counterListPageLoader } from './pages/CounterListPage';
-import CounterPage, { action as counterPageAction } from './pages/CounterPage.tsx';
-import EditCounterPage, { action as editCounterPageAction } from './pages/EditCounterPage.tsx';
+import CounterPage, { action as counterPageAction, loader as counterPageLoader } from './pages/CounterPage.tsx';
+import EditCounterPage, { action as editCounterPageAction, loader as editCounterPageLoader } from './pages/EditCounterPage.tsx';
 import EditSubCounterPage, { action as editSubCounterPageAction, loader as editSubCounterPageLoader } from './pages/EditSubCounterPage.tsx';
 import ErrorPage from './pages/ErrorPage.tsx';
 import NewCounterPage, { action as newCounterPageAction } from './pages/NewCounterPage.tsx';
-import NewSubCounterPage, { action as newSubCounterPageAction } from './pages/NewSubCounterPage.tsx';
+import NewSubCounterPage, { action as newSubCounterPageAction, loader as newSubCounterPageLoader } from './pages/NewSubCounterPage.tsx';
 import SettingsPage from './pages/SettingsPage.tsx';
 import type { GlobalSettings } from './types.ts';
 
@@ -38,26 +36,6 @@ export const globalSettingsContext = createContext<{
   saveGlobalSettings: () => {},
 });
 
-const counterLoader: LoaderFunction = async ({ params }) => {
-  const { id } = params;
-  const idNum = parseInt(id || '');
-  if (isNaN(idNum)) {
-    throw new Error(`Invalid counter ID: ${id}`);
-  }
-
-  const counter = await db.counters.get(idNum);
-  if (counter === undefined) {
-    throw new Error(`No counter matching ID: ${id}`);
-  }
-
-  const subCounters = await db.subCounters.bulkGet(counter.subCounters);
-
-  return {
-    counter,
-    subCounters,
-  };
-};
-
 const router = createBrowserRouter([
   {
     errorElement: <ErrorPage />,
@@ -71,7 +49,7 @@ const router = createBrowserRouter([
       {
         path: 'counters/:id',
         element: <CounterPage />,
-        loader: counterLoader,
+        loader: counterPageLoader,
         action: counterPageAction,
       },
       {
@@ -82,13 +60,13 @@ const router = createBrowserRouter([
       {
         path: 'counters/:id/edit',
         element: <EditCounterPage />,
-        loader: counterLoader,
+        loader: editCounterPageLoader,
         action: editCounterPageAction,
       },
       {
         path: 'counters/:id/new-sub',
         element: <NewSubCounterPage />,
-        loader: counterLoader,
+        loader: newSubCounterPageLoader,
         action: newSubCounterPageAction,
       },
       {

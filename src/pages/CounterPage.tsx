@@ -1,7 +1,7 @@
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonList, IonPage, IonPopover, IonTitle, IonToolbar } from '@ionic/react';
 import { ellipsisVertical, refreshCircleOutline, removeCircleOutline } from 'ionicons/icons';
 import { useContext } from 'react';
-import type { ActionFunction } from 'react-router-dom';
+import type { ActionFunction, LoaderFunction } from 'react-router-dom';
 import { redirect, useLoaderData } from 'react-router-dom';
 
 import { globalSettingsContext } from '../App';
@@ -13,13 +13,17 @@ import ContextMenuItemLink from '../components/ContextMenuItemLink';
 import MiniCounter from '../components/MiniCounter';
 import { db } from '../db';
 import type { CounterLoaderResults } from '../types';
-import { clickVibrate, createContrastColorStyles, decrement, increment, reset } from '../utils';
+import { clickVibrate, createContrastColorStyles, decrement, increment, loadCounterWithSubs, reset } from '../utils';
 
 import './CounterPage.scss';
 
 // TODO (nice to have): Ravelry integration, including generic login, to link with specific project
 
 // TODO (nice to have): dual-color counters? could show it as a horizontal gradient, and average the luminosity of the two when deciding contrast color
+
+export const loader: LoaderFunction = async ({ params }) => {
+  return loadCounterWithSubs(params);
+};
 
 export const action: ActionFunction = async ({ params, request }) => {
   const formData = await request.formData();

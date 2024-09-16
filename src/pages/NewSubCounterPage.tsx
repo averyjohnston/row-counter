@@ -1,14 +1,16 @@
 import { IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import type { ActionFunction } from 'react-router-dom';
+import type { ActionFunction, LoaderFunction } from 'react-router-dom';
 import { redirect, useLoaderData } from 'react-router-dom';
 
 import BackButton from '../components/BackButton';
 import CounterForm from '../components/CounterForm';
 import { db } from '../db';
 import type { CounterLoaderResults } from '../types';
-import { createDefaultSubCounter, parseFormData } from '../utils';
+import { createDefaultSubCounter, loadCounterWithSubs, parseFormData } from '../utils';
 
-// TODO: consider defaulting color to that of the parent counter
+export const loader: LoaderFunction = async ({ params }) => {
+  return loadCounterWithSubs(params);
+};
 
 export const action: ActionFunction = async ({ request, params }) => {
   const formData = await request.formData();
