@@ -19,6 +19,10 @@ import './CounterPage.scss';
 
 // TODO (nice to have): Ravelry integration, including generic login, to link with specific project
 
+// TODO: tapping reset button causes it to get "stuck"; tapping increment area right after triggers another reset click
+
+// TODO (nice to have): dual-color counters? could show it as a horizontal gradient, and average the luminosity of the two when deciding contrast color
+
 export const action: ActionFunction = async ({ params, request }) => {
   const formData = await request.formData();
   let id: string;
