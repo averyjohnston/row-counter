@@ -19,8 +19,6 @@ import './CounterPage.scss';
 
 // TODO (nice to have): Ravelry integration, including generic login, to link with specific project
 
-// TODO: tapping reset button causes it to get "stuck"; tapping increment area right after triggers another reset click
-
 // TODO (nice to have): dual-color counters? could show it as a horizontal gradient, and average the luminosity of the two when deciding contrast color
 
 export const action: ActionFunction = async ({ params, request }) => {
@@ -127,7 +125,7 @@ function CounterPage() {
       </IonHeader>
       <IonContent scrollY={false}>
         <div className="counter-display">
-          <ButtonAction className="increment-button" haptics={true} formData={{ intent: 'increment' }}>
+          <ButtonAction className="increment-button" event="onPointerDown" haptics={true} formData={{ intent: 'increment' }}>
             <div className="increment-inner" style={createContrastColorStyles(counter.color)}>{counter.count}</div>
           </ButtonAction>
           {subCounters.length > 0 && <div className={`sub-counters ${globalSettings.showMiniCounterExtraButtons ? 'sub-counters--has-extra-buttons' : ''}`}>

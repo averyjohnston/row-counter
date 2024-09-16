@@ -12,10 +12,6 @@ import { clickVibrate } from '../utils';
  * are done in place (i.e. without navigation), though this functionality
  * could be added in the future if needed.
  *
- * onPointerDown is used instead of onClick to improve responsiveness,
- * especially with large clickable areas where the user's finger might
- * slide slightly before the gesture ends.
- *
  * A Form component is not used to avoid needing to render extra
  * unnecessary hidden inputs.
  *
@@ -26,24 +22,33 @@ import { clickVibrate } from '../utils';
  * to vibrate, if the global haptics setting is enabled. (Triggering haptics
  * before form submission is sometimes necessary to avoid a tiny but
  * noticeable delay.)
+ *
+ * The click event is used by default, but this can be customized with the
+ * event prop. For example, a large clickable area may want pointerDown
+ * instead so the event still triggers even if the user slightly moves their
+ * finger while tapping on a phone.
  */
 export default function ButtonAction(props: PropsWithChildren<{
   formData?: SubmitTarget,
   ionButton?: boolean,
   haptics?: boolean,
-  className?: string
+  className?: string,
+  event?: 'onClick' | 'onPointerDown',
 }>) {
-  const { formData, ionButton, haptics, className, children } = props;
+  const { formData, ionButton, haptics, className, event, children } = props;
   const { globalSettings } = useContext(globalSettingsContext);
   const fetcher = useFetcher();
+  const eventType = event || 'onClick';
 
   const submit = () => {
     if (haptics && globalSettings.haptics) clickVibrate();
     fetcher.submit(formData || null, { method: 'post' });
   };
 
+  const handler = { [eventType]: submit };
+
   return ionButton ?
-    <IonButton className={className} fill="clear" onPointerDown={submit}>{children}</IonButton> :
-    <button className={className} onPointerDown={submit}>{children}</button>
+    <IonButton className={className} fill="clear" {...handler}>{children}</IonButton> :
+    <button className={className} {...handler}>{children}</button>
   ;
 }
