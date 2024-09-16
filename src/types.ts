@@ -22,7 +22,7 @@ export type GlobalSettings = {
   showMiniCounterExtraButtons: boolean
 }
 
-export type CounterLoaderResults = {
+export type CounterWithSubsLoaderResults = {
   counter: Counter,
   subCounters: SubCounter[]
 }

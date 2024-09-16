@@ -12,7 +12,7 @@ import ContextMenuItemAction from '../components/ContextMenuItemAction';
 import ContextMenuItemLink from '../components/ContextMenuItemLink';
 import MiniCounter from '../components/MiniCounter';
 import { db } from '../db';
-import type { CounterLoaderResults } from '../types';
+import type { CounterWithSubsLoaderResults } from '../types';
 import { clickVibrate, createContrastColorStyles, decrement, increment, loadCounterWithSubs, reset } from '../utils';
 
 import './CounterPage.scss';
@@ -88,7 +88,7 @@ export const action: ActionFunction = async ({ params, request }) => {
 }
 
 function CounterPage() {
-  const { counter, subCounters } = useLoaderData() as CounterLoaderResults;
+  const { counter, subCounters } = useLoaderData() as CounterWithSubsLoaderResults;
   const { globalSettings } = useContext(globalSettingsContext);
 
   return (

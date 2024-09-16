@@ -5,11 +5,11 @@ import { redirect, useLoaderData, useNavigation } from 'react-router-dom';
 import BackButton from '../components/BackButton';
 import CounterForm from '../components/CounterForm';
 import { db } from '../db';
-import type { CounterLoaderResults } from '../types';
-import { loadCounterWithSubs, parseFormData } from '../utils';
+import type { Counter } from '../types';
+import { loadCounter, parseFormData } from '../utils';
 
 export const loader: LoaderFunction = async ({ params }) => {
-  return loadCounterWithSubs(params);
+  return loadCounter(params);
 };
 
 export const action: ActionFunction = async ({ params, request }) => {
@@ -23,7 +23,7 @@ export const action: ActionFunction = async ({ params, request }) => {
 };
 
 function EditCounterPage() {
-  const { counter } = useLoaderData() as CounterLoaderResults;
+  const counter = useLoaderData() as Counter;
   const navigation = useNavigation();
 
   // optimistic UI -- if a counter update is being submitted, show the values entered by the user

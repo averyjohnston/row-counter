@@ -5,11 +5,11 @@ import { redirect, useLoaderData } from 'react-router-dom';
 import BackButton from '../components/BackButton';
 import CounterForm from '../components/CounterForm';
 import { db } from '../db';
-import type { CounterLoaderResults } from '../types';
-import { createDefaultSubCounter, loadCounterWithSubs, parseFormData } from '../utils';
+import type { Counter } from '../types';
+import { createDefaultSubCounter, loadCounter, parseFormData } from '../utils';
 
 export const loader: LoaderFunction = async ({ params }) => {
-  return loadCounterWithSubs(params);
+  return loadCounter(params);
 };
 
 export const action: ActionFunction = async ({ request, params }) => {
@@ -32,8 +32,7 @@ export const action: ActionFunction = async ({ request, params }) => {
 };
 
 export default function NewSubCounterPage() {
-  // TODO: make separate loader that doesn't grab subs for better performance
-  const { counter: parentCounter } = useLoaderData() as CounterLoaderResults;
+  const parentCounter = useLoaderData() as Counter;
   const defaultSubCounter = createDefaultSubCounter(parentCounter);
 
   return (
