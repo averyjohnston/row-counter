@@ -14,8 +14,13 @@ export function createDefaultCounter(): Counter {
   };
 }
 
-export function createDefaultSubCounter(): SubCounter {
+export function createDefaultSubCounter(parentCounter?: Counter): SubCounter {
   const { subCounters: _, ...defaultCounterNoSubs } = createDefaultCounter();
+
+  if (parentCounter) {
+    defaultCounterNoSubs.color = parentCounter.color;
+  }
+
   return defaultCounterNoSubs;
 }
 

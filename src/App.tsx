@@ -88,6 +88,7 @@ const router = createBrowserRouter([
       {
         path: 'counters/:id/new-sub',
         element: <NewSubCounterPage />,
+        loader: counterLoader,
         action: newSubCounterPageAction,
       },
       {
