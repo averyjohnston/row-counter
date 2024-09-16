@@ -99,11 +99,12 @@ export async function reset(counterID: number, isSubCounter = false) {
 }
 
 export function parseFormData(formData: FormData): CounterFormProps {
-  const { name, color, resetValue } = Object.fromEntries(formData);
+  const { name, color, color2, resetValue } = Object.fromEntries(formData);
 
   return {
     name: name.toString(),
     color: color.toString(),
+    color2: color2?.toString(),
     resetValue: parseInt(resetValue.toString()),
   };
 }

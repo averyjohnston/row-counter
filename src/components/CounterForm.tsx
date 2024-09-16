@@ -1,4 +1,4 @@
-import { IonButton, IonInput, IonItem, IonLabel, IonList } from '@ionic/react';
+import { IonButton, IonCheckbox, IonInput, IonItem, IonLabel, IonList } from '@ionic/react';
 import { useEffect, useRef, useState } from 'react';
 import { Form } from 'react-router-dom';
 
@@ -10,8 +10,10 @@ function CounterForm(props: CounterFormProps & {
   submitText?: string,
   counterID?: number
 }) {
-  const { name, color: defaultColor, resetValue, submitText, counterID } = props;
+  const { name, color: defaultColor, color2: defaultColor2, resetValue, submitText, counterID } = props;
   const [color, setColor] = useState(defaultColor);
+  const [hasDualColors, setHasDualColors] = useState(defaultColor2 !== undefined);
+  const [color2, setColor2] = useState(defaultColor2 || defaultColor);
 
   const nameInputRef = useRef<HTMLIonInputElement>(null);
   const resetValueInputRef = useRef<HTMLIonInputElement>(null);
@@ -36,13 +38,23 @@ function CounterForm(props: CounterFormProps & {
           <IonInput label="Name" labelPlacement="stacked" name="name" required ref={nameInputRef} />
         </IonItem>
         <IonItem>
+          <IonInput label="Reset Value" labelPlacement="stacked" type="number" name="resetValue" required ref={resetValueInputRef} />
+        </IonItem>
+        <IonItem>
+          <IonCheckbox checked={hasDualColors} onIonChange={(e) => {
+            setHasDualColors(e.detail.checked);
+          }}>Dual Colors</IonCheckbox>
+        </IonItem>
+        <IonItem>
           <IonLabel>Color</IonLabel>
           <ColorPicker color={color} setColor={setColor} />
           <input type="hidden" name="color" value={color} />
         </IonItem>
-        <IonItem>
-          <IonInput label="Reset Value" labelPlacement="stacked" type="number" name="resetValue" required ref={resetValueInputRef} />
-        </IonItem>
+        {hasDualColors && <IonItem>
+          <IonLabel>Color 2</IonLabel>
+          <ColorPicker color={color2} setColor={setColor2} />
+          <input type="hidden" name="color2" value={color2} />
+        </IonItem>}
         {counterID !== undefined && <input type="hidden" name="counterID" value={counterID} />}
         <IonButton type="submit" expand="block" className="ion-margin-top">{submitText || 'Submit'}</IonButton>
       </IonList>

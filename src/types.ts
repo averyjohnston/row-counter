@@ -3,6 +3,7 @@ import 'react';
 export type CounterFormProps = {
   name: string,
   color: string,
+  color2?: string,
   resetValue: number
 }
 

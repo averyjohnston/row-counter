@@ -19,8 +19,6 @@ import './CounterPage.scss';
 
 // TODO (nice to have): Ravelry integration, including generic login, to link with specific project
 
-// TODO (nice to have): dual-color counters? could show it as a horizontal gradient, and average the luminosity of the two when deciding contrast color
-
 export const loader: LoaderFunction = async ({ params }) => {
   return loadCounterWithSubs(params);
 };
