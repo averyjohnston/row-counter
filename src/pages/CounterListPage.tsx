@@ -31,6 +31,9 @@ export const action: ActionFunction = async ({ request }) => {
   throw new Error(`Unknown form intent: ${intent?.toString()}`);
 };
 
+// TODO: if possible, maybe show the first image from pattern of connected projects as thumbnail for each counter
+// if that works out, add an option to show/hide thumbnails to options menu
+
 function CounterListPage() {
   const counters = useLoaderData() as Counter[];
   const countersEmpty = counters.length === 0;

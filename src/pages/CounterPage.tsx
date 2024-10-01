@@ -83,6 +83,8 @@ export const action: ActionFunction = async ({ params, request }) => {
   throw new Error(`Unknown form intent: ${intent?.toString()}`);
 }
 
+// TODO: add button to header that acts as a link to Ravelry project, if connected
+
 function CounterPage() {
   const { counter, subCounters } = useLoaderData() as CounterWithSubsLoaderResults;
   const { globalSettings } = useContext(globalSettingsContext);

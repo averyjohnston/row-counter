@@ -6,6 +6,10 @@ import type { CounterFormProps } from '../types';
 
 import ColorPicker from './ColorPicker';
 
+// TODO: if logged into Ravelry, show a button to create/edit project connection
+// only when creating/editing main counter, NOT sub counter
+// counter name should change to match project on connection, but be editable from there
+
 function CounterForm(props: CounterFormProps & {
   submitText?: string,
   counterID?: number
