@@ -1,4 +1,4 @@
-# Row Counter (WIP)
+# Row Counter
 
 https://row-counter.onrender.com/
 
