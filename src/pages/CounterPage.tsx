@@ -17,8 +17,6 @@ import { clickVibrate, createContrastColorStyles, decrement, increment, loadCoun
 
 import './CounterPage.scss';
 
-// TODO (nice to have): Ravelry integration, including generic login, to link with specific project
-
 export const loader: LoaderFunction = async ({ params }) => {
   return loadCounterWithSubs(params);
 };
