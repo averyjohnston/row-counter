@@ -1,4 +1,5 @@
-import { IonButtons, IonContent, IonHeader, IonItem, IonLabel, IonList, IonNote, IonPage, IonTitle, IonToggle, IonToolbar } from '@ionic/react';
+import { IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonNote, IonPage, IonTitle, IonToggle, IonToolbar } from '@ionic/react';
+import { openOutline } from 'ionicons/icons';
 import { useContext, useState } from 'react';
 import useWakeLock from 'react-use-wake-lock';
 
@@ -21,6 +22,17 @@ export default function SettingsPage() {
    * necessary if the setting was off on page load, but this way is simpler.
    */
   const [shouldShowLockMessage, setShouldShowLockMessage] = useState(false);
+
+  const getToken = async () => {
+    // TODO: show some kind of loading message
+    const result = await fetch('https://ravelry-auth.onrender.com/auth');
+    if (!result.ok) {
+      throw new Error(`Error while fetching token: ${result.status} ${result.statusText}`);
+    }
+
+    const json = await result.text(); // TODO: result type? AccessToken type from oauth2 package?
+    console.log(json);
+  };
 
   return (
     <IonPage>
@@ -59,6 +71,11 @@ export default function SettingsPage() {
               {!isSupported && <IonNote>Not supported on your device</IonNote>}
               {shouldShowLockMessage && <IonNote>Refresh page to update</IonNote>}
             </IonToggle>
+          </IonItem>
+          {/* TODO: change to "logout" or whatever according to user status */}
+          <IonItem button={true} onClick={() => { void getToken() }}>
+            Connect with Ravelry
+            <IonIcon slot="end" icon={openOutline} />
           </IonItem>
         </IonList>
       </IonContent>
